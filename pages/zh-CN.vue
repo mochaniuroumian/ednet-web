@@ -10,7 +10,7 @@
           </a>
           <div class="header-logo-container">
             <div class="logo">
-              <img :src="companyInfo.logo" />
+              <img :src="companyInfo.logo" @click="go('/')" />
             </div>
             <div class="company-name">{{ companyInfo.appName }}</div>
           </div>
@@ -27,9 +27,14 @@
                 </a>
               </li>
               <li v-if="multiLangs">
-                <a class="lang-switch-btn" @click="changeLanguage('en')">
+                <a @click="changeLanguage('en')">
                   <i class="fas fa-language"></i>
-                  </a>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0)" @click="wxShow=true">
+                  <i class="fas fa-bars"></i>
+                </a>
               </li>
             </ul>
           </div>
