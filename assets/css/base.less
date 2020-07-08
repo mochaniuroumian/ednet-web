@@ -1,11 +1,11 @@
 // out: false
 @import 'root.less';
-@import 'announce.less';
 @import 'header.less';
 @import 'banner.less';
 @import 'footer.less';
 @import 'main.less';
 @import 'homepage.less';
+@import 'announce.less';
 @import 'contact.less';
 @import 'partners.less';
 @import 'news.less';
@@ -41,50 +41,39 @@ body {
   // -ms-user-select: none;
   // -moz-user-select: none;
 }
-.body-container {
-  width: 100%;
-}
+
 .container {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-}
-
-@media (min-width: 576px) {
-  .container {
+  @media (min-width: 576px) {
     max-width: 540px;
   }
-}
 
-@media (min-width: 768px) {
-  .container {
+  @media (min-width: 768px) {
     max-width: 720px;
   }
-}
 
-@media (min-width: 992px) {
-  .container {
+  @media (min-width: 992px) {
     max-width: 960px;
   }
-}
 
-@media (min-width: 1200px) {
-  .container {
+  @media (min-width: 1200px) {
     max-width: 1140px;
   }
 }
+
 a {
   color: @color-primary;
   text-decoration: none;
   background-color: transparent;
-
   &:hover {
-    text-decoration: none;
     color: @color-gray;
+    text-decoration: none;
   }
-  &.secondary {
+  &.white {
     color: @color-white;
     &:hover {
       text-decoration: underline;
@@ -102,13 +91,13 @@ a {
     border-radius: 4rem;
     color: @color-white;
     background-color: @color-primary;
-    border-color: @color-primary;
+    border-color: @color-primary-dark;
     &:hover {
-      background-color: @color-primary-lighter;
+      background-color: @color-primary-dark;
     }
     &:focus,
     &.focus {
-      background-color: @color-primary-lighter;
+      background-color: @color-primary-dark;
       box-shadow: 0 0 0 0.2rem hsla(var(--color-primary-base), 0.5);
     }
   }
@@ -178,7 +167,9 @@ sub {
 sup {
   top: -0.5em;
 }
-
+.clear {
+  clear: both;
+}
 .gongan {
   img,
   p {

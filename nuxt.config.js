@@ -4,13 +4,16 @@ let ajaxConfig = {
   proxy: true,
   credentials: true
 }
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production')
   ajaxConfig = {
     baseURL: appconst.remoteServiceBaseUrl,
     // proxy: true,
     credentials: true
   }
-}
+
+let css = ['swiper/dist/css/swiper.css', '~/static/css/all.min.css']
+if (process.env.NODE_ENV === 'development') css.push('assets/css/theme.orange.less')
+
 export default {
   publicRuntimeConfig: {
     NUXT_ENV_THEME: process.env.NUXT_ENV_THEME || 'blue',
@@ -58,11 +61,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    'swiper/dist/css/swiper.css',
-    '~/static/css/all.min.css',
-    process.env.NODE_ENV === 'development' ? 'assets/css/theme.blue.less' : 'assets/css/theme.null.less'
-  ],
+  css,
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins

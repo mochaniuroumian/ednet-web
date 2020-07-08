@@ -75,50 +75,6 @@
         </li>
       </ul>
     </section>
-    <section v-if="newsGroup1" class="container">
-      <section class="news-container">
-        <section class="news">
-          <div class="news-list">
-            <dl>
-              <dt class="block-title">
-                <span class="name">{{ newsGroup1.displayName }}</span>
-                <span class="more">
-                  <a
-                    href="javascript:void(0)"
-                    @click="goNewsGroup(newsGroup1.id,1)"
-                  >{{ $L('More') }} ></a>
-                </span>
-              </dt>
-              <dd v-for="item in newsGroup1.items" :key="item.id">
-                <a
-                  class="gray"
-                  href="javascript:void(0)"
-                  @click="goNewsDetail(item.id,1)"
-                >{{ filter(item.title,60) }}</a>
-              </dd>
-            </dl>
-          </div>
-          <div class="ad">
-            <div class="ad-img">
-              <img ref="adImg" :src="ad1.img" />
-            </div>
-            <div class="ad-content">
-              <h3 class="block-title">
-                <span class="name">{{ ad1.title }}</span>
-                <span class="more"></span>
-              </h3>
-              <div class="ad-text">{{ ad1.text }}</div>
-              <div class="ad-links">
-                <a
-                  :href="ad1.url?ad1.url:'javascript:void(0)'"
-                  class="button-primary"
-                >{{ $L(`More`) }} ></a>
-              </div>
-            </div>
-          </div>
-        </section>
-      </section>
-    </section>
   </section>
 </template>
 <script>

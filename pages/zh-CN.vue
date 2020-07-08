@@ -1,56 +1,48 @@
 <template>
   <div class="body-container">
     <!-- 头部 -->
-    <header>
-      <div :class="['fixed-bar',currentPath.navbarType!==5?'sub':''] ">
-        <div class="container position-relative">
-          <div class="fixed-bar-content">
-            <a class="mobile-back" @click="back">
-              <i class="fas fa-chevron-left"></i>
-              {{ $L(`Back`) }}
-            </a>
-            <div class="header-title">
-              <div class="logo">
-                <img :src="companyInfo.logo" />
-              </div>
-              <div class="company-name">{{ companyInfo.appName }}</div>
+    <header :class="currentPath.navbarType!==5?'sub':''">
+      <div class="container">
+        <div class="header-main">
+          <a class="back-link" @click="back">
+            <i class="fas fa-chevron-left"></i>
+            {{ $L(`Back`) }}
+          </a>
+          <div class="header-logo-container">
+            <div class="logo">
+              <img :src="companyInfo.logo" />
             </div>
-            <div v-if="multiLangs" class="lang-bar-mobile">
-              <a class="lang-switch-btn" @click="changeLanguage('en')">中/EN</a>
-            </div>
-            <div class="lang-bar-pc">
-              <span>
-                <i class="fas fa-phone-alt"></i>
-                {{ companyInfo.tel }}
-              </span>
-              <span
-                href="javascript:void(0)"
-                class="icon-weixin"
-                @click="isWeixinShow=true"
-              >
-                <i class="fab fa-weixin"></i>
-              </span>
-            </div>
+            <div class="company-name">{{ companyInfo.appName }}</div>
           </div>
-          <div v-if="isWeixinShow===true" class="wexin-code">
-            <div class="code">
-              <img :src="companyInfo.weixinBarCode" />
-              <h6>扫一扫，直接在手机上打开</h6>
-              <p>推荐微信、QQ扫一扫等扫码工具</p>
-            </div>
-            <span class="close" @click="isWeixinShow=false">
-              <i class="fas fa-times"></i>
-            </span>
+          <div class="header-tools">
+            <ul>
+              <li>
+                <a href="javascript:void(0)">
+                  <i class="fas fa-phone-alt"></i>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0)" @click="wxShow=true">
+                  <i class="fab fa-weixin"></i>
+                </a>
+              </li>
+              <li v-if="multiLangs">
+                <a class="lang-switch-btn" @click="changeLanguage('en')">
+                  <i class="fas fa-language"></i>
+                  </a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-      <div class="header-container">
-        <!-- 导航 -->
-        <div class="navbar-container">
-        
-        </div>
-        <div v-if="multiLangs" class="lang-bar-navbar">
-          <a class="lang-switch-btn" @click="changeLanguage('en')">中/EN</a>
+        <div v-if="wxShow" class="wexin-dropdown">
+          <div class="code">
+            <img :src="companyInfo.weixinBarCode" />
+            <h6>扫一扫，直接在手机上打开</h6>
+            <p>推荐微信、QQ扫一扫等扫码工具</p>
+          </div>
+          <span class="close" @click="wxShow=false">
+            <i class="fas fa-times"></i>
+          </span>
         </div>
       </div>
     </header>
@@ -147,7 +139,7 @@ export default {
       slide: 0,
       year: new Date().getFullYear(),
       sliding: null,
-      isWeixinShow: false,
+      wxShow: false,
       swiperOption: {
         pagination: {
           el: '.swiper-pagination'
