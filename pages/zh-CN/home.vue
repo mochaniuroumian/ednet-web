@@ -107,7 +107,7 @@ export default {
   async asyncData({ isDev, route, store, env, query, req, res, redirect, error }) {
     await store.dispatch('app/getHomePage')
 
-    let newsGroup1, picGroup1, productGroup1, productGroup1Items, params, ad1, announces
+    let newsGroup1, picGroup1, productGroup1, params, ad1, announces
     const homeGroups = store.state.app.homePage.groups.filter(x => x.catalogGroup)
 
     ad1 = store.state.app.homePage.blocks.length > 0 ? store.state.app.homePage.blocks[0] : {}
@@ -212,20 +212,6 @@ export default {
     },
     filter(val, length) {
       return tools.cutString(tools._filter(val), length)
-    },
-    async loadProductGroup1SubGroupItems(item) {
-      this.isProductLoading = true
-      const params = {
-        params: {
-          CatalogGroupId: item.id,
-          SkipCount: 0,
-          MaxResultCount: 8,
-          Sorting: 'IsTop DESC, Number DESC'
-        }
-      }
-      const res = await this.$store.dispatch('app/getCatalogList', params)
-      this.productGroup1Items = res.items
-      this.isProductLoading = false
     }
   }
 }

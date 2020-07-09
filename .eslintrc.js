@@ -40,6 +40,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'standard/computed-property-even-spacing': 'off',
     'vue/order-in-components': 0,
+    'vue/no-unused-components': 0,
     'unicode-bom': 0
   }
 }

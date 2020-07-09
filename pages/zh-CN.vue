@@ -32,7 +32,7 @@
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" @click="wxShow=true">
+                <a href="javascript:void(0)" @click="navbarOpen=!navbarOpen">
                   <i class="fas fa-bars"></i>
                 </a>
               </li>
@@ -51,32 +51,42 @@
         </div>
       </div>
     </header>
-    <!-- banner -->
-    <section :class="['banner',currentPath.navbarType!==5?'sub':'']">
-      <client-only>
-        <div v-swiper:mySwiper="swiperOption">
-          <div class="swiper-wrapper position-relative">
-            <div
-              v-for="(item, index) in bannerImgs"
-              :key="index"
-              class="swiper-slide"
-            >
-              <img :src="getImgUrl(item.imgUrl)" />
-              <div class="carousel-caption">
-                <div :class="currentFontPosition(item)">
-                  <h2>{{ item.title }}</h2>
-                  <p>{{ item.subTitle }}</p>
+    <div
+      v-if="navbarOpen"
+      class="navbar-container-top"
+      @touchmove.stop.prevent
+      @click="navbarOpen=!navbarOpen"
+    >
+      <div class="navbar-container" @click.prevent.stop>
+        <Navbar ref="navbar" :items="navbars"></Navbar>
+      </div>
+    </div>
+    <section class="main">
+      <!-- banner -->
+      <div :class="['banner',currentPath.navbarType!==5?'sub':'']">
+        <client-only>
+          <div v-swiper:mySwiper="swiperOption">
+            <div class="swiper-wrapper position-relative">
+              <div
+                v-for="(item, index) in bannerImgs"
+                :key="index"
+                class="swiper-slide"
+              >
+                <img :src="getImgUrl(item.imgUrl)" />
+                <div class="carousel-caption">
+                  <div :class="currentFontPosition(item)">
+                    <h2>{{ item.title }}</h2>
+                    <p>{{ item.subTitle }}</p>
+                  </div>
                 </div>
               </div>
             </div>
+            <div slot="button-prev" class="swiper-banner-prev"></div>
+            <div slot="button-next" class="swiper-banner-next"></div>
+            <div class="swiper-pagination"></div>
           </div>
-          <div slot="button-prev" class="swiper-banner-prev"></div>
-          <div slot="button-next" class="swiper-banner-next"></div>
-          <div class="swiper-pagination"></div>
-        </div>
-      </client-only>
-    </section>
-    <section class="main">
+        </client-only>
+      </div>
       <div v-if="!currentPath.isHome" class="breadCrumb-container">
         <div class="container">
           <b-breadcrumb :items="breadCrumbItems"></b-breadcrumb>
@@ -128,7 +138,9 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import AppConsts from '../utiltools/appconst'
+import Navbar from '@/components/Navbar'
 export default {
+  components: { Navbar },
   head() {
     return {
       title: this.currentPath.displayName + ' - ' + this.companyInfo.appName + '-' + this.companyInfo.seoKeyWords,
@@ -141,6 +153,7 @@ export default {
   },
   data() {
     return {
+      navbarOpen: false,
       slide: 0,
       year: new Date().getFullYear(),
       sliding: null,

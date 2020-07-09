@@ -6,18 +6,6 @@ header {
   z-index: 1999;
   color: @color-white;
   background-color: @color-primary;
-  &.sub {
-    color: @color-gray-dark;
-    background-color: @bg-gray;
-    .header-main {
-      .back-link {
-        display: inline-block;
-      }
-      .header-logo-container {
-        display: none;
-      }
-    }
-  }
   .container {
     position: relative;
     padding-top: 1rem;
@@ -120,6 +108,23 @@ header {
       cursor: pointer;
       right: 1rem;
       top: 1rem;
+    }
+  }
+  &.sub {
+    background-color: @bg-gray;
+    .header-main {
+      .back-link {
+        display: inline-block;
+      }
+      .header-logo-container {
+        display: none;
+      }
+      .header-tools {
+        a {
+          color: @color-gray;
+          border: 1px solid @color-gray;
+        }
+      }
     }
   }
   @media (min-width: 768px) {

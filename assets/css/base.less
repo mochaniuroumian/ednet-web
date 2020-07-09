@@ -1,6 +1,7 @@
 // out: false
 @import 'root.less';
 @import 'header.less';
+@import 'navbar.less';
 @import 'banner.less';
 @import 'footer.less';
 @import 'main.less';
@@ -11,6 +12,12 @@
 @import 'news.less';
 @import 'photo.less';
 @import 'product.less';
+
+
+:root {
+  font-size: 0.625rem;
+}
+
 * {
   outline: none !important;
   box-sizing: border-box;
@@ -98,7 +105,7 @@ a {
     &:focus,
     &.focus {
       background-color: @color-primary-dark;
-      box-shadow: 0 0 0 0.2rem hsla(var(--color-primary-base), 0.5);
+      box-shadow: 0 0 0 0.2rem hsla(@color-primary-hsl, 0.5);
     }
   }
 }
