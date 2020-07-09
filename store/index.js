@@ -36,9 +36,9 @@ const state = () => ({
     },
     {
       displayName: 'orange',
-      hue: '13',
+      hue: '24',
       saturation: '100%',
-      lightness: '45%'
+      lightness: '50%'
     },
     {
       displayName: 'purple',
@@ -48,9 +48,9 @@ const state = () => ({
     },
     {
       displayName: 'red',
-      hue: '4',
-      saturation: '79%',
-      lightness: '60%'
+      hue: '0',
+      saturation: '60%',
+      lightness: '50%'
     }
   ]
 })

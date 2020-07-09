@@ -1,80 +1,5 @@
 <template>
   <section class="home">
-    <section v-if="productGroup1" class="container product-list">
-      <h3 class="block-title">
-        <span class="name">{{ productGroup1.displayName }}</span>
-        <span class="more">
-          <a
-            href="javascript:void(0)"
-            @click="goNewsGroup(productGroup1.id,3)"
-          >{{ $L('More') }} ></a>
-        </span>
-      </h3>
-      <ul>
-        <li
-          v-for="item in productGroup1.children"
-          :key="item.id"
-          @click="goNewsGroup(item.id,3)"
-        >
-          <div class="product-icon-container">
-            <div class="product-icon">
-              <span class="icon">
-                <img :src="item.icon" />
-              </span>
-            </div>
-            <div class="product-info">
-              <span>{{ item.displayName }}</span>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </section>
-    <section v-if="picGroup1" class="container picnews">
-      <h3 class="block-title">
-        <span class="name">{{ picGroup1.displayName }}</span>
-        <span class="more">
-          <a
-            href="javascript:void(0)"
-            @click="goNewsGroup(picGroup1.id,2)"
-          >{{ $L('More') }} ></a>
-        </span>
-      </h3>
-      <section class="looper">
-        <client-only>
-          <div v-swiper:mySwiper="swiperOption">
-            <div class="swiper-wrapper position-relative">
-              <div
-                v-for="(item, index) in picGroup1.items"
-                :key="index"
-                class="swiper-slide"
-                @click="goNewsDetail(item.id,1)"
-              >
-                <img :src="item.cover" />
-                <div class="slide-info">
-                  <a>{{ item.title }}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </client-only>
-      </section>
-    </section>
-    <section class="announce container">
-      <h3 class="block-title">
-        <span class="name">{{ $L(`Announce`) }}</span>
-        <span class="more">
-          <a :href="`/${culture}/announce`">{{ $L('More') }} ></a>
-        </span>
-      </h3>
-      <ul>
-        <li v-for="item in announces" :key="item.id" @click="target(item.id)">
-          <div class="cover">
-            <img :src="item.cover" />
-          </div>
-          <h3>{{ item.title }}</h3>
-        </li>
-      </ul>
-    </section>
   </section>
 </template>
 <script>
@@ -175,7 +100,6 @@ export default {
   },
   methods: {
     target(id) {
-      console.log(id)
       window.open(`/${this.culture}/announce/detail/` + String(id, '_blank'))
     },
     getImgUrl(val) {

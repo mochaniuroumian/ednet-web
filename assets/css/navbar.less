@@ -6,14 +6,13 @@
   animation: 0.3s appear;
 }
 .navbar-container {
-  background-color: hsla(@color-primary-lighter-hsl, 0.9);
+  background-color: hsla(@color-primary-dark-hsl, 0.8);
   position: absolute;
   top: 6rem;
   width: 100%;
   max-height: 100%;
   padding: 1.6rem 2.4rem;
   overflow-y: scroll;
-  transition: height 3s ease-in;
 }
 .navbar {
   height: unset;
@@ -26,7 +25,7 @@
   }
   &.sub {
     height: 0;
-    transition: height 3s ease-in;
+    transition: height 0.3s ease-in;
     &.expand {
       height: unset;
     }
