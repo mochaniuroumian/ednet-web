@@ -1,6 +1,7 @@
 // out: false
 @import 'root.less';
 @import 'header.less';
+@import 'navbar.less';
 @import 'banner.less';
 @import 'footer.less';
 @import 'main.less';
@@ -11,6 +12,12 @@
 @import 'news.less';
 @import 'photo.less';
 @import 'product.less';
+
+
+:root {
+  font-size: 0.625rem;
+}
+
 * {
   outline: none !important;
   box-sizing: border-box;
@@ -98,7 +105,7 @@ a {
     &:focus,
     &.focus {
       background-color: @color-primary-dark;
-      box-shadow: 0 0 0 0.2rem hsla(var(--color-primary-base), 0.5);
+      box-shadow: 0 0 0 0.2rem hsla(@color-primary-hsl, 0.5);
     }
   }
 }
@@ -236,4 +243,30 @@ sup {
     /* second layer at 2px */ -2px -2px 0px #fff, -1px -2px 0px #fff, 0px -2px 0px #fff, 1px -2px 0px #fff,
     2px -2px 0px #fff, 2px -1px 0px #fff, 2px 0px 0px #fff, 2px 1px 0px #fff, 2px 2px 0px #fff, 1px 2px 0px #fff,
     0px 2px 0px #fff, -1px 2px 0px #fff, -2px 2px 0px #fff, -2px 1px 0px #fff, -2px 0px 0px #fff, -2px -1px 0px #fff;
+}
+.development {
+  z-index: 2000;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+  position: fixed;
+  top: 20%;
+  left: 1rem;
+  transform: translateX(-20%);
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    li {
+      margin: 0.4rem;
+    }
+  }
+  a {
+    display: inline-block;
+    padding: 1.2rem;
+    border-radius: 50%;
+    background-color: @color-primary;
+    border: 1px solid @color-white;
+    color: white;
+  }
 }

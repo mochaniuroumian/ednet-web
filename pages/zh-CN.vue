@@ -32,7 +32,7 @@
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" @click="wxShow=true">
+                <a href="javascript:void(0)" @click="navbarOpen=!navbarOpen">
                   <i class="fas fa-bars"></i>
                 </a>
               </li>
@@ -51,32 +51,54 @@
         </div>
       </div>
     </header>
-    <!-- banner -->
-    <section :class="['banner',currentPath.navbarType!==5?'sub':'']">
-      <client-only>
-        <div v-swiper:mySwiper="swiperOption">
-          <div class="swiper-wrapper position-relative">
-            <div
-              v-for="(item, index) in bannerImgs"
-              :key="index"
-              class="swiper-slide"
-            >
-              <img :src="getImgUrl(item.imgUrl)" />
-              <div class="carousel-caption">
-                <div :class="currentFontPosition(item)">
-                  <h2>{{ item.title }}</h2>
-                  <p>{{ item.subTitle }}</p>
+    <div
+      v-show="navbarOpen"
+      class="navbar-container-top"
+      @touchmove.stop.prevent
+      @click="navbarOpen=!navbarOpen"
+    >
+      <div class="navbar-container" @click.stop.prevent>
+        <Navbar ref="navbar" :items="navbars"></Navbar>
+      </div>
+    </div>
+    <section class="main">
+      <!-- banner -->
+      <div :class="['banner',currentPath.navbarType!==5?'sub':'']">
+        <client-only>
+          <div v-swiper:mySwiper="swiperOption">
+            <div class="swiper-wrapper position-relative">
+              <div
+                v-for="(item, index) in bannerImgs"
+                :key="index"
+                class="swiper-slide"
+              >
+                <img :src="getImgUrl(item.imgUrl)" />
+                <div class="carousel-caption">
+                  <div :class="currentFontPosition(item)">
+                    <h2>{{ item.title }}</h2>
+                    <p>{{ item.subTitle }}</p>
+                  </div>
                 </div>
               </div>
             </div>
+            <div slot="button-prev" class="swiper-banner-prev"></div>
+            <div slot="button-next" class="swiper-banner-next"></div>
+            <div class="swiper-pagination"></div>
           </div>
-          <div slot="button-prev" class="swiper-banner-prev"></div>
-          <div slot="button-next" class="swiper-banner-next"></div>
-          <div class="swiper-pagination"></div>
-        </div>
-      </client-only>
+        </client-only>
+      </div>
     </section>
     <section class="main">
+      <div v-if="isDevelopment" class="development">
+        <ul>
+          <li v-for="item in themes" :key="item.displayName">
+            <a
+              :style="`background-color:hsl(${item.hue},${item.saturation},${item.lightness})`"
+              @click="changeTheme(item)"
+            ></a>
+          </li>
+        </ul>
+      </div>
       <div v-if="!currentPath.isHome" class="breadCrumb-container">
         <div class="container">
           <b-breadcrumb :items="breadCrumbItems"></b-breadcrumb>
@@ -128,7 +150,9 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import AppConsts from '../utiltools/appconst'
+import Navbar from '@/components/Navbar'
 export default {
+  components: { Navbar },
   head() {
     return {
       title: this.currentPath.displayName + ' - ' + this.companyInfo.appName + '-' + this.companyInfo.seoKeyWords,
@@ -141,6 +165,7 @@ export default {
   },
   data() {
     return {
+      navbarOpen: false,
       slide: 0,
       year: new Date().getFullYear(),
       sliding: null,
@@ -165,6 +190,7 @@ export default {
   computed: {
     ...mapState({
       abp: state => state.abp,
+      themes: state => state.themes,
       multiLangs: state => state.abp.localization.languages.length > 1,
       companyInfo: state => state.app.companyInfo,
       navbars: state => state.app.navbars.slice(0, 8),
@@ -208,12 +234,23 @@ export default {
     await context.store.dispatch('app/getCompanyInfo')
     await context.store.dispatch('app/getNavbars')
 
-    return { name: 'Main', userAgent: context.userAgent, language, theme: context.$config.NUXT_ENV_THEME }
+    return {
+      name: 'Main',
+      userAgent: context.userAgent,
+      language,
+      theme: context.$config.NUXT_ENV_THEME,
+      isDevelopment: context.$config.NUXT_ENV === 'development'
+    }
   },
   created() {
     this.setcurrentPath({ path: this.$route.path })
   },
   methods: {
+    changeTheme(val) {
+      document.documentElement.style.setProperty('--primary-hue', val.hue)
+      document.documentElement.style.setProperty('--primary-saturation', val.saturation)
+      document.documentElement.style.setProperty('--primary-lightness', val.lightness)
+    },
     back() {
       this.$router.back(-1)
     },
