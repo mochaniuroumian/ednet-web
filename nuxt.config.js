@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production')
     credentials: true
   }
 
-const defaultTheme = 'blue'
+const defaultTheme = 'purple'
 let css = ['swiper/dist/css/swiper.css', '~/static/css/all.min.css']
 if (process.env.NODE_ENV === 'development') css.push(`assets/css/theme.${defaultTheme}.less`)
 
