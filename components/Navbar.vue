@@ -8,7 +8,7 @@
             :class="['expand-icon',item.expand?'expand':'']"
             @click="item.expand=!item.expand"
           >
-           <i class="fas fa-caret-right"></i>
+            <i class="fas fa-caret-right"></i>
           </span>
           <span>{{ item.displayName }}</span>
         </a>
@@ -26,9 +26,7 @@
 export default {
   name: 'Navbar',
   data() {
-    return {
-      isExpand: false
-    }
+    return {}
   },
   props: {
     items: {
@@ -58,10 +56,6 @@ export default {
     },
     hasChildren(item) {
       return item.children.length > 0
-    },
-    openSub() {
-      this.isExpand = !this.isExpand
-      console.log('opensub' + this.items)
     }
   }
 }

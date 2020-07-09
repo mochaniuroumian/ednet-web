@@ -52,12 +52,12 @@
       </div>
     </header>
     <div
-      v-if="navbarOpen"
+      v-show="navbarOpen"
       class="navbar-container-top"
       @touchmove.stop.prevent
       @click="navbarOpen=!navbarOpen"
     >
-      <div class="navbar-container" @click.prevent.stop>
+      <div class="navbar-container" @click.stop.prevent>
         <Navbar ref="navbar" :items="navbars"></Navbar>
       </div>
     </div>
