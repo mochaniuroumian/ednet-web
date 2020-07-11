@@ -1,12 +1,16 @@
 <template>
   <div :class="['navbar',sub?'sub':'',expand?'expand':'']">
     <ul>
-      <li v-for="item in arry" :key="item.id">
-        <a class="nav-link white">
+      <li
+        v-for="item in arry"
+        :key="item.id"
+        @click.stop.prevent="item.expand=!item.expand"
+      >
+        <a class="nav-link white" @click.stop.prevent>
           <span
             v-if="hasChildren(item)"
             :class="['expand-icon',item.expand?'expand':'']"
-            @click="item.expand=!item.expand"
+            @click.stop.prevent="item.expand=!item.expand"
           >
             <i class="fas fa-caret-right"></i>
           </span>

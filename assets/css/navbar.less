@@ -3,7 +3,7 @@
   height: 100%;
   width: 100%;
   z-index: 1999;
-  animation: 0.3s appear;
+  animation: 0.1s appear;
 }
 .navbar-container {
   background-color: hsla(@color-primary-dark-hsl, 0.8);
@@ -20,7 +20,7 @@
   ul {
     padding-left: 1rem;
     li {
-      margin: 1rem 0;
+      margin: 0.4rem 0;
     }
   }
   &.sub {
@@ -33,14 +33,15 @@
 }
 .nav-link {
   position: relative;
-  padding-left: 1rem;
+  display: inline-block;
+  padding: 0.4rem 1rem;
 }
 .expand-icon {
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 0;
+  top: 0.4rem;
   left: -0.5rem;
   font-size: 1.8rem;
   &.expand {
