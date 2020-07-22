@@ -3,16 +3,56 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1999;
+  z-index: 2;
   color: @color-white;
   background-color: @color-primary;
+  &.sub {
+    background-color: @bg-gray;
+    .header-main {
+      .back-link {
+        display: inline-block;
+      }
+      .header-logo-container {
+        display: none;
+      }
+      .header-tools {
+        a {
+          color: @color-primary;
+          border: 1px solid @color-primary;
+        }
+      }
+    }
+  }
+  @media @desktop {
+    position: static;
+    color: @color-primary;
+    background-color: @color-white;
+    &.sub {
+      background-color: @color-white;
+      .header-main {
+        .back-link {
+          display: none;
+        }
+        .header-logo-container {
+          display: flex;
+        }
+      }
+    }
+  }
   .container {
     position: relative;
     padding-top: 1rem;
     padding-bottom: 1rem;
     height: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media @desktop {
+      height: 8rem;
+    }
   }
   .header-main {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -30,18 +70,19 @@ header {
         margin-right: 4px;
         > img {
           height: 4rem;
-          filter: grayscale(100%) brightness(100);
+          // filter: grayscale(100%) brightness(100);
+          @media @desktop {
+            height: 6rem;
+          }
         }
       }
       .company-name {
-        display: none;
+        font-size: 1.8rem;
         font-weight: bold;
         flex-grow: 1;
-        color: @color-white;
         @media (min-width: 576px) {
         }
         @media (min-width: 768px) {
-          font-size: 1.8rem;
         }
         @media (min-width: 992px) {
         }
@@ -72,6 +113,10 @@ header {
               font-weight: bold;
               pointer-events: none;
             }
+            @media @desktop {
+              color: @color-primary;
+              border: 1px solid @color-primary;
+            }
           }
         }
       }
@@ -90,58 +135,29 @@ header {
     z-index: 1000;
     > .code {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 4rem);
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
       white-space: nowrap;
-      padding: 4rem;
       img {
-        width: 100%;
+        height: calc(100% - 6rem);
       }
     }
     .close {
       display: block;
       position: absolute;
       cursor: pointer;
+      font-size: 1.8rem;
       right: 1rem;
-      top: 1rem;
+      top: 0.4rem;
     }
-  }
-  &.sub {
-    background-color: @bg-gray;
-    .header-main {
-      .back-link {
-        display: inline-block;
-      }
-      .header-logo-container {
-        display: none;
-      }
-      .header-tools {
-        a {
-          color: @color-gray;
-          border: 1px solid @color-gray;
-        }
-      }
-    }
-  }
-  @media (min-width: 768px) {
-    position: static;
-    color: @color-white;
-    background-color: @color-primary;
-    &.sub {
-      .header-main {
-        .back-link {
-          display: none;
-        }
-        .header-logo-container {
-          display: flex;
-        }
-      }
-      color: @color-white;
-      background-color: @color-primary;
+    @media @desktop {
+      transform: none;
+      width: 30rem;
+      padding-bottom: 30rem;
     }
   }
 }

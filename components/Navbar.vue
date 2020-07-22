@@ -1,68 +1,94 @@
 <template>
-  <div :class="['navbar',sub?'sub':'',expand?'expand':'']">
-    <ul>
-      <li
-        v-for="item in arry"
-        :key="item.id"
-        @click.stop.prevent="item.expand=!item.expand"
+  <section>
+    <div
+      v-show="navbarOpen"
+      class="navbar-mobile-container"
+      @click="navbarOpen=!navbarOpen"
+    >
+      <div
+        class="navbar-mobile"
+        @touchmove.stop.prevent
+        @mousewheel.stop.prevent
       >
-        <a class="nav-link white" @click.stop.prevent>
-          <span
-            v-if="hasChildren(item)"
-            :class="['expand-icon',item.expand?'expand':'']"
-            @click.stop.prevent="item.expand=!item.expand"
-          >
-            <i class="fas fa-caret-right"></i>
-          </span>
-          <span>{{ item.displayName }}</span>
-        </a>
-        <navbar
-          v-if="hasChildren(item)"
-          :items="item.children"
-          :expand="item.expand"
-          :sub="true"
-        ></navbar>
-      </li>
-    </ul>
-  </div>
+        <smooth-scroll ref="navbarScroll">
+          <navbar-items
+            :items="items"
+            :active-id="activeId"
+            @changeActiveId="changeActiveId"
+            @trigger="trigger"
+          ></navbar-items>
+        </smooth-scroll>
+      </div>
+    </div>
+    <div ref="navbarDesktop" class="navbar-desktop">
+      <div class="container">
+        <navbar-items
+          ref="navbarItems"
+          :items="items"
+          :active-id="activeId"
+          :pc="true"
+          @changeActiveId="changeActiveId"
+          @trigger="trigger"
+        ></navbar-items>
+      </div>
+    </div>
+  </section>
 </template>
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import SmoothScroll from '../components/SmoothScroll'
+
 export default {
   name: 'Navbar',
+  components: {
+    SmoothScroll
+  },
+  computed: {
+    ...mapState({
+      currentPath: state => state.app.currentPath,
+      currentPathParent: state => state.app.currentPathParent
+    })
+  },
   data() {
-    return {}
+    return {
+      navbarOpen: false,
+      activeId: 0
+    }
+  },
+  watch: {
+    $route(val) {
+      this.activeByCode()
+    }
   },
   props: {
     items: {
       type: Array,
       required: true
-    },
-    sub: {
-      type: Boolean,
-      default: false
-    },
-    expand: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    arry() {
-      return this.items.map(x => {
-        x.expand = false
-        return x
-      })
     }
   },
   methods: {
-    open() {
-      console.log(this.items)
+    setActiveId(val) {
+      this.activeId = val
     },
-    hasChildren(item) {
-      return item.children.length > 0
+    trigger() {
+      this.navbarOpen = !this.navbarOpen
+    },
+    changeActiveId(val) {
+      this.activeId = val
+    },
+    activeByCode() {
+      this.items.forEach(item => {
+        if (
+          this.currentPath.code &&
+          ((item.navbarType !== 5 && this.currentPath.code.includes(item.code)) ||
+            (item.navbarType === 5 && this.currentPath.code === item.code))
+        )
+          this.activeId = item.id
+      })
     }
+  },
+  created() {
+    this.activeByCode()
   }
 }
 </script>
-<style lang="less">
-</style>

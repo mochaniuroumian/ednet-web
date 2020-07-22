@@ -11,7 +11,10 @@ if (process.env.NODE_ENV === 'production')
     credentials: true
   }
 
+const defaultTenantId = 18
 const defaultTheme = 'purple'
+
+
 let css = ['swiper/dist/css/swiper.css', '~/static/css/all.min.css']
 if (process.env.NODE_ENV === 'development') css.push(`assets/css/theme.${defaultTheme}.less`)
 
@@ -19,7 +22,7 @@ export default {
   publicRuntimeConfig: {
     NUXT_ENV: process.env.NUXT_ENV || process.env.NODE_ENV,
     NUXT_ENV_THEME: process.env.NUXT_ENV_THEME || defaultTheme,
-    NUXT_ENV_TENANT_ID: process.env.NUXT_ENV_TENANT_ID || 18,
+    NUXT_ENV_TENANT_ID: process.env.NUXT_ENV_TENANT_ID || defaultTenantId,
     API_SECRET: '1234'
   },
   privateRuntimeConfig: {},

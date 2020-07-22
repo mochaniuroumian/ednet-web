@@ -12,7 +12,7 @@
             <div class="logo">
               <img :src="companyInfo.logo" @click="go('/')" />
             </div>
-            <div class="company-name">{{ companyInfo.appName }}</div>
+            <div class="company-name">{{ companyInfo.logoText }}</div>
           </div>
           <div class="header-tools">
             <ul>
@@ -22,7 +22,7 @@
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" @click="wxShow=true">
+                <a href="javascript:void(0)" @click.stop="weixinExpand">
                   <i class="fab fa-weixin"></i>
                 </a>
               </li>
@@ -31,8 +31,8 @@
                   <i class="fas fa-language"></i>
                 </a>
               </li>
-              <li>
-                <a href="javascript:void(0)" @click="navbarOpen=!navbarOpen">
+              <li class="mobile-navbar-trigger">
+                <a href="javascript:void(0)" @click="triggerNavbar">
                   <i class="fas fa-bars"></i>
                 </a>
               </li>
@@ -51,16 +51,7 @@
         </div>
       </div>
     </header>
-    <div
-      v-show="navbarOpen"
-      class="navbar-container-top"
-      @touchmove.stop.prevent
-      @click="navbarOpen=!navbarOpen"
-    >
-      <div class="navbar-container" @click.stop.prevent>
-        <Navbar ref="navbar" :items="navbars"></Navbar>
-      </div>
-    </div>
+    <navbar ref="navbar" :items="navbars"></navbar>
     <section class="main">
       <!-- banner -->
       <div :class="['banner',currentPath.navbarType!==5?'sub':'']">
@@ -87,8 +78,6 @@
           </div>
         </client-only>
       </div>
-    </section>
-    <section class="main">
       <div v-if="isDevelopment" class="development">
         <ul>
           <li v-for="item in themes" :key="item.displayName">
@@ -138,7 +127,7 @@
             技术支持：
             <a
               href="https://www.ednet.cn"
-              class="secondary"
+              class="white"
               target="_blank"
             >e德互联</a>
           </dd>
@@ -165,7 +154,6 @@ export default {
   },
   data() {
     return {
-      navbarOpen: false,
       slide: 0,
       year: new Date().getFullYear(),
       sliding: null,
@@ -246,6 +234,9 @@ export default {
     this.setcurrentPath({ path: this.$route.path })
   },
   methods: {
+    triggerNavbar() {
+      this.$refs.navbar.trigger()
+    },
     changeTheme(val) {
       document.documentElement.style.setProperty('--primary-hue', val.hue)
       document.documentElement.style.setProperty('--primary-saturation', val.saturation)
@@ -267,6 +258,18 @@ export default {
     },
     currentFontPosition(item) {
       return `banner-font ${item.titleAlign} ${item.titleVertical}`
+    },
+    weixinExpand() {
+      return this.wxShow ? this.weixinHide() : this.weixinShow()
+    },
+    weixinShow() {
+      this.wxShow = true
+      document.addEventListener('click', () => (this.wxShow = false), false)
+    },
+
+    weixinHide() {
+      this.wxShow = false
+      document.removeEventListener('click', () => (this.wxShow = false), false)
     }
   }
 }
