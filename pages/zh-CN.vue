@@ -90,7 +90,7 @@
       </div>
       <div v-if="!currentPath.isHome" class="breadCrumb-container">
         <div class="container">
-          <b-breadcrumb :items="breadCrumbItems"></b-breadcrumb>
+          <bread-crumb :items="breadCrumbItems"></bread-crumb>
         </div>
       </div>
       <nuxt-child ref="main" />
@@ -140,8 +140,9 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import AppConsts from '../utiltools/appconst'
 import Navbar from '@/components/Navbar'
+import BreadCrumb from '@/components/BreadCrumb'
 export default {
-  components: { Navbar },
+  components: { Navbar, BreadCrumb },
   head() {
     return {
       title: this.currentPath.displayName + ' - ' + this.companyInfo.appName + '-' + this.companyInfo.seoKeyWords,

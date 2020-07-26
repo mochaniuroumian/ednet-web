@@ -7,4 +7,5 @@ export default async function({ store, app, route }, inject) {
   })
   store.commit('app/setCulture', language)
   await store.dispatch('getAbp')
+  await store.dispatch('app/getHomePage')
 }

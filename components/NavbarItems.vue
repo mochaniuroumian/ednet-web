@@ -6,8 +6,8 @@
         :key="index"
         :class="[$attrs['active-id']===item.id?'acitved':'']"
         @click.stop.prevent="changeActiveId(item,index)"
-        @mouseenter="pcDropdown(item,index)"
-        @mouseleave="pcDropdown(item,index)"
+        @mouseenter="pcDropdown(item,index,true)"
+        @mouseleave="pcDropdown(item,index,false)"
       >
         <a class="nav-link white" @click.stop.prevent="go(item,index)">
           <span
@@ -65,8 +65,12 @@ export default {
       else this.routerUrl(item)
     },
 
-    pcDropdown(item, index) {
-      if (this.$attrs.pc && this.hasChildren(item)) this.setArray(item, index)
+    pcDropdown(item, index, bool) {
+      if (this.$attrs.pc && this.hasChildren(item)) {
+        item.expand = bool
+        /* 触发视图响应 */
+        this.$set(this.arry, index, item)
+      }
     },
     /* 收起其它下拉菜单 */
     resetExpandStatus(item) {

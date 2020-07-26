@@ -1,5 +1,5 @@
 <template>
-  <div v-if="expand" :class="['navbar','sub',expand?'expand':'']">
+  <div v-show="expand" :class="['navbar','sub',expand?'expand':'']">
     <ul>
       <li
         v-for="(item,index) in arry"

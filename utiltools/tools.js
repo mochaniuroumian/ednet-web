@@ -351,3 +351,17 @@ export default {
   addMce,
   isJsonString
 }
+
+export const hasWindowSupport = typeof window !== 'undefined'
+export const hasDocumentSupport = typeof document !== 'undefined'
+
+export const w = hasWindowSupport ? window : {}
+export const d = hasDocumentSupport ? document : {}
+
+export const toInteger = (value, defaultValue = NaN) => {
+  const integer = parseInt(value, 10)
+  return isNaN(integer) ? defaultValue : integer
+}
+export const isNull = val => val === null
+export const isFunction = val => typeof val === 'function'
+export const range = length => Array.apply(null, { length })

@@ -16,21 +16,21 @@
         </li>
       </ul>
     </section>
-    <section v-if="productGroup1" class="container product-list">
+    <section v-if="group1" class="container product-list">
       <h3 class="block-title">
-        <span class="name">{{ productGroup1.title }}</span>
+        <span class="name">{{ group1.title }}</span>
         <span class="more">
           <a
             href="javascript:void(0)"
-            @click="goNewsGroup(productGroup1.catalogGroupId,productGroup1.type)"
+            @click="goNewsGroup(group1.catalogGroupId,group1.type)"
           >{{ $L('More') }} ></a>
         </span>
       </h3>
       <ul>
         <li
-          v-for="item in productGroup1.children"
+          v-for="item in group1.children"
           :key="item.id"
-          @click="goNewsGroup(item.id,productGroup1.type)"
+          @click="goNewsGroup(item.id,group1.type)"
         >
           <div class="product-icon-container">
             <div class="product-icon">
@@ -45,13 +45,13 @@
         </li>
       </ul>
     </section>
-    <section v-if="picGroup1" class="container picnews">
+    <section v-if="group2" class="container picnews">
       <h3 class="block-title">
-        <span class="name">{{ picGroup1.title }}</span>
+        <span class="name">{{ group2.title }}</span>
         <span class="more">
           <a
             href="javascript:void(0)"
-            @click="goNewsGroup(picGroup1.catalogGroupId,picGroup1.type)"
+            @click="goNewsGroup(group2.catalogGroupId,group2.type)"
           >{{ $L('More') }} ></a>
         </span>
       </h3>
@@ -60,10 +60,10 @@
           <div v-swiper:mySwiper="swiperOption">
             <div class="swiper-wrapper position-relative">
               <div
-                v-for="(item, index) in picGroup1.items"
+                v-for="(item, index) in group2.items"
                 :key="index"
                 class="swiper-slide"
-                @click="goNewsDetail(item.id,picGroup1.type)"
+                @click="goNewsDetail(item.id,group2.type)"
               >
                 <img :src="item.cover" />
                 <div class="slide-info">
@@ -75,25 +75,25 @@
         </client-only>
       </section>
     </section>
-    <section v-if="newsGroup1" class="container">
+    <section v-if="group3" class="container">
       <section class="news-container">
         <section class="news">
           <div class="news-list">
             <dl>
               <dt class="block-title">
-                <span class="name">{{ newsGroup1.title }}</span>
+                <span class="name">{{ group3.title }}</span>
                 <span class="more">
                   <a
                     href="javascript:void(0)"
-                    @click="goNewsGroup(newsGroup1.catalogGroupId,newsGroup1.type)"
+                    @click="goNewsGroup(group3.catalogGroupId,group3.type)"
                   >{{ $L('More') }} ></a>
                 </span>
               </dt>
-              <dd v-for="item in newsGroup1.items" :key="item.id">
+              <dd v-for="item in group3.items" :key="item.id">
                 <a
                   class="gray"
                   href="javascript:void(0)"
-                  @click="goNewsDetail(item.id,newsGroup1.type)"
+                  @click="goNewsDetail(item.id,group3.type)"
                 >{{ filter(item.title,60) }}</a>
               </dd>
             </dl>
@@ -149,58 +149,18 @@ export default {
     })
   },
   async asyncData({ isDev, route, store, env, query, req, res, redirect, error }) {
-    await store.dispatch('app/getHomePage')
-
-    let newsGroup1, picGroup1, productGroup1, productGroup1Items, params, ad1, announces
-
-    const homeGroups = store.state.app.homePage.groups.filter(x => x.catalogGroup)
+    let params, group1, group2, group3, ad1, announces
+    let homeGroups = store.state.app.homePage.groups.filter(x => x.catalogGroup)
 
     ad1 = store.state.app.homePage.blocks.length > 0 ? store.state.app.homePage.blocks[0] : {}
-    productGroup1 = homeGroups.length > 0 ? homeGroups[0] : null
-    picGroup1 = homeGroups.length > 1 ? homeGroups[1] : null
-    newsGroup1 = homeGroups.length > 2 ? homeGroups[2] : null
+    group1 = homeGroups.length > 0 ? homeGroups[0] : null
+    group2 = homeGroups.length > 1 ? homeGroups[1] : null
+    group3 = homeGroups.length > 2 ? homeGroups[2] : null
 
-    if (newsGroup1 !== null) {
-      params = {
-        params: {
-          CatalogGroupId: newsGroup1.catalogGroupId,
-          SkipCount: 0,
-          MaxResultCount: 6,
-          Sorting: 'IsTop DESC, Number DESC'
-        }
-      }
-      newsGroup1.items = (await store.dispatch('app/getCatalogList', params)).items
-    }
-    if (picGroup1 !== null) {
-      params = {
-        params: {
-          CatalogGroupId: picGroup1.catalogGroupId,
-          SkipCount: 0,
-          MaxResultCount: 6,
-          Sorting: 'IsTop DESC, Number DESC'
-        }
-      }
-      picGroup1.items = (await store.dispatch('app/getCatalogList', params)).items
-    }
-    if (productGroup1 !== null) {
-      params = {
-        params: {
-          Id: productGroup1.catalogGroupId
-        }
-      }
-      const result = await store.dispatch('app/getCatalogGroupList', params)
-      productGroup1.children = result
+    group1.items = group1.items.slice(0, 5)
+    group2.items = group2.items.slice(0, 5)
+    group3.items = group3.items.slice(0, 5)
 
-      params = {
-        params: {
-          CatalogGroupId: productGroup1.catalogGroupId,
-          SkipCount: 0,
-          MaxResultCount: 6,
-          Sorting: 'IsTop DESC, Number DESC'
-        }
-      }
-      productGroup1.items = (await store.dispatch('app/getCatalogList', params)).items
-    }
     params = {
       params: {
         SkipCount: 0,
@@ -208,7 +168,7 @@ export default {
       }
     }
     announces = (await store.dispatch('app/getAnounces', params)).items
-    return { ad1, announces, newsGroup1, picGroup1, productGroup1 }
+    return { ad1, announces, group1, group2, group3 }
   },
   created() {},
   methods: {
@@ -249,20 +209,6 @@ export default {
     },
     filter(val, length) {
       return tools.cutString(tools._filter(val), length)
-    },
-    async loadProductGroup1SubGroupItems(item) {
-      this.isProductLoading = true
-      const params = {
-        params: {
-          CatalogGroupId: item.id,
-          SkipCount: 0,
-          MaxResultCount: 8,
-          Sorting: 'IsTop DESC, Number DESC'
-        }
-      }
-      const res = await this.$store.dispatch('app/getCatalogList', params)
-      this.productGroup1Items = res.items
-      this.isProductLoading = false
     }
   }
 }

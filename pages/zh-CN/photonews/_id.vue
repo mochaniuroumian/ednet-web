@@ -87,14 +87,14 @@
         </ul>
       </div>
       <div class="my-5">
-        <b-pagination
+        <pagination
           v-model="currentPage"
           :per-page="perPage"
           :total-rows="pageContent.totalCount"
-          align="center"
+          
           pills
           @input="pageChange"
-        ></b-pagination>
+        ></pagination>
       </div>
     </section>
   </div>

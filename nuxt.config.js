@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === 'production')
 const defaultTenantId = 18
 const defaultTheme = 'purple'
 
-
 let css = ['swiper/dist/css/swiper.css', '~/static/css/all.min.css']
 if (process.env.NODE_ENV === 'development') css.push(`assets/css/theme.${defaultTheme}.less`)
 
@@ -75,6 +74,7 @@ export default {
     { src: '~/plugins/axios.js' },
     { src: '~/plugins/main.js' },
     { src: '~/plugins/combined-inject.js' },
+    { src: '~/plugins/server.js' },
     { src: '~/plugins/client.js', mode: 'client' }
   ],
   /*

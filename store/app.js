@@ -121,8 +121,29 @@ const actions = {
     }
   },
   async getHomePage(context) {
+    const that = this
     const res = await this.$axios.get('/api/services/app/HomePage/GetOrCreate')
     if (res.data.success) context.state.homePage = res.data.result
+
+    for (let element of context.state.homePage.groups) {
+      let params = {
+        params: {
+          CatalogGroupId: element.catalogGroupId,
+          SkipCount: 0,
+          MaxResultCount: 10,
+          Sorting: 'IsTop DESC, Number DESC'
+        }
+      }
+      const _items = await that.$axios.get('/api/services/app/Catalog/GetAll', params)
+      if (_items.data.success) element.items = _items.data.result.items
+      params = {
+        params: {
+          Id: element.catalogGroupId
+        }
+      }
+      const _children = await that.$axios.get('/api/services/app/CatalogGroup/GetAll', params)
+      if (_children.data.success) element.children = _children.data.result
+    }
   },
   async getAnounces(context, params) {
     const res = await this.$axios.get('/api/services/app/Announce/GetAll', params)
