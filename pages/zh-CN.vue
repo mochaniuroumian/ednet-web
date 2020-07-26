@@ -217,7 +217,9 @@ export default {
     let language = 'zh-CN'
     context.app.$cookies.set(context.store.state.app.headerName, language, {
       path: context.store.state.abp.appPath || '/',
-      maxAge: 5 * 365 * 86400000
+      maxAge: 5 * 365 * 86400000,
+      secure: true,
+      sameSite: 'None'
     })
     context.store.commit('app/setCulture', language)
     await context.store.dispatch('app/getCompanyInfo')
@@ -234,6 +236,7 @@ export default {
   created() {
     this.setcurrentPath({ path: this.$route.path })
   },
+  mounted() {},
   methods: {
     triggerNavbar() {
       this.$refs.navbar.trigger()

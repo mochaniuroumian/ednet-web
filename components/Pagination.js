@@ -1,4 +1,4 @@
-import { toInteger, isNull, isFunction, range } from '../utiltools/tools'
+import { toInteger, isNull, isFunction, range, isUndefinedOrNull } from '../utiltools/tools'
 const NAME = 'Pagination'
 const DEFAULT_PER_PAGE = 10
 const DEFAULT_TOTAL_ROWS = 0

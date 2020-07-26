@@ -365,3 +365,6 @@ export const toInteger = (value, defaultValue = NaN) => {
 export const isNull = val => val === null
 export const isFunction = val => typeof val === 'function'
 export const range = length => Array.apply(null, { length })
+export const isUndefined = val => val === undefined
+export const isUndefinedOrNull = val => isUndefined(val) || isNull(val)
+

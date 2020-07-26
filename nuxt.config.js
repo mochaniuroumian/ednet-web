@@ -61,7 +61,8 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: 'rgba(0,0,0,.75)', throttle: 0 },
+  // loading: '~/components/loading.vue',
   /*
    ** Global CSS
    */
