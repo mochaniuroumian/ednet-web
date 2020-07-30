@@ -96,6 +96,7 @@ a {
     }
   }
   &.button-primary {
+    display: inline-block;
     padding: 0.5rem 3.5rem;
     border-radius: 4rem;
     color: @color-white;
@@ -108,6 +109,22 @@ a {
     &.focus {
       background-color: @color-primary-dark;
       box-shadow: 0 0 0 0.2rem hsla(@color-primary-hsl, 0.5);
+    }
+  }
+  &.button-gray {
+    display: inline-block;
+    padding: 0.5rem 3.5rem;
+    // border-radius: 4rem;
+    color: @color-white;
+    background-color: @color-gray;
+    border-color: @color-gray-dark;
+    &:hover {
+      background-color: @color-gray-dark;
+    }
+    &:focus,
+    &.focus {
+      background-color: @color-gray-dark;
+      box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5);
     }
   }
 }

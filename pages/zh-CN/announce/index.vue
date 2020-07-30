@@ -9,11 +9,7 @@
     <div class="announce-list-container">
       <div class="page-announce-list">
         <ul>
-          <li
-            v-for="item in pageContent.items"
-            :key="item.id"
-            @click="target(item.id,1)"
-          >
+          <li v-for="item in pageContent.items" :key="item.id">
             <div class="news-date">
               <span class="news-day">{{ new Date(item.creationTime).getDay() }}</span>
               <span
@@ -21,8 +17,15 @@
               >{{ new Date(item.creationTime).getFullYear() }}/{{ new Date(item.creationTime).getMonth()+1 }}</span>
             </div>
             <div class="news-info">
-              <a class="news-title" href="javascript:void(0)">{{ item.title }}</a>
-              <p class="news-intro">{{ filter(item.content,200) }}</p>
+              <a
+                class="news-title"
+                href="javascript:void(0)"
+                @click="target(item.id,1)"
+              >{{ item.title }}</a>
+              <p
+                class="news-intro"
+                @click="target(item.id,1)"
+              >{{ filter(item.content,200) }}</p>
             </div>
           </li>
         </ul>
@@ -32,7 +35,6 @@
           v-model="currentPage"
           :per-page="perPage"
           :total-rows="pageContent.totalCount"
-          
           pills
           @input="pageChange"
         ></pagination>

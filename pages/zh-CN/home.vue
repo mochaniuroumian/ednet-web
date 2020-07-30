@@ -1,31 +1,39 @@
 <template>
   <section class="home">
+    <section class="ad-container container">
+      <div class="ad-content">
+        <h3 class="title">
+          <span class="name">{{ ad1.title }}</span>
+        </h3>
+        <div class="text">{{ ad1.text }}</div>
+        <div class="links">
+          <a
+            :href="ad1.url?ad1.url:'javascript:void(0)'"
+            class="button-gray"
+          >{{ $L(`More`) }} ></a>
+        </div>
+      </div>
+    </section>
     <section class="announce container">
-      <h3 class="block-title">
-        <span class="name">{{ $L(`Announce`) }}</span>
-        <span class="more">
-          <a :href="`/${culture}/announce`">{{ $L('More') }} ></a>
-        </span>
-      </h3>
-      <ul>
-        <li v-for="item in announces" :key="item.id" @click="target(item.id)">
-          <div class="cover">
-            <img :src="item.cover" />
+      <section class="looper">
+        <div v-swiper="announceSwiperOption">
+          <div class="swiper-wrapper">
+            <div
+              v-for="item in announces"
+              :key="item.id"
+              class="swiper-slide"
+              @click="target(item.id)"
+            >
+              <div class="cover">
+                <img :src="item.cover" />
+              </div>
+              <h3>{{ item.title }}</h3>
+            </div>
           </div>
-          <h3>{{ item.title }}</h3>
-        </li>
-      </ul>
+        </div>
+      </section>
     </section>
     <section v-if="group1" class="container product-list">
-      <h3 class="block-title">
-        <span class="name">{{ group1.title }}</span>
-        <span class="more">
-          <a
-            href="javascript:void(0)"
-            @click="goNewsGroup(group1.catalogGroupId,group1.type)"
-          >{{ $L('More') }} ></a>
-        </span>
-      </h3>
       <ul>
         <li
           v-for="item in group1.children"
@@ -34,12 +42,11 @@
         >
           <div class="product-icon-container">
             <div class="product-icon">
-              <span class="icon">
-                <img :src="item.icon" />
-              </span>
+              <img :src="item.icon" />
             </div>
             <div class="product-info">
-              <span>{{ item.displayName }}</span>
+              <h4>{{ item.displayName }}</h4>
+              <p>{{ item.info }}</p>
             </div>
           </div>
         </li>
@@ -56,23 +63,21 @@
         </span>
       </h3>
       <section class="looper">
-        <client-only>
-          <div v-swiper:mySwiper="swiperOption">
-            <div class="swiper-wrapper position-relative">
-              <div
-                v-for="(item, index) in group2.items"
-                :key="index"
-                class="swiper-slide"
-                @click="goNewsDetail(item.id,group2.type)"
-              >
-                <img :src="item.cover" />
-                <div class="slide-info">
-                  <a>{{ item.title }}</a>
-                </div>
+        <div v-swiper:mySwiper="swiperOption">
+          <div class="swiper-wrapper position-relative">
+            <div
+              v-for="(item, index) in group2.items"
+              :key="index"
+              class="swiper-slide"
+              @click="goNewsDetail(item.id,group2.type)"
+            >
+              <img :src="item.cover" />
+              <div class="slide-info">
+                <a>{{ item.title }}</a>
               </div>
             </div>
           </div>
-        </client-only>
+        </div>
       </section>
     </section>
     <section v-if="group3" class="container">
@@ -131,11 +136,12 @@ export default {
       wordIndex: 0,
       observer: null,
       isProductLoading: false,
+      announceSwiperOption: {
+        autoplay: true,
+        loop: true
+      },
       swiperOption: {
         autoplay: true,
-        slidesPerView: 3,
-        spaceBetween: 30,
-        slidesPerGroup: 3,
         loop: true
       }
     }

@@ -24,129 +24,104 @@
       border-bottom: 1px solid @color-gray-lighter;
     }
   }
+  .ad-container {
+    text-align: center;
+    padding: 4rem;
+    background-color: @bg-gray-dark;
+    .text {
+      font-size: 1.6rem;
+      height: 10rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .links {
+      margin-top: 2rem;
+    }
+  }
   .announce {
-    ul {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      li {
+    .looper {
+      width: 100%;
+      height: 0;
+      padding-bottom: 40%;
+      position: relative;
+    }
+    .swiper-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    .swiper-slide {
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 0 1px 1px @color-gray-lighter;
+      &:hover {
+        box-shadow: 0 0 1px 1px @color-primary-lighter;
+      }
+      .cover {
         width: 100%;
-        margin: 1rem 0;
-        cursor: pointer;
-        box-shadow: 0 0 1px 1px @color-gray-lighter;
-        &:hover {
-          box-shadow: 0 0 1px 1px @color-primary-lighter;
-        }
-        .cover {
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        img {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
           width: 100%;
-          height: 0;
-          padding-bottom: 15%;
-          overflow: hidden;
-          position: relative;
-          img {
-            position: absolute;
-            left: 0;
-            top: 50%;
-
-            transform: translateY(-50%);
-            width: 100%;
-          }
         }
-        > h3 {
-          padding: 2rem;
-          height: 6rem;
-          overflow: hidden;
-        }
-        @media (min-width: 992px) {
-          width: calc(100% - 4rem);
-          margin: 1rem 2rem;
-        }
+      }
+      > h3 {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        padding: 0.8rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        background-color: rgba(255, 255, 255, 0.5);
+        color: @color-white;
+        text-shadow: -1px -1px 0px @color-primary, 0px -1px 0px @color-primary, 1px -1px 0px @color-primary,
+          -1px 0px 0px @color-primary, 1px 0px 0px @color-primary, -1px 1px 0px @color-primary,
+          0px 1px 0px @color-primary, 1px 1px 0px @color-primary;
+      }
+      @media (min-width: 992px) {
       }
     }
   }
   .product-list {
-    display: block;
-    width: 100%;
-    overflow: hidden;
-    ul {
+    ul > li {
+      margin-top: 1rem;
+    }
+    .product-icon-container {
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      width: 100%;
-      height: 100%;
-      > li {
-        cursor: pointer;
-        width: calc(33% - 2rem);
-        padding: 1rem;
-        border-radius: 100%;
-        margin: 1rem;
-        &:hover {
-          .product-icon-container {
-            transform: rotateY(180deg);
-          }
-        }
-        @media (min-width: 992px) {
-          margin: 2rem 4rem;
-          width: calc(33% - 8rem);
-        }
-        .product-icon-container {
-          position: relative;
-          width: 100%;
-          height: 0;
-          padding-bottom: 100%;
-          transition: 0.6s;
-          transform-style: preserve-3d;
-          .product-icon,
-          .product-info {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            position: absolute;
-            border-radius: 100%;
-            top: 0;
-            left: 0;
-          }
-          .product-icon {
-            z-index: 2;
-            background-color: @color-white;
-            padding: 0.4rem;
-            @media (min-width: 992px) {
-              border: 1px solid @color-gray-lighter;
-            }
-            .icon {
-              width: 100%;
-              height: 100%;
-              display: block;
-              position: relative;
-              border-radius: 100%;
-              overflow: hidden;
-              > img {
-                width: 100%;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-              }
-            }
-          }
-          .product-info {
-            transform: rotateY(-180deg);
-            display: none;
-            @media (min-width: 992px) {
-              display: inline-block;
-            }
-            color: @color-white;
-            background-color: @color-primary-lighter;
-            > span {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-            }
-          }
-        }
+      flex-direction: row;
+      align-items: center;
+    }
+    .product-icon {
+      flex-shrink: 0;
+      width: 4rem;
+      height: 4rem;
+      > img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .product-info {
+      padding: 1.6rem;
+      h4 {
+        height: 2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      p {
+        max-height: 4rem;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
@@ -229,7 +204,7 @@
     .looper {
       width: 100%;
       height: 0;
-      padding-bottom: 15%;
+      padding-bottom: 40%;
       position: relative;
       .swiper-container {
         position: absolute;
@@ -239,8 +214,6 @@
         left: 0;
       }
       .swiper-slide {
-        width: 33%;
-        height: 100%;
         position: relative;
         overflow: hidden;
         cursor: pointer;
@@ -250,11 +223,9 @@
           border: 1px solid @color-primary-lighter;
         }
         > img {
-          position: absolute;
-          top: 50%;
-          left: 50%;
+          object-fit: cover;
           width: 100%;
-          transform: translate(-50%, -50%);
+          height: 100%;
         }
         .slide-info {
           display: none;

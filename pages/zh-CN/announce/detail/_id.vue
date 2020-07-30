@@ -6,25 +6,6 @@
     <h6 class="page-sub-title">{{ formatDate(announce.creationTime) }}</h6>
     <div class="page-content limit-width">
       <div class="news-detail" v-html="announce.content"></div>
-      <section class="page-content-announce">
-        <client-only>
-          <div v-swiper:mySwiper="swiperOption">
-            <div class="swiper-wrapper position-relative">
-              <div
-                v-for="(item, index) in announces"
-                :key="index"
-                class="swiper-slide"
-                @click="target(item.id)"
-              >
-                <img :src="item.cover" />
-                <div class="slide-info">
-                  <a>{{ item.title }}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </client-only>
-      </section>
     </div>
   </section>
 </template>

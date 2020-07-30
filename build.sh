@@ -1,10 +1,10 @@
 #!/bin/zsh
 echo "Start Build !"
-work_path=$(dirname $(readlink -f $0))
+work_path=$(cd `dirname $0`;pwd)
+# work_path=$(dirname $(readlink -f $0))
 cd ${work_path}
-
 # 生成最新的主题
-node theme.js
+node ./theme.js
 # 编译成CSS
 
 for theme in ${work_path}/assets/css/theme*
