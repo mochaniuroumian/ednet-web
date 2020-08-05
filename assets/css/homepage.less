@@ -1,14 +1,12 @@
 // out: false
 .home {
   background-color: @color-white;
-  .container {
-    margin-bottom: 2rem;
-  }
   .block-title {
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
+    margin-bottom: 2rem;
     > span {
       padding: 2rem 2rem 1rem 2rem;
       display: inline-block;
@@ -23,27 +21,111 @@
       text-align: right;
       border-bottom: 1px solid @color-gray-lighter;
     }
-  }
-  .ad-container {
-    text-align: center;
-    padding: 4rem;
-    background-color: @bg-gray-dark;
-    .text {
-      font-size: 1.6rem;
-      height: 10rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    @media @tablet {
+      display: flex;
+      .name {
+        font-size: 2.2rem;
+      }
     }
-    .links {
+  }
+  .ad-announce {
+    @media @tablet {
       margin-top: 2rem;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      min-height: 24rem;
     }
   }
-  .announce {
+  .ad-block {
+    text-align: center;
+    background-color: @bg-gray-dark;
+    width: 100%;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    .ad-content {
+      padding: 2.8rem;
+      .title {
+        font-size: 1.8rem;
+      }
+      .text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .links {
+        margin-top: 2rem;
+      }
+    }
+    @media @tablet {
+      width: 50%;
+      color: @color-white;
+      background-color: @color-primary-lighter;
+      .ad-content {
+        padding: 4rem;
+        .title {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+  .ad-img-block {
+    text-align: center;
+    margin: 2rem 0;
+    .title {
+      font-size: 1.8rem;
+      padding: 2rem 0;
+      position: relative;
+      @media @tablet {
+        font-size: 2.2rem;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        border-bottom: 1px solid @color-primary;
+      }
+      .name {
+        padding: 1rem;
+        background-color: @color-white;
+        white-space: nowrap;
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .img-url {
+      display: block;
+      > img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  .announce-block {
+    margin-bottom: 2rem;
+    @media @tablet {
+      width: 50%;
+    }
     .looper {
       width: 100%;
       height: 0;
       padding-bottom: 40%;
       position: relative;
+
+      @media @tablet {
+        height: 100%;
+        padding-bottom: 0;
+        .swiper-container {
+          position: static;
+        }
+      }
     }
     .swiper-container {
       position: absolute;
@@ -65,11 +147,9 @@
         overflow: hidden;
         position: absolute;
         img {
-          position: absolute;
-          left: 0;
-          top: 50%;
-          transform: translateY(-50%);
+          height: 100%;
           width: 100%;
+          object-fit: cover;
         }
       }
       > h3 {
@@ -88,162 +168,120 @@
           -1px 0px 0px @color-primary, 1px 0px 0px @color-primary, -1px 1px 0px @color-primary,
           0px 1px 0px @color-primary, 1px 1px 0px @color-primary;
       }
-      @media (min-width: 992px) {
-      }
-    }
-  }
-  .product-list {
-    ul > li {
-      margin-top: 1rem;
-    }
-    .product-icon-container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-    .product-icon {
-      flex-shrink: 0;
-      width: 4rem;
-      height: 4rem;
-      > img {
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-    .product-info {
-      padding: 1.6rem;
-      h4 {
-        height: 2rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      p {
-        max-height: 4rem;
-        margin: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
     }
   }
 
-  .news-container {
-    @media (min-width: 992px) {
-      height: 32rem;
-      overflow: hidden;
+  .news-block {
+    background-color: @bg-gray;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    @media @tablet {
+      background: none;
       position: relative;
-    }
-    .news {
-      display: flex;
-      flex-direction: row;
-      @media (min-width: 992px) {
-        background-color: @bg-gray;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        .block-title {
-          margin-top: 0;
-        }
-      }
     }
     .news-list {
       width: 100%;
       height: 100%;
-      dt {
-        font-size: 1.75rem;
-      }
       dd {
         padding: 0.4rem 1rem;
-        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-      }
-      @media (min-width: 992px) {
-        width: 40%;
-        padding-left: 2rem;
-        padding-right: 2rem;
-      }
-    }
-    .ad {
-      display: none;
-      flex-direction: row;
-      width: 60%;
-      height: 100%;
-      .ad-img {
-        width: 40%;
-        height: 100%;
-        overflow: hidden;
-        position: relative;
-        > img {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          height: 100%;
-          transform: translate(-50%, -50%);
+        a {
+          white-space: nowrap;
+        }
+        i,
+        p {
+          display: none;
         }
       }
-      .ad-content {
-        padding-left: 2rem;
-        padding-right: 2rem;
-        width: 60%;
-        height: 100%;
-        overflow: hidden;
-        .ad-text {
-          margin-bottom: 2rem;
-          overflow: hidden;
-          height: calc(100% - 15rem);
+      @media @tablet {
+        dl {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
         }
-      }
-      @media (min-width: 992px) {
-        display: flex;
+        dt {
+          width: 100%;
+        }
+        dd {
+          width: calc(50% - 1rem);
+          color: @color-gray;
+          padding: 2rem;
+          margin: 1rem 0;
+          box-shadow: 0 0 10px 2px @bg-gray-dark;
+          &:nth-child(2n + 1) {
+            margin-left: 1rem;
+          }
+          &:nth-child(2n + 0) {
+            margin-right: 1rem;
+          }
+          a {
+            font-size: 1.8rem;
+            color: @color-gray-dark;
+          }
+          i {
+            display: block;
+          }
+          p {
+            display: block;
+            margin-bottom: 0;
+          }
+        }
       }
     }
   }
-  .picnews {
+  .picnews-block {
+    @media @tablet {
+      background-color: @bg-gray-dark;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
     .looper {
       width: 100%;
       height: 0;
       padding-bottom: 40%;
       position: relative;
-      .swiper-container {
-        position: absolute;
+      @media @tablet {
+        padding-bottom: 20%;
+      }
+    }
+    .swiper-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    .swiper-slide {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 0.4rem;
+      border: 1px solid @color-gray-lighter;
+      &:hover {
+        border: 1px solid @color-primary-lighter;
+      }
+      > img {
+        object-fit: cover;
         width: 100%;
         height: 100%;
-        top: 0;
-        left: 0;
       }
-      .swiper-slide {
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        border-radius: 0.4rem;
-        border: 1px solid @color-gray-lighter;
-        &:hover {
-          border: 1px solid @color-primary-lighter;
+      .slide-info {
+        display: none;
+        z-index: 20;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        padding: 1rem 2rem;
+        font-size: 1.6rem;
+        background-color: rgba(0, 0, 0, 0.5);
+        a {
+          color: @color-white;
         }
-        > img {
-          object-fit: cover;
-          width: 100%;
-          height: 100%;
-        }
-        .slide-info {
-          display: none;
-          z-index: 20;
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 100%;
-          padding: 1rem 2rem;
-          font-size: 1.6rem;
-          background-color: rgba(0, 0, 0, 0.5);
-          a {
-            color: @color-white;
-          }
-          @media (min-width: 768px) {
-            display: block;
-          }
+        @media @tablet {
+          display: block;
         }
       }
     }
@@ -273,6 +311,93 @@
             height: 100%;
           }
         }
+      }
+    }
+  }
+  .product-block {
+    margin: 2rem 0;
+    ul {
+      > li {
+        margin-top: 1rem;
+      }
+      @media @tablet {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        > li {
+          margin-top: 4rem;
+          width: calc(50% - 1rem);
+          &:nth-child(2n + 1) {
+            margin-right: 1rem;
+          }
+          &:nth-child(2n+0) {
+            margin-left: 1rem;
+          }
+        }
+      }
+    }
+
+    .product-icon-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      @media @tablet {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    .product-cover {
+      display: none;
+      @media @tablet {
+        display: block;
+        width: 100%;
+        height: 0;
+        padding-bottom: 40%;
+        overflow: hidden;
+        position: relative;
+        > span {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+    .product-icon {
+      flex-shrink: 0;
+      width: 4rem;
+      height: 4rem;
+      margin-right: 1rem;
+      > img {
+        width: 100%;
+        object-fit: cover;
+      }
+      @media @tablet {
+        display: none;
+      }
+    }
+    .product-info {
+      padding: 1.6rem 0;
+      h4 {
+        height: 2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        @media @tablet {
+          height: 2.4rem;
+          font-size: 1.8rem;
+        }
+      }
+      p {
+        max-height: 4rem;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }

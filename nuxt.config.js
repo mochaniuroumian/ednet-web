@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production')
   }
 
 const defaultTenantId = 18
-const defaultTheme = 'purple'
+const defaultTheme = 'indianred'
 
 let css = ['swiper/dist/css/swiper.css', '~/static/css/all.min.css']
 if (process.env.NODE_ENV === 'development') css.push(`assets/css/theme.${defaultTheme}.less`)
