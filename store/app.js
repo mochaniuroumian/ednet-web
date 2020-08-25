@@ -7,7 +7,9 @@ const state = () => ({
   partners: [],
   homePage: {},
   culture: '',
-  headerName: '.AspNetCore.Culture'
+  tenantId: '',
+  headerName: '.AspNetCore.Culture',
+  multiTenancyHeader: 'Abp.TenantId'
 })
 const mutations = {
   setCompanyInfo(state, val) {
@@ -15,15 +17,24 @@ const mutations = {
   },
   setCulture(state, val) {
     state.culture = val
+  },
+  setTenantId(state, val) {
+    state.tenantId = val
   }
 }
 const getters = {
   getCulture(state) {
-    return state.culture
+    return state.culture  
+  },
+  getTenantId(state) {
+    return state.tenantId
   }
 }
 let parents = []
 const actions = {
+  setCookie(context, language) {
+    context.commit('setCulture', language)
+  },
   setcurrentPath(context, { path, grandId }) {
     const homePath = `/${context.state.culture}/home`
     const array = context.state.navbars
@@ -113,6 +124,13 @@ const actions = {
       context.commit('setCompanyInfo', res.data.result)
     }
   },
+  async getOrganization(context, params) {
+    const res = await this.$axios.get('/api/services/app/Organization/GetAll', params)
+    if (res.data.success) {
+      context.state.partners = res.data.result
+      return res.data.result
+    }
+  },
   async getPartner(context, params) {
     const res = await this.$axios.get('/api/services/app/Partner/GetAll', params)
     if (res.data.success) {
@@ -171,6 +189,14 @@ const actions = {
   },
   async getCatalog(context, params) {
     const res = await this.$axios.get('/api/services/app/Catalog/Get', params)
+    if (res.data.success) return res.data.result
+  },
+  async getHonorList(context, params) {
+    const res = await this.$axios.get('/api/services/app/Honor/GetAll', params)
+    if (res.data.success) return res.data.result
+  },
+  async getHonor(context, params) {
+    const res = await this.$axios.get('/api/services/app/Honor/Get', params)
     if (res.data.success) return res.data.result
   }
 }

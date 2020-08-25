@@ -26,6 +26,25 @@ const date = function(dateObject) {
   }
   return 'null'
 }
+
+const dateOnly = function(dateObject) {
+  if (dateObject.length > 0) {
+    if (!dateObject.includes('T')) dateObject = dateObject.replace(/-/g, '/')
+    const d = new Date(dateObject)
+    let day = d.getDate()
+    let month = d.getMonth() + 1
+    const year = d.getFullYear()
+    if (day < 10) {
+      day = '0' + day
+    }
+    if (month < 10) {
+      month = '0' + month
+    }
+    const date = year + '-' + month
+    return date
+  }
+  return 'null'
+}
 //过滤空格
 const trimspace = function(vStr) {
   return vStr.replace(/(^\s+)|(\s+$)/g, '')
@@ -339,6 +358,7 @@ export default {
   fileDelete,
   tokenUrl,
   date,
+  dateOnly,
   trimspace,
   getUrlParam,
   countpage,
@@ -367,4 +387,3 @@ export const isFunction = val => typeof val === 'function'
 export const range = length => Array.apply(null, { length })
 export const isUndefined = val => val === undefined
 export const isUndefinedOrNull = val => isUndefined(val) || isNull(val)
-

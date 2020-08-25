@@ -50,7 +50,6 @@
           <dt>{{ $L(`Announce`) }}</dt>
           <dd v-for="item in announces" :key="item.code">
             <a href="javascript:void(0)" @click="target(item.id)">
-              <i class="fas fa-chevron-right"></i>
               {{ item.title }}
             </a>
           </dd>

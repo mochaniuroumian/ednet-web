@@ -221,7 +221,7 @@ export default {
       secure: true,
       sameSite: 'None'
     })
-    context.store.commit('app/setCulture', language)
+    context.store.dispatch('app/setCookie', language)
     await context.store.dispatch('app/getCompanyInfo')
     await context.store.dispatch('app/getNavbars')
 
