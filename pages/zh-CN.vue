@@ -1,7 +1,7 @@
 <template>
   <div class="body-container">
     <!-- 头部 -->
-    <header :class="currentPath.navbarType!==5?'sub':''">
+    <header :class="currentPath.navbarType !== 5 ? 'sub' : ''" @click="closeNavbar">
       <div class="container">
         <div class="header-main">
           <a class="back-link" @click="back">
@@ -32,7 +32,7 @@
                 </a>
               </li>
               <li class="mobile-navbar-trigger">
-                <a href="javascript:void(0)" @click="triggerNavbar">
+                <a href="javascript:void(0)" @click.stop="triggerNavbar">
                   <i class="fas fa-bars"></i>
                 </a>
               </li>
@@ -45,7 +45,7 @@
             <h6>扫一扫，直接在手机上打开</h6>
             <p>推荐微信、QQ扫一扫等扫码工具</p>
           </div>
-          <span class="close" @click="wxShow=false">
+          <span class="close" @click="wxShow = false">
             <i class="fas fa-times"></i>
           </span>
         </div>
@@ -54,15 +54,11 @@
     <navbar ref="navbar" :items="navbars"></navbar>
     <section class="main">
       <!-- banner -->
-      <div :class="['banner',currentPath.navbarType!==5?'sub':'']">
+      <div :class="['banner', currentPath.navbarType !== 5 ? 'sub' : '']">
         <client-only>
-          <div v-swiper:mySwiper="swiperOption">
+          <div v-swiper:bannerSwiper="swiperOption" @ready="handleSwiperReadied">
             <div class="swiper-wrapper position-relative">
-              <div
-                v-for="(item, index) in bannerImgs"
-                :key="index"
-                class="swiper-slide"
-              >
+              <div v-for="(item, index) in bannerImgs" :key="index" class="swiper-slide">
                 <img :src="getImgUrl(item.imgUrl)" />
                 <div class="carousel-caption">
                   <div :class="currentFontPosition(item)">
@@ -105,18 +101,14 @@
             {{ companyInfo.appName }}
           </dt>
           <dd v-for="item in companyInfo.icps" :key="item.id">
-            <a
-              class="gongan secondary"
-              target="_blank"
-              href="http://beian.miit.gov.cn/publish/query/indexFirst.action"
-            >
+            <a class="gongan white" target="_blank" href="http://beian.miit.gov.cn/publish/query/indexFirst.action">
               <span>津ICP备{{ item }}</span>
             </a>
           </dd>
           <dd v-for="item in companyInfo.gongAns" :key="item.id">
             <a
               :href="`http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=${item}`"
-              class="gongan secondary"
+              class="gongan white"
               target="_blank"
             >
               <img src="@/assets/imgs/gongan.png" />
@@ -125,11 +117,7 @@
           </dd>
           <dd>
             技术支持：
-            <a
-              href="https://www.ednet.cn"
-              class="white"
-              target="_blank"
-            >e德互联</a>
+            <a href="https://www.ednet.cn" class="white" target="_blank">e德互联</a>
           </dd>
         </dl>
       </div>
@@ -185,16 +173,21 @@ export default {
       navbars: state => state.app.navbars.slice(0, 8),
       currentPath: state => state.app.currentPath,
       currentPathParent: state => state.app.currentPathParent,
-      breadCrumbItems: state => state.app.breadCrumbItems,
-      bannerImgs: state =>
-        state.app.currentPath.bannerImgs
-          ? state.app.currentPath.bannerImgs.length > 0
-            ? state.app.currentPath.bannerImgs
-            : state.app.currentPathParent
-            ? state.app.currentPathParent.bannerImgs
+      breadCrumbItems: state => state.app.breadCrumbItems
+    }),
+    bannerImgs: {
+      // getter
+      get() {
+        return this.$store.state.app.currentPath.bannerImgs
+          ? this.$store.state.app.currentPath.bannerImgs.length > 0
+            ? this.$store.state.app.currentPath.bannerImgs
+            : this.$store.state.app.currentPathParent
+            ? this.$store.state.app.currentPathParent.bannerImgs
             : []
           : []
-    }),
+      },
+      set: val => console.log(val)
+    },
     title() {
       return this.$L(this.currentPath.displayName)
     },
@@ -236,8 +229,14 @@ export default {
   created() {
     this.setcurrentPath({ path: this.$route.path })
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
+    handleSwiperReadied(swiper) {
+    },
+    closeNavbar() {
+      this.$refs.navbar.close()
+    },
     triggerNavbar() {
       this.$refs.navbar.trigger()
     },

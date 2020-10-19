@@ -30,6 +30,12 @@
           border-left: 1px solid @color-gray;
         }
       }
+      &:only-child {
+        &::before {
+          top: calc(50% - 1px);
+          height: 1px;
+        }
+      }
     }
   }
   ul {

@@ -13,7 +13,7 @@
             <div class="news-date">
               <span
                 class="news-day"
-              >{{ new Date(item.creationTime).getDay()+1 }}</span>
+              >{{ new Date(item.creationTime).getDate() }}</span>
               <span
                 class="news-month"
               >{{ new Date(item.creationTime).getFullYear() }}/{{ new Date(item.creationTime).getMonth()+1 }}</span>

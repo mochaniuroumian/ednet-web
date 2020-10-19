@@ -9,23 +9,15 @@
             </h3>
             <div class="text">{{ ad1.text }}</div>
             <div class="links">
-              <a
-                :href="ad1.url?ad1.url:'javascript:void(0)'"
-                class="button-gray"
-              >{{ $L(`More`) }} ></a>
+              <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="button-gray">{{ $L(`More`) }} ></a>
             </div>
           </div>
         </section>
-        <section v-if="announces&&announces.length>0" class="announce-block">
+        <section v-if="announces && announces.length > 0" class="announce-block">
           <section class="looper">
             <div v-swiper="announceSwiperOption">
               <div class="swiper-wrapper">
-                <div
-                  v-for="item in announces"
-                  :key="item.id"
-                  class="swiper-slide"
-                  @click="target(item.id)"
-                >
+                <div v-for="item in announces" :key="item.id" class="swiper-slide" @click="target(item.id)">
                   <div class="cover">
                     <img :src="item.cover" />
                   </div>
@@ -42,20 +34,13 @@
             <dt class="block-title">
               <span class="name">{{ group1.title }}</span>
               <span class="more">
-                <a
-                  href="javascript:void(0)"
-                  @click="goNewsGroup(group1.catalogGroupId,group1.type)"
-                >{{ $L('More') }} ></a>
+                <a href="javascript:void(0)" @click="goNewsGroup(group1.catalogGroupId, group1.type)">{{ $L('More') }} ></a>
               </span>
             </dt>
             <dd v-for="item in group1.items" :key="item.id">
-              <a
-                class="gray"
-                href="javascript:void(0)"
-                @click="goNewsDetail(item.id,group1.type)"
-              >{{ item.title }}</a>
+              <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group1.type)">{{ item.title }}</a>
               <i>{{ formatDate(item.creationTime) }}</i>
-              <p>{{ filter(item.content,200) }}</p>
+              <p>{{ filter(item.content, 200) }}</p>
             </dd>
           </dl>
         </div>
@@ -73,21 +58,24 @@
       </h3>-->
       <section class="container">
         <section class="looper">
-          <div v-swiper:mySwiper="swiperOption">
-            <div class="swiper-wrapper position-relative">
-              <div
-                v-for="(item, index) in group2.items"
-                :key="index"
-                class="swiper-slide"
-                @click="goNewsDetail(item.id,group2.type)"
-              >
-                <img :src="item.cover" />
-                <div class="slide-info">
-                  <a>{{ item.title }}</a>
+          <client-only>
+            <div v-swiper:group2Swipper="swiperOption">
+              <div class="swiper-wrapper position-relative">
+                <div
+                  v-for="item in group2.items"
+                  :key="item.id"
+                  :data-index="item.id"
+                  :data-group="group2.type"
+                  class="swiper-slide"
+                >
+                  <img :src="item.cover" />
+                  <div class="slide-info">
+                    <a>{{ item.title }}</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </client-only>
         </section>
       </section>
     </section>
@@ -96,18 +84,11 @@
         <h3 class="block-title">
           <span class="name">{{ group3.title }}</span>
           <span class="more">
-            <a
-              href="javascript:void(0)"
-              @click="goNewsGroup(group3.catalogGroupId,group3.type)"
-            >{{ $L('More') }} ></a>
+            <a href="javascript:void(0)" @click="goNewsGroup(group3.catalogGroupId, group3.type)">{{ $L('More') }} ></a>
           </span>
         </h3>
         <ul>
-          <li
-            v-for="item in group3.children"
-            :key="item.id"
-            @click="goNewsGroup(item.id,group3.type)"
-          >
+          <li v-for="item in group3.children" :key="item.id" @click="goNewsDetail(item.id, group3.type)">
             <div class="product-icon-container">
               <div class="product-icon">
                 <img :src="item.icon" />
@@ -129,7 +110,7 @@
         <h3 class="title">
           <span class="name">{{ ad2.title }}</span>
         </h3>
-        <a :href="ad2.url?ad2.url:'javascript:void(0)'" class="img-url">
+        <a :href="ad2.url ? ad2.url : 'javascript:void(0)'" class="img-url">
           <img :src="ad2.img" />
         </a>
       </section>
@@ -149,11 +130,17 @@ export default {
       announceSwiperOption: {
         autoplay: true,
         loop: true
-      },
-      swiperOption: {
+      }
+    }
+  },
+  computed: {
+    swiperOption() {
+      let that = this
+      let option = {
         autoplay: { delay: 4000 },
         loop: true,
         breakpointsInverse: true,
+        preventClicks: false,
         breakpoints: {
           300: {
             slidesPerView: 2,
@@ -165,11 +152,17 @@ export default {
             slidesPerGroup: 3,
             spaceBetween: 30
           }
+        },
+        on: {
+          click() {
+            const realIndex = this.clickedSlide.dataset.index
+            const group = parseInt(this.clickedSlide.dataset.group)
+            that.goNewsDetail(realIndex, group)
+          }
         }
       }
-    }
-  },
-  computed: {
+      return option
+    },
     ...mapState({
       currentPath: state => state.app.currentPath,
       culture: state => state.app.culture,
@@ -235,6 +228,7 @@ export default {
           typename = 'product'
           break
       }
+      console.log(typename)
       window.open(`/${this.culture}/` + typename + '/detail/' + String(id), '_blank')
     },
     filter(val, length) {

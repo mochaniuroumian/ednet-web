@@ -28,7 +28,7 @@ const date = function(dateObject) {
 }
 
 const dateOnly = function(dateObject) {
-  if (dateObject.length > 0) {
+  if (dateObject !== null && dateObject.length > 0) {
     if (!dateObject.includes('T')) dateObject = dateObject.replace(/-/g, '/')
     const d = new Date(dateObject)
     let day = d.getDate()

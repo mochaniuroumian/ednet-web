@@ -1,15 +1,7 @@
 <template>
-  <section>
-    <div
-      v-show="navbarOpen"
-      class="navbar-mobile-container"
-      @click="navbarOpen=!navbarOpen"
-    >
-      <div
-        class="navbar-mobile"
-        @touchmove.stop.prevent
-        @mousewheel.stop.prevent
-      >
+  <section class="navbar-section">
+    <div v-show="navbarOpen" class="navbar-mobile-container" @click="navbarOpen = !navbarOpen">
+      <div class="navbar-mobile" @touchmove.stop.prevent @mousewheel.stop.prevent>
         <smooth-scroll ref="navbarScroll">
           <navbar-items
             :items="items"
@@ -85,6 +77,9 @@ export default {
         )
           this.activeId = item.id
       })
+    },
+    close() {
+      if (this.navbarOpen) this.navbarOpen = false
     }
   },
   created() {
