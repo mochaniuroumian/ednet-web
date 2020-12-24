@@ -1,8 +1,6 @@
 <template>
   <section class="container">
-    <h3>
-      <i class="far fa-grin mr-3"></i>正在根据您的系统语言，进行网站重定向……
-    </h3>
+    <h3><i class="far fa-grin mr-3"></i>正在根据您的系统语言，进行网站重定向……</h3>
   </section>
 </template>
 <style lang="less" scoped>
@@ -22,7 +20,17 @@ import axios from 'axios'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import Logo from '~/components/Logo.vue'
 export default {
-  fetch(context) {
+  head() {
+    return {
+      title: this.companyInfo.appName + '-' + this.companyInfo.seoKeyWords,
+      meta: [
+        { hid: 'keywords', name: 'keywords', content: this.companyInfo.seoKeyWords },
+        { hid: 'description', name: 'description', content: this.companyInfo.description }
+      ],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: this.companyInfo.icon }]
+    }
+  },
+  async fetch(context) {
     // const ip = (await axios.get('http://icanhazip.com')).data
     // context.store.dispatch('setIp', ip)
     let abp = context.store.state.abp
@@ -34,13 +42,22 @@ export default {
       langs.forEach(x => {
         if (x.isDefault) defaultLang = x
       })
+      context.app.$cookies.set(context.store.state.app.headerName, defaultLang, {
+        path: context.store.state.abp.appPath || '/',
+        maxAge: 5 * 365 * 86400000,
+        secure: true,
+        sameSite: 'None'
+      })
+      context.store.dispatch('app/setCookie', defaultLang)
+      await context.store.dispatch('app/getCompanyInfo')
       context.redirect(`/${defaultLang.name}/home`)
     }
     // The fetch method is used to fill the store before rendering the page
   },
   computed: {
     ...mapState({
-      abp: state => state.abp
+      abp: state => state.abp,
+      companyInfo: state => state.app.companyInfo
     })
   },
   mounted() {

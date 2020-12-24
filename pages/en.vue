@@ -117,7 +117,7 @@
           </dd>
           <dd>
             技术支持：
-            <a href="https://www.ednet.cn" class="white" target="_blank">e德互联</a>
+            <a href="http://www.ednet.cn" class="white" target="_blank">e德互联</a>
           </dd>
         </dl>
       </div>

@@ -88,7 +88,7 @@
           </span>
         </h3>
         <ul>
-          <li v-for="item in group3.children" :key="item.id" @click="goNewsDetail(item.id, group3.type)">
+          <li v-for="item in group3.children" :key="item.id" @click="goNewsGroup(item.id, group3.type)">
             <div class="product-icon-container">
               <div class="product-icon">
                 <img :src="item.icon" />

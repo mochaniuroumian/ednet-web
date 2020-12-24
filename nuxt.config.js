@@ -41,7 +41,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    title: 'Ednet共享建站 - 更节省、更安全' + process.env.npm_package_name || '',
+    // title: 'Ednet共享建站 - 更节省、更安全' + process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       {

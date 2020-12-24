@@ -88,7 +88,7 @@
           </span>
         </h3>
         <ul>
-          <li v-for="item in group3.children" :key="item.id" @click="goNewsDetail(item.id, group3.type)">
+          <li v-for="item in group3.children" :key="item.id" @click="goNewsGroup(item.id, group3.type)">
             <div class="product-icon-container">
               <div class="product-icon">
                 <img :src="item.icon" />
@@ -193,7 +193,9 @@ export default {
     announces = (await store.dispatch('app/getAnounces', params)).items
     return { ad1, ad2, announces, group1, group2, group3 }
   },
-  created() {},
+  created() {
+    console.log(this.group2.items)
+  },
   methods: {
     target(id) {
       window.open(`/${this.culture}/announce/detail/` + String(id, '_blank'))
