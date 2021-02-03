@@ -1,7 +1,7 @@
 <template>
   <div class="body-container">
     <!-- 头部 -->
-    <header :class="currentPath.navbarType !== 5 ? 'sub' : ''" @click="closeNavbar">
+    <header :class="[currentPath.navbarType !== 5 ? 'sub' : '',headColor]" @click="closeNavbar">
       <div class="container">
         <div class="header-main">
           <a class="back-link" @click="back">
@@ -14,6 +14,7 @@
             </div>
             <div class="company-name">{{ companyInfo.logoText }}</div>
           </div>
+          <navbar ref="navbar" :items="navbars"></navbar>
           <div class="header-tools">
             <ul>
               <li>
@@ -51,7 +52,6 @@
         </div>
       </div>
     </header>
-    <navbar ref="navbar" :items="navbars"></navbar>
     <section class="main">
       <!-- banner -->
       <div :class="['banner', currentPath.navbarType !== 5 ? 'sub' : '']">
@@ -147,6 +147,7 @@ export default {
       year: new Date().getFullYear(),
       sliding: null,
       wxShow: false,
+      headColor: '',
       swiperOption: {
         pagination: {
           el: '.swiper-pagination'
@@ -230,6 +231,7 @@ export default {
     this.setcurrentPath({ path: this.$route.path })
   },
   mounted() {
+    window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
     handleSwiperReadied(swiper) {
@@ -273,6 +275,14 @@ export default {
     weixinHide() {
       this.wxShow = false
       document.removeEventListener('click', () => (this.wxShow = false), false)
+    },
+    handleScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      if (scrollTop) {
+        this.headColor = 'headColor'
+      } else if (scrollTop === 0) {
+        this.headColor = ''
+      }
     }
   }
 }

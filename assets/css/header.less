@@ -6,6 +6,7 @@ header {
   z-index: 10;
   color: @color-white;
   background-color: @color-primary;
+  transition: all .4s;
   &.sub {
     background-color: @bg-gray;
     .header-main {
@@ -23,12 +24,19 @@ header {
       }
     }
   }
-  @media @tablet {
-    position: static;
+  &.headColor{
+    background-color: #fff;
+    .navbar{
+      &.sub{
+        background-color: #fff;
+      }
+    }
+  }
+  @media @desktop {
     color: @color-primary;
-    background-color: @color-white;
+    background: none;
     &.sub {
-      background-color: @color-white;
+      background:none;
       .header-main {
         .back-link {
           display: none;
@@ -39,7 +47,7 @@ header {
       }
     }
   }
-  .container {
+  >.container {
     position: relative;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -47,7 +55,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    @media @tablet {
+    @media @desktop {
       height: 8rem;
     }
   }
@@ -71,7 +79,7 @@ header {
         > img {
           height: 4rem;
           // filter: grayscale(100%) brightness(100);
-          @media @tablet {
+          @media @desktop {
             height: 6rem;
           }
         }
@@ -113,7 +121,7 @@ header {
               font-weight: bold;
               pointer-events: none;
             }
-            @media @tablet {
+            @media @desktop {
               color: @color-primary;
               border: 1px solid @color-primary;
             }
@@ -154,7 +162,7 @@ header {
       right: 1rem;
       top: 0.4rem;
     }
-    @media @tablet {
+    @media @desktop {
       transform: none;
       width: 30rem;
       padding-bottom: 30rem;
