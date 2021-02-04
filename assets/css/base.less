@@ -50,6 +50,12 @@ body {
   // -webkit-user-select: none;
   // -ms-user-select: none;
   // -moz-user-select: none;
+  &::-webkit-scrollbar{
+    width: 0.8rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: @color-primary;
+  }
 }
 
 .container {
@@ -326,7 +332,7 @@ input[type='month'] {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 1rem;
   position: fixed;
-  top: 20%;
+  top: 20rem;
   right: 1rem;
 
   ul {
