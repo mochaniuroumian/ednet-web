@@ -12,7 +12,84 @@
     padding-top: 0rem;
     min-height: calc(100% - 19.2rem);
   }
-
+  .main-tools {
+    z-index: 2000;
+    position: fixed;
+    top: 8%;
+    right: 1rem;
+    ul {
+      align-items: center;
+      flex-direction: row;
+      li {
+        margin: 1rem 0.4rem;
+        a {
+          cursor: pointer;
+          color: @color-primary;
+          border: 1px solid @color-primary;
+          border-radius: 50%;
+          display: flex;
+          height: 2.8rem;
+          width: 2.8rem;
+          font-size: 1.6rem;
+          justify-content: center;
+          align-items: center;
+          &.disabled {
+            color: @color-gray;
+            font-weight: bold;
+            pointer-events: none;
+          }
+        }
+        .tel-dropdown{
+          top: 8%;
+          position: absolute;
+          width: 15rem;
+          right: 3rem;
+          a {
+            border-radius: 0.4rem;
+            width: 90%;
+          }
+        }
+      }
+    }
+  }
+  .wexin-dropdown {
+    position: fixed;
+    top: 8%;
+    right: 5rem;
+    width: 80%;
+    padding-bottom: 80%;
+    transform: translateX(-10%);
+    color: @color-gray;
+    background-color: @color-white;
+    box-shadow: 0 1px 10px #ccc;
+    z-index: 1000;
+    > .code {
+      width: 100%;
+      height: calc(100% - 4rem);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      white-space: nowrap;
+      img {
+        height: calc(100% - 6rem);
+      }
+    }
+    .close {
+      display: block;
+      position: absolute;
+      cursor: pointer;
+      font-size: 1.8rem;
+      right: 1rem;
+      top: 0.4rem;
+    }
+    @media @desktop {
+      transform: none;
+      width: 30rem;
+      padding-bottom: 30rem;
+    }
+  }
   // 内页标题
   .page-title {
     display: flex;

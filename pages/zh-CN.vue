@@ -17,10 +17,28 @@
           <navbar ref="navbar" :items="navbars"></navbar>
           <div class="header-tools">
             <ul>
-              <li>
+              <li class="mobile-navbar-trigger">
+                <a href="javascript:void(0)" @click.stop="triggerNavbar">
+                  <i class="fas fa-bars"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="main">
+      <div class="main-tools">
+            <ul>
+              <li @mouseenter="telShow = true" @mouseleave="telShow = false">
                 <a href="javascript:void(0)">
                   <i class="fas fa-phone-alt"></i>
                 </a>
+                <div v-show="telShow" class="tel-dropdown">
+                  <div class="telNumber">
+                  <a :href="`tel: ${companyInfo.tel}`">{{ companyInfo.tel }}</a>
+                  </div>
+                </div>
               </li>
               <li>
                 <a href="javascript:void(0)" @click.stop="weixinExpand">
@@ -32,15 +50,9 @@
                   <i class="fas fa-language"></i>
                 </a>
               </li>
-              <li class="mobile-navbar-trigger">
-                <a href="javascript:void(0)" @click.stop="triggerNavbar">
-                  <i class="fas fa-bars"></i>
-                </a>
-              </li>
             </ul>
           </div>
-        </div>
-        <div v-if="wxShow" class="wexin-dropdown">
+          <div v-if="wxShow" class="wexin-dropdown">
           <div class="code">
             <img :src="companyInfo.weixinBarCode" />
             <h6>扫一扫，直接在手机上打开</h6>
@@ -50,9 +62,6 @@
             <i class="fas fa-times"></i>
           </span>
         </div>
-      </div>
-    </header>
-    <section class="main">
       <!-- banner -->
       <div :class="['banner', currentPath.navbarType !== 5 ? 'sub' : '']">
         <client-only>
@@ -146,6 +155,7 @@ export default {
       slide: 0,
       year: new Date().getFullYear(),
       sliding: null,
+      telShow: false,
       wxShow: false,
       headColor: '',
       swiperOption: {
