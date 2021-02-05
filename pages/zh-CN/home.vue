@@ -1,7 +1,23 @@
 <template>
   <section class="home">
+    <section class="account">
+      <section class="account-img">
+        <img src="">
+      </section>
+      <section v-if="ad1" class="ad-block">
+        <div class="ad-content">
+          <h3 class="title">
+            <span class="name">{{ ad1.title }}</span>
+          </h3>
+          <div class="text">{{ ad1.text }}</div>
+          <div class="links">
+            <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="button-gray">{{ $L(`More`) }} ></a>
+          </div>
+        </div>
+      </section>
+    </section>
     <section class="container">
-      <section class="ad-announce">
+      <!-- <section class="ad-announce">
         <section v-if="ad1" class="ad-block">
           <div class="ad-content">
             <h3 class="title">
@@ -27,7 +43,7 @@
             </div>
           </section>
         </section>
-      </section>
+      </section> -->
       <section v-if="group1" class="news-block">
         <div class="news-list">
           <dl>
@@ -172,6 +188,7 @@ export default {
   },
   async asyncData({ isDev, route, store, env, query, req, res, redirect, error }) {
     let params, group1, group2, group3, ad1, ad2, announces
+    debugger
     const groups = store.state.app.homePage.groups.filter(x => x.catalogGroup)
     const blocks = store.state.app.homePage.blocks
 

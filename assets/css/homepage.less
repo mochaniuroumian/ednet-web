@@ -28,7 +28,7 @@
       }
     }
   }
-  .ad-announce {
+  .account {
     @media @tablet {
       margin-top: 2rem;
       display: flex;
@@ -37,8 +37,13 @@
       min-height: 24rem;
     }
   }
+  .account-img {
+    @media @tablet {
+      width: 50%;
+    }
+  }
   .ad-block {
-    text-align: center;
+    text-align: left;
     background-color: @bg-gray-dark;
     width: 100%;
     margin-bottom: 2rem;
@@ -59,8 +64,8 @@
     }
     @media @tablet {
       width: 50%;
-      color: @color-white;
-      background-color: @color-primary-lighter;
+      color: @color-primary;
+      background-color: @color-white;
       .ad-content {
         padding: 4rem;
         .title {
