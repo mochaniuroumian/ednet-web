@@ -38,17 +38,36 @@
     }
   }
   .account-img {
+    display: none;
     @media @tablet {
+      display: block;
       width: 50%;
+      margin-bottom: 2rem;
+    .img-sec{
+      position: relative;
+      height: 100%;
+      width: 100%;
+      padding-bottom: 0;
+      .contentImg{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
     }
   }
   .ad-block {
     text-align: left;
-    background-color: @bg-gray-dark;
     width: 100%;
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
+    color: @color-primary;
     .ad-content {
       padding: 2.8rem;
       .title {
@@ -60,12 +79,17 @@
       }
       .links {
         margin-top: 2rem;
+        .button-gray{
+          background-color: @color-white;
+          border: 0.1rem solid @color-primary;
+          border-radius: 2rem;
+        }
       }
     }
     @media @tablet {
       width: 50%;
-      color: @color-primary;
       background-color: @color-white;
+      padding-left: 3rem;
       .ad-content {
         padding: 4rem;
         .title {
@@ -113,69 +137,6 @@
       }
     }
   }
-  .announce-block {
-    margin-bottom: 2rem;
-    @media @tablet {
-      width: 50%;
-    }
-    .looper {
-      width: 100%;
-      height: 0;
-      padding-bottom: 40%;
-      position: relative;
-
-      @media @tablet {
-        height: 100%;
-        padding-bottom: 0;
-        .swiper-container {
-          position: static;
-        }
-      }
-    }
-    .swiper-container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-    .swiper-slide {
-      cursor: pointer;
-      position: relative;
-      box-shadow: 0 0 1px 1px @color-gray-lighter;
-      &:hover {
-        box-shadow: 0 0 1px 1px @color-primary-lighter;
-      }
-      .cover {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        position: absolute;
-        img {
-          height: 100%;
-          width: 100%;
-          object-fit: cover;
-        }
-      }
-      > h3 {
-        position: absolute;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        margin: 0;
-        padding: 0.8rem;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        background-color: rgba(255, 255, 255, 0.5);
-        color: @color-white;
-        text-shadow: -1px -1px 0px @color-primary, 0px -1px 0px @color-primary, 1px -1px 0px @color-primary,
-          -1px 0px 0px @color-primary, 1px 0px 0px @color-primary, -1px 1px 0px @color-primary,
-          0px 1px 0px @color-primary, 1px 1px 0px @color-primary;
-      }
-    }
-  }
-
   .news-block {
     background-color: @bg-gray;
     margin-bottom: 2rem;

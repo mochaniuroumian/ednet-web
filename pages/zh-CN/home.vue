@@ -1,49 +1,40 @@
 <template>
   <section class="home">
-    <section class="account">
+    <section class="container">
+      <section v-if="ad1" class="account">
       <section class="account-img">
-        <img src="">
+        <section class="img-sec">
+        <div class="contentImg">
+          <img :src="ad1.img">
+        </div>
+        </section>
       </section>
-      <section v-if="ad1" class="ad-block">
+      <section class="ad-block">
         <div class="ad-content">
           <h3 class="title">
             <span class="name">{{ ad1.title }}</span>
           </h3>
           <div class="text">{{ ad1.text }}</div>
           <div class="links">
-            <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="button-gray">{{ $L(`More`) }} ></a>
+            <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="button-gray more">{{ $L(`More`) }} ></a>
           </div>
         </div>
       </section>
-    </section>
-    <section class="container">
-      <!-- <section class="ad-announce">
-        <section v-if="ad1" class="ad-block">
-          <div class="ad-content">
-            <h3 class="title">
-              <span class="name">{{ ad1.title }}</span>
-            </h3>
-            <div class="text">{{ ad1.text }}</div>
-            <div class="links">
-              <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="button-gray">{{ $L(`More`) }} ></a>
-            </div>
-          </div>
-        </section>
-        <section v-if="announces && announces.length > 0" class="announce-block">
-          <section class="looper">
-            <div v-swiper="announceSwiperOption">
-              <div class="swiper-wrapper">
-                <div v-for="item in announces" :key="item.id" class="swiper-slide" @click="target(item.id)">
-                  <div class="cover">
-                    <img :src="item.cover" />
-                  </div>
-                  <h3>{{ item.title }}</h3>
-                </div>
-              </div>
-            </div>
-          </section>
-        </section>
-      </section> -->
+      </section>
+      <section class="numberRoll">
+        <div class="rollOne">
+          <p>2014</p>
+          <p>成立</p>
+        </div>
+        <div class="rollTwo">
+          <p>500+</p>
+          <p>项目</p>
+        </div>
+        <div class="rollThree">
+          <p>800+</p>
+          <p>案例</p>
+        </div>
+      </section>
       <section v-if="group1" class="news-block">
         <div class="news-list">
           <dl>
@@ -188,7 +179,6 @@ export default {
   },
   async asyncData({ isDev, route, store, env, query, req, res, redirect, error }) {
     let params, group1, group2, group3, ad1, ad2, announces
-    debugger
     const groups = store.state.app.homePage.groups.filter(x => x.catalogGroup)
     const blocks = store.state.app.homePage.blocks
 
