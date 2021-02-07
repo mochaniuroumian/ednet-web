@@ -21,21 +21,7 @@
         </div>
       </section>
       </section>
-      <section class="numberRoll">
-        <div class="rollOne">
-          <p>2014</p>
-          <p>成立</p>
-        </div>
-        <div class="rollTwo">
-          <p>500+</p>
-          <p>项目</p>
-        </div>
-        <div class="rollThree">
-          <p>800+</p>
-          <p>案例</p>
-        </div>
-      </section>
-      <section v-if="group1" class="news-block">
+      <!-- <section v-if="group1" class="news-block">
         <div class="news-list">
           <dl>
             <dt class="block-title">
@@ -51,18 +37,51 @@
             </dd>
           </dl>
         </div>
+      </section> -->
+    </section>
+    <section class="numberRoll">
+      <section class="container">
+        <div class="roll-ul">
+          <div class="roll-li">
+            <div class="rollCont">
+              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem">0123456789</i>
+                </span>
+                <span class="comma" v-else>{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
+          </div>
+          <div class="roll-li">
+            <div class="rollCont">
+              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem">0123456789</i>
+                </span>
+                <span class="comma" v-else>{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
+          </div>
+          <div class="roll-li">
+            <div class="rollCont">
+              <p  :key="index" v-for="(item,index) in orderNumAll.orderNum"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem">0123456789</i>
+                </span>
+                <span v-else class="comma">{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
+          </div>
+        </div>
       </section>
     </section>
     <section v-if="group2" class="picnews-block">
-      <!-- <h3 class="block-title">
-        <span class="name">{{ group2.title }}</span>
-        <span class="more">
-          <a
-            href="javascript:void(0)"
-            @click="goNewsGroup(group2.catalogGroupId,group2.type)"
-          >{{ $L('More') }} ></a>
-        </span>
-      </h3>-->
       <section class="container">
         <section class="looper">
           <client-only>
@@ -137,6 +156,10 @@ export default {
       announceSwiperOption: {
         autoplay: true,
         loop: true
+      },
+      orderNumAll: {
+        orderNum: ['0', '0', '0', '0', '0', '0', '0', '0'],
+        orderdes: '项目'
       }
     }
   },
@@ -202,6 +225,11 @@ export default {
   },
   created() {
   },
+  mounted() {
+    setTimeout(() => {
+      this.toOrderNum('20143333年', '成立') // 这里输入数字即可调用
+    }, 500)
+  },
   methods: {
     target(id) {
       window.open(`/${this.culture}/announce/detail/` + String(id, '_blank'))
@@ -244,7 +272,33 @@ export default {
     },
     formatDate(val) {
       return tools.date(val)
-    }
+    },
+      // 设置文字滚动
+      setNumberTransform () {
+       const numberItems = this.$refs.numberItem // 拿到数字的ref组成数组，计算元素数量
+       const numberArr = this.orderNumAll.orderNum.filter(item => !isNaN(item))//将最终滚动的数字过滤出来
+       // 结合CSS 对数字字符进行滚动,显示订单数量
+       for (let index = 0; index < numberItems.length; index++) {
+        const elem = numberItems[index]
+        elem.style.transform = `translate(-50%, -${numberArr[index] * 10}%)`
+       }
+      },
+      // 处理总订单数字
+      toOrderNum(num, des) {
+       num = num.toString()
+       // 把订单数变成字符串
+         if (num.length <= 8) {
+          // 订单数中加入逗号
+          // num = num.slice(0, 2) + ',' + num.slice(2, 5) + ',' + num.slice(5, 8)
+          this.orderNumAll.orderNum = num.split('') // 将其便变成数据，渲染至滚动数组
+          this.orderNumAll.orderdes = des
+          debugger
+        } else if (num.length > 8) {
+          // 订单总量数字超过八位显示异常
+          this.toOrderNum('9999999+', '项目')
+        }
+        this.setNumberTransform()
+      }
   }
 }
 </script>

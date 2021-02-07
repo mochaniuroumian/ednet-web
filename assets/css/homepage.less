@@ -137,6 +137,77 @@
       }
     }
   }
+  .numberRoll{
+    padding: 3rem 0;
+    margin-top: 2rem;
+    .roll-ul{
+      .roll-li{
+        width: 33%;
+        text-align: center;
+        display: inline-block;
+      }
+      .rollCont{
+        display: inline-block;
+        text-align: center;
+        position: relative;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        /*文字禁止编辑*/
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
+        p{
+          margin-bottom: 0rem;
+        }
+        .big-number{
+          font-size: 4rem;
+        }
+        /* 默认逗号设置 */
+        .mark-item {
+          width: 10px;
+          line-height: 10px;
+          position: relative;
+          margin: 0;
+        & > span {
+          position: absolute;
+          width: 100%;
+          writing-mode: vertical-rl;
+          text-orientation: upright;
+        }
+        }
+        /*滚动数字设置*/
+        .number-item {
+          width: 2rem;
+          height: 7rem;
+          list-style: none;
+          margin: 0 0.5rem;
+          & > span {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            overflow: hidden;
+            & > i {
+              font-style: normal;
+              position: absolute;
+              top: 11px;
+              left: 50%;
+              transform: translate(-50%,0);
+              transition: transform 1s ease-in-out;
+              letter-spacing: 10px;
+            }
+          }
+        }
+        .number-item:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
   .news-block {
     background-color: @bg-gray;
     margin-bottom: 2rem;
