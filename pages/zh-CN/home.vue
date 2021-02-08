@@ -1,7 +1,7 @@
 <template>
   <section class="home">
     <section class="container">
-      <section v-if="ad1" class="account">
+      <section v-if="ad1" class="account animation-up">
       <section class="account-img">
         <section class="img-sec">
         <div class="contentImg">
@@ -21,7 +21,51 @@
         </div>
       </section>
       </section>
-      <!-- <section v-if="group1" class="news-block">
+    </section>
+    <section class="numberRoll animation-up">
+      <section class="container">
+        <div class="roll-ul">
+          <div class="roll-li">
+            <div class="rollCont">
+              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem">0123456789</i>
+                </span>
+                <span v-else class="comma">{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
+          </div>
+          <div class="roll-li">
+            <div class="rollCont">
+              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem">0123456789</i>
+                </span>
+                <span v-else class="comma">{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
+          </div>
+          <div class="roll-li">
+            <div class="rollCont">
+              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem">0123456789</i>
+                </span>
+                <span v-else class="comma">{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
+          </div>
+        </div>
+      </section>
+    </section>
+    <section class="container" id="event">
+      <section v-if="group1" class="news-block animation-up">
         <div class="news-list">
           <dl>
             <dt class="block-title">
@@ -37,51 +81,9 @@
             </dd>
           </dl>
         </div>
-      </section> -->
-    </section>
-    <section class="numberRoll">
-      <section class="container">
-        <div class="roll-ul">
-          <div class="roll-li">
-            <div class="rollCont">
-              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
-              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
-                <span v-if="!isNaN(item)" class="big-number">
-                  <i ref="numberItem">0123456789</i>
-                </span>
-                <span class="comma" v-else>{{ item }}</span>
-              </p>
-            </div>
-            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
-          </div>
-          <div class="roll-li">
-            <div class="rollCont">
-              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
-              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
-                <span v-if="!isNaN(item)" class="big-number">
-                  <i ref="numberItem">0123456789</i>
-                </span>
-                <span class="comma" v-else>{{ item }}</span>
-              </p>
-            </div>
-            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
-          </div>
-          <div class="roll-li">
-            <div class="rollCont">
-              <p  :key="index" v-for="(item,index) in orderNumAll.orderNum"
-              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
-                <span v-if="!isNaN(item)" class="big-number">
-                  <i ref="numberItem">0123456789</i>
-                </span>
-                <span v-else class="comma">{{ item }}</span>
-              </p>
-            </div>
-            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
-          </div>
-        </div>
       </section>
     </section>
-    <section v-if="group2" class="picnews-block">
+    <section v-if="group2" class="picnews-block animation-up">
       <section class="container">
         <section class="looper">
           <client-only>
@@ -106,7 +108,7 @@
       </section>
     </section>
     <section class="container">
-      <section v-if="group3" class="product-block">
+      <section v-if="group3" class="product-block animation-up">
         <h3 class="block-title">
           <span class="name">{{ group3.title }}</span>
           <span class="more">
@@ -227,7 +229,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.toOrderNum('20143333年', '成立') // 这里输入数字即可调用
+      this.toOrderNum('1234567+', '成立') // 这里输入数字即可调用
     }, 500)
   },
   methods: {
@@ -292,7 +294,6 @@ export default {
           // num = num.slice(0, 2) + ',' + num.slice(2, 5) + ',' + num.slice(5, 8)
           this.orderNumAll.orderNum = num.split('') // 将其便变成数据，渲染至滚动数组
           this.orderNumAll.orderdes = des
-          debugger
         } else if (num.length > 8) {
           // 订单总量数字超过八位显示异常
           this.toOrderNum('9999999+', '项目')

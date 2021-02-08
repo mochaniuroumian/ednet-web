@@ -23,6 +23,7 @@
 @bg-gray: hsl(0, 0, 95%);
 @bg-gray-dark: hsl(0, 0, 90%);
 
+@mobile: ~'(min-width: 576px)';
 @tablet: ~'(min-width: 768px)';
 @desktop: ~'(min-width: 992px)';
 
@@ -43,5 +44,26 @@
 .OnMobile(@rules) {
   @media screen and (max-width: @vp_mobile) {
     @rules();
+  }
+}
+
+//动画
+.animation-up{
+  animation-name: fadeInUp;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  @keyframes fadeInUp {
+    0%{
+      opacity: 0;
+      -webkit-transform: translate3d(0,100%,0);
+      transform: translate3d(0,100%,0);
+    }
+    100%{
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
   }
 }

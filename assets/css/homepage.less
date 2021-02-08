@@ -29,6 +29,7 @@
     }
   }
   .account {
+    position: relative;
     @media @tablet {
       margin-top: 2rem;
       display: flex;
@@ -139,13 +140,14 @@
   }
   .numberRoll{
     padding: 3rem 0;
-    margin-top: 2rem;
+    position: relative;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
     .roll-ul{
       .roll-li{
-        width: 33%;
+        width: 30%;
         text-align: center;
         display: inline-block;
-      }
       .rollCont{
         display: inline-block;
         text-align: center;
@@ -153,36 +155,47 @@
         writing-mode: vertical-lr;
         text-orientation: upright;
         /*文字禁止编辑*/
-        -moz-user-select: none; /*火狐*/
-        -webkit-user-select: none; /*webkit浏览器*/
-        -ms-user-select: none; /*IE10*/
-        -khtml-user-select: none; /*早期浏览器*/
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -khtml-user-select: none;
         user-select: none;
         p{
           margin-bottom: 0rem;
         }
         .big-number{
-          font-size: 4rem;
+          font-size: 2.2rem;
+          @media @mobile{
+            font-size: 2.7rem;
+          }
+          @media @tablet{
+            font-size: 3rem;
+          }
+          @media @desktop{
+            font-size: 4rem;
+          }
         }
-        /* 默认逗号设置 */
         .mark-item {
           width: 10px;
           line-height: 10px;
           position: relative;
-          margin: 0;
+          margin: 0 0.3rem;
         & > span {
           position: absolute;
           width: 100%;
           writing-mode: vertical-rl;
           text-orientation: upright;
         }
+        @media @mobile{
+          margin: 0;
+        }
         }
         /*滚动数字设置*/
         .number-item {
-          width: 2rem;
-          height: 7rem;
+          width: 1.15rem;
+          height: 4rem;
           list-style: none;
-          margin: 0 0.5rem;
+          margin: 0 0.1rem;
           & > span {
             position: relative;
             display: inline-block;
@@ -201,10 +214,26 @@
               letter-spacing: 10px;
             }
           }
+          @media @mobile{
+            width: 1.6rem;
+            height: 5rem;
+          }
+          @media @tablet{
+            margin: 0 0.2rem;
+          }
+          @media @desktop{
+            width: 2rem;
+            margin: 0 0.5rem;
+            height: 7rem;
+          }
         }
         .number-item:last-child {
           margin-right: 0;
         }
+      }
+      @media @desktop {
+        width: 33%;
+      }
       }
     }
   }
