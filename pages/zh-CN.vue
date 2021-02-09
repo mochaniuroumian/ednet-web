@@ -98,7 +98,7 @@
           <bread-crumb :items="breadCrumbItems"></bread-crumb>
         </div>
       </div>
-      <nuxt-child ref="main" />
+      <nuxt-child ref="main"/>
     </section>
     <footer>
       <div class="container icp">

@@ -64,8 +64,9 @@
         </div>
       </section>
     </section>
-    <section class="container" id="event">
-      <section v-if="group1" class="news-block animation-up">
+    <section class="container">
+      <section v-if="group1" class="news-block animationUp" ref="newsBlock" 
+      :style="'visibility:'+animationUp+';animation-name:'+animatName">
         <div class="news-list">
           <dl>
             <dt class="block-title">
@@ -83,7 +84,7 @@
         </div>
       </section>
     </section>
-    <section v-if="group2" class="picnews-block animation-up">
+    <section v-if="group2" class="picnews-bloc">
       <section class="container">
         <section class="looper">
           <client-only>
@@ -108,7 +109,7 @@
       </section>
     </section>
     <section class="container">
-      <section v-if="group3" class="product-block animation-up">
+      <section v-if="group3" class="product-block">
         <h3 class="block-title">
           <span class="name">{{ group3.title }}</span>
           <span class="more">
@@ -155,6 +156,8 @@ export default {
       wordIndex: 0,
       observer: null,
       isProductLoading: false,
+      animationUp:'hidden',
+      animatName:'none',
       announceSwiperOption: {
         autoplay: true,
         loop: true
@@ -230,7 +233,9 @@ export default {
   mounted() {
     setTimeout(() => {
       this.toOrderNum('1234567+', '成立') // 这里输入数字即可调用
+      this.demoScroll()
     }, 500)
+    window.addEventListener('scroll', this.demoScroll)
   },
   methods: {
     target(id) {
@@ -299,7 +304,25 @@ export default {
           this.toOrderNum('9999999+', '项目')
         }
         this.setNumberTransform()
+      },
+    demoScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      let domHight = document.body.offsetHeight
+      let id
+      let scrollHeight
+      let offsetTop
+      let top
+      let bottom;
+      id = this.$refs.newsBlock
+      scrollHeight = id.scrollHeight
+      offsetTop = id.offsetTop
+      top = offsetTop - domHight > 0 ? offsetTop - domHight : 0
+      bottom = scrollHeight + offsetTop
+      if (scrollTop >= top && scrollTop <= bottom) {
+        this.animationUp = 'visible'
+        this.animatName = 'fadeInUp'
       }
+    }
   }
 }
 </script>
