@@ -1,7 +1,8 @@
 <template>
   <section class="home">
     <section class="container">
-      <section v-if="ad1" class="account animation-up">
+      <section v-if="ad1" class="account" ref="account"
+      :style="'visibility:'+animationUp[1]+';animation-name:'+animatName[1]">
       <section class="account-img">
         <section class="img-sec">
         <div class="contentImg">
@@ -24,7 +25,8 @@
     </section>
     <section class="numberRoll animation-up">
       <section class="container">
-        <div class="roll-ul">
+        <div class="roll-ul" ref="rollUl"
+        :style="'visibility:'+animationUp[2]+';animation-name:'+animatName[2]">
           <div class="roll-li">
             <div class="rollCont">
               <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
@@ -65,51 +67,8 @@
       </section>
     </section>
     <section class="container">
-      <section v-if="group1" class="news-block animationUp" ref="newsBlock" 
-      :style="'visibility:'+animationUp+';animation-name:'+animatName">
-        <div class="news-list">
-          <dl>
-            <dt class="block-title">
-              <span class="name">{{ group1.title }}</span>
-              <span class="more">
-                <a href="javascript:void(0)" @click="goNewsGroup(group1.catalogGroupId, group1.type)">{{ $L('More') }} ></a>
-              </span>
-            </dt>
-            <dd v-for="item in group1.items" :key="item.id">
-              <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group1.type)">{{ item.title }}</a>
-              <i>{{ formatDate(item.creationTime) }}</i>
-              <p>{{ filter(item.content, 200) }}</p>
-            </dd>
-          </dl>
-        </div>
-      </section>
-    </section>
-    <section v-if="group2" class="picnews-bloc">
-      <section class="container">
-        <section class="looper">
-          <client-only>
-            <div v-swiper:group2Swipper="swiperOption">
-              <div class="swiper-wrapper position-relative">
-                <div
-                  v-for="item in group2.items"
-                  :key="item.id"
-                  :data-index="item.id"
-                  :data-group="group2.type"
-                  class="swiper-slide"
-                >
-                  <img :src="item.cover" />
-                  <div class="slide-info">
-                    <a>{{ item.title }}</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </client-only>
-        </section>
-      </section>
-    </section>
-    <section class="container">
-      <section v-if="group3" class="product-block">
+      <section v-if="group3" class="product-block" ref="productBlock"
+      :style="'visibility:'+animationUp[3]+';animation-name:'+animatName[3]">
         <h3 class="block-title">
           <span class="name">{{ group3.title }}</span>
           <span class="more">
@@ -135,13 +94,59 @@
           </li>
         </ul>
       </section>
-      <section v-if="ad2" class="ad-img-block">
+    </section>
+    <section v-if="group2" class="picnews-block" ref="picnewsBlock"
+      :style="'visibility:'+animationUp[4]+';animation-name:'+animatName[4]">
+      <section class="container">
+        <section class="looper">
+          <client-only>
+            <div v-swiper:group2Swipper="swiperOption">
+              <div class="swiper-wrapper position-relative">
+                <div
+                  v-for="item in group2.items"
+                  :key="item.id"
+                  :data-index="item.id"
+                  :data-group="group2.type"
+                  class="swiper-slide"
+                >
+                  <img :src="item.cover" />
+                  <div class="slide-info">
+                    <a>{{ item.title }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </client-only>
+        </section>
+      </section>
+    </section>
+    <section class="container">
+      <section v-if="ad2" class="ad-img-block" ref="adimgBlock"
+      :style="'visibility:'+animationUp[5]+';animation-name:'+animatName[5]">
         <h3 class="title">
           <span class="name">{{ ad2.title }}</span>
         </h3>
         <a :href="ad2.url ? ad2.url : 'javascript:void(0)'" class="img-url">
           <img :src="ad2.img" />
         </a>
+      </section>
+      <section v-if="group1" class="news-block" ref="newsBlock" 
+      :style="'visibility:'+animationUp[6]+';animation-name:'+animatName[6]">
+        <div class="news-list">
+          <dl>
+            <dt class="block-title">
+              <span class="name">{{ group1.title }}</span>
+              <span class="more">
+                <a href="javascript:void(0)" @click="goNewsGroup(group1.catalogGroupId, group1.type)">{{ $L('More') }} ></a>
+              </span>
+            </dt>
+            <dd v-for="item in group1.items" :key="item.id">
+              <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group1.type)">{{ item.title }}</a>
+              <i>{{ formatDate(item.creationTime) }}</i>
+              <p>{{ filter(item.content, 200) }}</p>
+            </dd>
+          </dl>
+        </div>
       </section>
     </section>
   </section>
@@ -156,8 +161,8 @@ export default {
       wordIndex: 0,
       observer: null,
       isProductLoading: false,
-      animationUp:'hidden',
-      animatName:'none',
+      animationUp:['hidden', 'hidden', 'hidden', 'hidden', 'hidden', 'hidden'],
+      animatName:['none', 'none', 'none', 'none', 'none', 'none'],
       announceSwiperOption: {
         autoplay: true,
         loop: true
@@ -308,19 +313,64 @@ export default {
     demoScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       let domHight = document.body.offsetHeight
-      let id
-      let scrollHeight
-      let offsetTop
-      let top
-      let bottom;
-      id = this.$refs.newsBlock
-      scrollHeight = id.scrollHeight
-      offsetTop = id.offsetTop
-      top = offsetTop - domHight > 0 ? offsetTop - domHight : 0
-      bottom = scrollHeight + offsetTop
-      if (scrollTop >= top && scrollTop <= bottom) {
-        this.animationUp = 'visible'
-        this.animatName = 'fadeInUp'
+      let id1, id2, id3, id4, id5, id6
+      let scrollHeight1, scrollHeight2, scrollHeight3, scrollHeight4, scrollHeight5, scrollHeight6
+      let offsetTop1, offsetTop2, offsetTop3, offsetTop4, offsetTop5, offsetTop6
+      let top1, top2, top3, top4, top5, top6
+      let bottom1, bottom2, bottom3, bottom4, bottom5, bottom6
+      id1 = this.$refs.account
+      id2 = this.$refs.rollUl
+      id3 = this.$refs.productBlock
+      id4 = this.$refs.picnewsBlock
+      id5 = this.$refs.adimgBlock
+      id6 = this.$refs.newsBlock
+      scrollHeight1 = id1.scrollHeight
+      scrollHeight2 = id2.scrollHeight
+      scrollHeight3 = id3.scrollHeight
+      scrollHeight4 = id4.scrollHeight
+      scrollHeight5 = id5.scrollHeight
+      scrollHeight6 = id6.scrollHeight
+      offsetTop1 = id1.offsetTop
+      offsetTop2 = id2.offsetTop
+      offsetTop3 = id3.offsetTop
+      offsetTop4 = id4.offsetTop
+      offsetTop5 = id5.offsetTop
+      offsetTop6 = id6.offsetTop
+      top1 = offsetTop1 - domHight > 0 ? offsetTop1 - domHight : 0
+      top2 = offsetTop2 - domHight > 0 ? offsetTop2 - domHight : 0
+      top3 = offsetTop3 - domHight > 0 ? offsetTop3 - domHight : 0
+      top4 = offsetTop4 - domHight > 0 ? offsetTop4 - domHight : 0
+      top5 = offsetTop5 - domHight > 0 ? offsetTop5 - domHight : 0
+      top6 = offsetTop6 - domHight > 0 ? offsetTop6 - domHight : 0
+      bottom1 = scrollHeight1 + offsetTop1
+      bottom2 = scrollHeight2 + offsetTop2
+      bottom3 = scrollHeight3 + offsetTop3
+      bottom4 = scrollHeight4 + offsetTop4
+      bottom5 = scrollHeight5 + offsetTop5
+      bottom6 = scrollHeight6 + offsetTop6
+      if (scrollTop >= top1 && scrollTop <= bottom1) {
+        this.animationUp[1] = 'visible'
+        this.animatName[1] = 'fadeInUp'
+      }
+      if (scrollTop >= top2 && scrollTop <= bottom2) {
+        this.animationUp[2] = 'visible'
+        this.animatName[2] = 'fadeInUp'
+      }
+      if (scrollTop >= top3 && scrollTop <= bottom3) {
+        this.animationUp[3] = 'visible'
+        this.animatName[3] = 'fadeInUp'
+      }
+      if (scrollTop >= top4 && scrollTop <= bottom4) {
+        this.animationUp[4] = 'visible'
+        this.animatName[4] = 'fadeInUp'
+      }
+      if (scrollTop >= top5 && scrollTop <= bottom5) {
+        this.animationUp[5] = 'visible'
+        this.animatName[5] = 'fadeInUp'
+      }
+      if (scrollTop >= top6 && scrollTop <= bottom6) {
+        this.animationUp[6] = 'visible'
+        this.animatName[6] = 'fadeInUp'
       }
     }
   }
