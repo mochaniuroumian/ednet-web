@@ -143,8 +143,7 @@
             </dt>
             <dd v-for="item in group3.items" :key="item.id">
               <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group3.type)">{{ item.title }}</a>
-              <i>{{ formatDate(item.creationTime) }}</i>
-              <p>{{ filter(item.content, 200) }}</p>
+              <span>[{{ formatDate(item.creationTime) }}]</span>
             </dd>
           </dl>
         </div>
