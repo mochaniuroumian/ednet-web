@@ -1,28 +1,5 @@
 <template>
   <section class="home">
-    <section class="container">
-      <section v-if="ad1" class="account" ref="account">
-      <!-- :style="'visibility:'+animationUp[1]+';animation-name:'+animatName[1]"> -->
-      <section class="account-img">
-        <section class="img-sec">
-        <div class="contentImg">
-          <img :src="ad1.img">
-        </div>
-        </section>
-      </section>
-      <section class="ad-block">
-        <div class="ad-content">
-          <h3 class="title">
-            <span class="name">{{ ad1.title }}</span>
-          </h3>
-          <div class="text">{{ ad1.text }}</div>
-          <div class="links">
-            <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="button-gray more">{{ $L(`More`) }} ></a>
-          </div>
-        </div>
-      </section>
-      </section>
-    </section>
     <section class="numberRoll animation-up">
       <section class="container">
         <div class="roll-ul" ref="rollUl">
@@ -131,6 +108,27 @@
           <img :src="ad2.img" />
         </a>
       </section>
+      <section v-if="ad1" class="account" ref="account">
+      <!-- :style="'visibility:'+animationUp[1]+';animation-name:'+animatName[1]"> -->
+      <section class="account-img">
+        <section class="img-sec">
+        <div class="contentImg">
+          <img :src="ad1.img">
+        </div>
+        </section>
+      </section>
+      <section class="ad-block">
+        <div class="ad-content">
+          <h3 class="title">
+            <span class="name">{{ ad1.title }}</span>
+          </h3>
+          <div class="text">{{ ad1.text }}</div>
+          <div class="links">
+            <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="button-gray more">{{ $L(`More`) }} ></a>
+          </div>
+        </div>
+      </section>
+      </section>
       <section v-if="group3" class="news-block" ref="newsBlock" 
       :style="'visibility:'+animationUp[6]+';animation-name:'+animatName[6]">
         <div class="news-list">
@@ -221,7 +219,7 @@ export default {
     group2 = groups.length > 1 ? groups[1] : null
     group3 = groups.length > 2 ? groups[2] : null
     if (group2 && group2.items) group2.items = group2.items.slice(0, 6)
-    if (group3 && group3.items) group3.items = group3.items.slice(0, 6)
+    if (group3 && group3.items) group3.items = group3.items.slice(0, 30)
 
     params = {
       params: {

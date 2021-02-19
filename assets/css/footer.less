@@ -15,6 +15,9 @@ footer {
     -webkit-user-select: none;
     -ms-user-select: none;
     -moz-user-select: none;
+    @media @desktop {
+      display: none !important;
+    }
   }
   .navbar-desktop {
     display: none;
@@ -56,6 +59,11 @@ footer {
         height: unset;
       }
     }
+    @media @mobile{
+      ul {
+        font-size: 1.4rem;
+      }
+    }
     @media @desktop {
       ul {
         font-size: 1.5rem;
@@ -64,10 +72,10 @@ footer {
         li {
           position: relative;
           padding: 0.4rem 0.6rem;
-          &:hover,
-          &.acitved {
-            color: @color-primary-lighter;
-          }
+          // &:hover,
+          // &.acitved {
+          //   color: @color-white;
+          // }
         }
       }
       &.sub {
@@ -100,17 +108,21 @@ footer {
     position: relative;
     display: inline-block;
     padding: 0.5rem 1.5rem;
+    line-height: 1.5rem;
     .expand-icon {
       display: block;
       position: absolute;
       top: 0;
       right: -0.5rem;
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       padding: 0.5rem;
       cursor: pointer;
       &.expand {
         transition: transform 0.2s ease-in;
         transform: rotate(90deg);
+      }
+      @media @mobile{
+        font-size: 1.8rem;
       }
     }
     @media @desktop {
