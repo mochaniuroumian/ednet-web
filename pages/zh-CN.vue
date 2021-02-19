@@ -101,6 +101,9 @@
       <nuxt-child ref="main"/>
     </section>
     <footer>
+      <div class="container site-map">
+        <navbar :items="navbars"></navbar>
+      </div>
       <div class="container icp">
         <dl>
           <dt>
@@ -142,10 +145,10 @@ export default {
   components: { Navbar, BreadCrumb },
   head() {
     return {
-      title: this.currentPath.displayName + ' - ' + this.companyInfo.appName + '-' + this.companyInfo.seoKeyWords,
+      title: [this.currentPath.displayName == '主页'? '' : this.currentPath.displayName + ' - '] + this.companyInfo.appName,
       meta: [
         { hid: 'keywords', name: 'keywords', content: this.companyInfo.seoKeyWords },
-        { hid: 'description', name: 'description', content: this.companyInfo.description }
+        { hid: 'description', name: 'description', content: this.companyInfo.seoKeyWords }
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: this.companyInfo.icon }]
     }

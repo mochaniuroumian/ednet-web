@@ -12,7 +12,7 @@
             :class="['expand-icon',item.expand?'expand':'']"
             @click.stop.prevent="expandItem(item,index)"
           >
-            <i class="fas fa-caret-right"></i>
+            <i class="fas fa-angle-right"></i>
           </span>
           <span>{{ item.displayName }}</span>
         </a>

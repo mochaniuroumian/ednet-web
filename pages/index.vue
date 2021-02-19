@@ -22,10 +22,10 @@ import Logo from '~/components/Logo.vue'
 export default {
   head() {
     return {
-      title: this.companyInfo.appName + '-' + this.companyInfo.seoKeyWords,
+      title: this.companyInfo.appName,
       meta: [
         { hid: 'keywords', name: 'keywords', content: this.companyInfo.seoKeyWords },
-        { hid: 'description', name: 'description', content: this.companyInfo.description }
+        { hid: 'description', name: 'description', content: this.companyInfo.seoKeyWords }
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: this.companyInfo.icon }]
     }

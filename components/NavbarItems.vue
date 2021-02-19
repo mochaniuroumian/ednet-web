@@ -15,7 +15,7 @@
             :class="['expand-icon',item.expand?'expand':'']"
             @click.stop.prevent="changeActiveId(item,index)"
           >
-            <i class="fas fa-caret-right"></i>
+            <i class="fas fa-angle-right"></i>
           </span>
           <span>{{ item.displayName }}</span>
         </a>
