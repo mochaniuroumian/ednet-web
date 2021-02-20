@@ -82,9 +82,11 @@ header{
       li {
         position: relative;
         padding: 0.4rem 0.6rem;
-        &:hover,
-        &.acitved {
+        &:hover{
           color: @color-primary-lighter;
+        }
+        &.acitved {
+          border-bottom: solid 1px @color-primary-lighter;
         }
       }
     }
@@ -130,11 +132,6 @@ header{
     &.expand {
       transition: transform 0.2s ease-in;
       transform: rotate(90deg);
-    }
-  }
-  @media @desktop {
-    .expand-icon {
-      top: 0rem;
     }
   }
 }

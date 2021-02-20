@@ -75,7 +75,6 @@
     </section>
     <section v-if="group2" class="picnews-block" ref="picnewsBlock">
       <!-- :style="'visibility:'+animationUp[4]+';animation-name:'+animatName[4]"> -->
-      <section class="container">
         <section class="looper">
           <client-only>
             <div v-swiper:group2Swipper="swiperOption">
@@ -96,7 +95,6 @@
             </div>
           </client-only>
         </section>
-      </section>
     </section>
     <section class="container">
       <section v-if="ad2" class="ad-img-block" ref="adimgBlock">
@@ -176,20 +174,18 @@ export default {
     swiperOption() {
       let that = this
       let option = {
-        autoplay: { delay: 4000 },
+        autoplay: { delay: 3000 },
         loop: true,
         breakpointsInverse: true,
         preventClicks: false,
         breakpoints: {
           300: {
             slidesPerView: 2,
-            slidesPerGroup: 2,
-            spaceBetween: 30
+            slidesPerGroup: 2
           },
           768: {
             slidesPerView: 4,
-            slidesPerGroup: 3,
-            spaceBetween: 30
+            slidesPerGroup: 1
           }
         },
         on: {
