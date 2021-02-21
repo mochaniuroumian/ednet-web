@@ -2,8 +2,7 @@
   <section class="home">
     <section class="numberRoll animation-up">
       <section class="container">
-        <div class="roll-ul" ref="rollUl">
-        <!-- :style="'visibility:'+animationUp[2]+';animation-name:'+animatName[2]"> -->
+        <div class="roll-ul">
           <div class="roll-li">
             <div class="rollCont">
               <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
@@ -44,8 +43,7 @@
       </section>
     </section>
     <section class="container">
-      <section v-if="group1" class="product-block" ref="productBlock">
-      <!-- :style="'visibility:'+animationUp[3]+';animation-name:'+animatName[3]"> -->
+      <section v-if="group1" class="product-block">
         <h3 class="block-title">
           <span class="name">{{ group1.title }}</span>
           <span class="more">
@@ -66,15 +64,16 @@
               </div>
               <div class="product-info">
                 <h4>{{ item.title }}</h4>
-                <!-- <p>{{ item.info }}</p> -->
               </div>
             </div>
           </li>
         </ul>
       </section>
     </section>
-    <section v-if="group2" class="picnews-block" ref="picnewsBlock">
-      <!-- :style="'visibility:'+animationUp[4]+';animation-name:'+animatName[4]"> -->
+    <section v-if="group2" class="picnews-block">
+        <h3 class="block-title">
+          <span class="name">{{ group2.title }}</span>
+        </h3>
         <section class="looper">
           <client-only>
             <div v-swiper:group2Swipper="swiperOption">
@@ -94,20 +93,12 @@
               </div>
             </div>
           </client-only>
+          <div class="swiper-pic-prev picbut"><i class="fas fa-arrow-left"></i></div>
+          <div class="swiper-pic-next picbut"><i class="fas fa-arrow-right"></i></div>
         </section>
     </section>
     <section class="container">
-      <section v-if="ad2" class="ad-img-block" ref="adimgBlock">
-      <!-- :style="'visibility:'+animationUp[5]+';animation-name:'+animatName[5]"> -->
-        <h3 class="title">
-          <span class="name">{{ ad2.title }}</span>
-        </h3>
-        <a :href="ad2.url ? ad2.url : 'javascript:void(0)'" class="img-url">
-          <img :src="ad2.img" />
-        </a>
-      </section>
-      <section v-if="ad1" class="account" ref="account">
-      <!-- :style="'visibility:'+animationUp[1]+';animation-name:'+animatName[1]"> -->
+      <section v-if="ad1" class="account">
       <section class="account-img">
         <section class="img-sec">
         <div class="contentImg">
@@ -127,8 +118,22 @@
         </div>
       </section>
       </section>
-      <section v-if="group3" class="news-block" ref="newsBlock" 
-      :style="'visibility:'+animationUp[6]+';animation-name:'+animatName[6]">
+      </section>
+      <section v-if="ad2" class="ad-img-block" :style="`background-image:url('${ad2.img}')`">
+        <div class="ad-img-color">
+        <h3 class="title">
+          <a :href="ad2.url ? ad2.url : 'javascript:void(0)'" class="img-url">
+          <span class="name">{{ ad2.title }}</span>
+          </a>
+        </h3>
+        <p>{{ ad2.text }}</p>
+        </div>
+        <!-- <a :href="ad2.url ? ad2.url : 'javascript:void(0)'" class="img-url">
+          <img :src="ad2.img" />
+        </a> -->
+      </section>
+      <section class="container">
+      <section v-if="group3" class="news-block">
         <div class="news-list">
           <dl>
             <dt class="block-title">
@@ -157,8 +162,6 @@ export default {
       wordIndex: 0,
       observer: null,
       isProductLoading: false,
-      animationUp:['hidden', 'hidden', 'hidden', 'hidden', 'hidden', 'hidden'],
-      animatName:['none', 'none', 'none', 'none', 'none', 'none'],
       g3tab: 0,
       announceSwiperOption: {
         autoplay: true,
@@ -178,6 +181,10 @@ export default {
         loop: true,
         breakpointsInverse: true,
         preventClicks: false,
+        navigation: {
+          nextEl: '.swiper-pic-next',
+          prevEl: '.swiper-pic-prev'
+        },
         breakpoints: {
           300: {
             slidesPerView: 2,
@@ -231,7 +238,6 @@ export default {
   mounted() {
     setTimeout(() => {
       this.toOrderNum('1234567+', '成立') // 这里输入数字即可调用
-      this.demoScroll()
     }, 500)
     window.addEventListener('scroll', this.demoScroll)
   },
@@ -307,70 +313,7 @@ export default {
         }else{
           return this.g3tab
         }
-      },
-    demoScroll() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      let domHight = document.body.offsetHeight
-      let id6
-      let scrollHeight6
-      let offsetTop6
-      let top6
-      let bottom6
-      // id1 = this.$refs.account
-      // id2 = this.$refs.rollUl
-      // id3 = this.$refs.productBlock
-      // id4 = this.$refs.picnewsBlock
-      // id5 = this.$refs.adimgBlock
-      id6 = this.$refs.newsBlock
-      // scrollHeight1 = id1.scrollHeight
-      // scrollHeight2 = id2.scrollHeight
-      // scrollHeight3 = id3.scrollHeight
-      // scrollHeight4 = id4.scrollHeight
-      // scrollHeight5 = id5.scrollHeight
-      scrollHeight6 = id6.scrollHeight
-      // offsetTop1 = id1.offsetTop
-      // offsetTop2 = id2.offsetTop
-      // offsetTop3 = id3.offsetTop
-      // offsetTop4 = id4.offsetTop
-      // offsetTop5 = id5.offsetTop
-      offsetTop6 = id6.offsetTop
-      // top1 = offsetTop1 - domHight > 0 ? offsetTop1 - domHight : 0
-      // top2 = offsetTop2 - domHight > 0 ? offsetTop2 - domHight : 0
-      // top3 = offsetTop3 - domHight > 0 ? offsetTop3 - domHight : 0
-      // top4 = offsetTop4 - domHight > 0 ? offsetTop4 - domHight : 0
-      // top5 = offsetTop5 - domHight > 0 ? offsetTop5 - domHight : 0
-      top6 = offsetTop6 - domHight > 0 ? offsetTop6 - domHight : 0
-      // bottom1 = scrollHeight1 + offsetTop1
-      // bottom2 = scrollHeight2 + offsetTop2
-      // bottom3 = scrollHeight3 + offsetTop3
-      // bottom4 = scrollHeight4 + offsetTop4
-      // bottom5 = scrollHeight5 + offsetTop5
-      bottom6 = scrollHeight6 + offsetTop6
-      // if (scrollTop >= top1 && scrollTop <= bottom1) {
-      //   this.animationUp[1] = 'visible'
-      //   this.animatName[1] = 'fadeInUp'
-      // }
-      // if (scrollTop >= top2 && scrollTop <= bottom2) {
-      //   this.animationUp[2] = 'visible'
-      //   this.animatName[2] = 'fadeInUp'
-      // }
-      // if (scrollTop >= top3 && scrollTop <= bottom3) {
-      //   this.animationUp[3] = 'visible'
-      //   this.animatName[3] = 'fadeInUp'
-      // }
-      // if (scrollTop >= top4 && scrollTop <= bottom4) {
-      //   this.animationUp[4] = 'visible'
-      //   this.animatName[4] = 'fadeInUp'
-      // }
-      // if (scrollTop >= top5 && scrollTop <= bottom5) {
-      //   this.animationUp[5] = 'visible'
-      //   this.animatName[5] = 'fadeInUp'
-      // }
-      if (scrollTop >= top6 && scrollTop <= bottom6) {
-        this.animationUp[6] = 'visible'
-        this.animatName[6] = 'fadeInUp'
       }
-    }
   }
 }
 </script>

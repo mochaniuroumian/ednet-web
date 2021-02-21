@@ -14,7 +14,7 @@
             </div>
             <div class="company-name">{{ companyInfo.logoText }}</div>
           </div>
-          <navbar ref="navbar" :items="navbars"></navbar>
+          <navbar ref="navbar" :items="navbars" :father="true"></navbar>
           <div class="header-tools">
             <ul>
               <li class="mobile-navbar-trigger">
@@ -102,7 +102,7 @@
     </section>
     <footer>
       <div class="container site-map">
-        <navbar :items="navbars"></navbar>
+        <navbar :items="navbars" :father="false"></navbar>
       </div>
       <div class="container icp">
         <dl>

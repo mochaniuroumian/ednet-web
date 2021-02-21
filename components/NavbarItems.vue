@@ -6,8 +6,8 @@
         :key="index"
         :class="[$attrs['active-id']===item.id?'acitved':'']"
         @click.stop.prevent="changeActiveId(item,index)"
-        @mouseenter="pcDropdown(item,index,true)"
-        @mouseleave="pcDropdown(item,index,false)"
+        @mouseenter="pcDropdown(item,index,true,father)"
+        @mouseleave="pcDropdown(item,index,false,father)"
       >
         <a class="nav-link white" @click.stop.prevent="go(item,index)">
           <span
@@ -43,6 +43,9 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    father: {
+      type: Boolean
     }
   },
   inheritAttrs: false,
@@ -56,7 +59,7 @@ export default {
     go(item, index) {
       this.resetExpandStatus(item)
       if (item.navbarType !== 0) this.routerUrl(item)
-      else if (this.hasChildren(item)) this.setArray(item, index)
+      else if (this.hasChildren(item)) this.routerUrl(item.children[0])
     },
 
     changeActiveId(item, index) {
@@ -65,8 +68,8 @@ export default {
       else this.routerUrl(item)
     },
 
-    pcDropdown(item, index, bool) {
-      if (this.$attrs.pc && this.hasChildren(item)) {
+    pcDropdown(item, index, bool, father) {
+      if (this.$attrs.pc && this.hasChildren(item) && father) {
         item.expand = bool
         /* 触发视图响应 */
         this.$set(this.arry, index, item)
@@ -99,13 +102,6 @@ export default {
 
       // if (this.$attrs.pc) item.expand ? this.show() : this.hide()
     },
-    // show() {
-    //   document.addEventListener('click', this.unExpandAll, false)
-    // },
-
-    // hide() {
-    //   document.removeEventListener('click', this.unExpandAll, false)
-    // },
     hasChildren(item) {
       return item.children.length > 0
     }

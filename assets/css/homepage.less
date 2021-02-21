@@ -107,17 +107,32 @@
   .ad-img-block {
     text-align: center;
     margin: 4rem 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @media @desktop{
+      background-attachment: fixed;
+    }
+    .ad-img-color{
+      padding: 7rem;
+      background-color: rgba(255, 255, 255, 0.7);
+      p{
+        margin-top: 2rem;
+        @media @desktop{
+          font-size: 1.8rem;
+        }
+      }
+    }
     .title {
-      font-size: 1.8rem;
+      font-size: 2.5rem;
       padding: 3rem 0;
       position: relative;
       @media @tablet {
-        font-size: 2.2rem;
+        font-size: 3.5rem;
       }
       &::after {
         content: '';
         position: absolute;
-        top: 50%;
+        bottom: 0%;
         left: 0;
         width: 100%;
         height: 1px;
@@ -125,7 +140,6 @@
       }
       .name {
         padding: 1rem;
-        background-color: @color-white;
         white-space: nowrap;
         z-index: 2;
         position: absolute;
@@ -136,11 +150,7 @@
     }
     .img-url {
       display: block;
-      > img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
+      color: #444;
     }
   }
   .numberRoll{
@@ -288,7 +298,6 @@
           }
           a {
             font-size: 1.8rem;
-            color: @color-gray-dark;
           }
           span {
             font-size: 1.8rem;
@@ -299,10 +308,11 @@
   }
   .picnews-block {
     margin: 2rem 0;
-    @media @tablet {
-      background-color: @bg-gray-dark;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+    background-color: hsla(@color-primary-dark-hsl, 0.1);
+    padding-top: 1rem;
+    padding-bottom: 8rem;
+    .block-title{
+      justify-content: center;
     }
     .looper {
       width: 100%;
@@ -324,16 +334,17 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      // &:hover {
-      //   border: 1px solid @color-primary-lighter;
-      // }
       > img {
         object-fit: cover;
         width: 100%;
         height: 100%;
+        transition: 0.5s;
+        &:hover {
+          -webkit-transform: scale(1.2, 1.2);
+          transform: scale(1.2, 1.2);
+        }
       }
       .slide-info {
-        display: none;
         z-index: 20;
         position: absolute;
         bottom: 0;
@@ -346,9 +357,28 @@
         a {
           color: @color-white;
         }
-        @media @tablet {
-          display: block;
-        }
+      }
+    }
+    .picbut {
+    height: 3rem;
+    width: 3rem;
+    bottom: -6rem;
+    position: absolute;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 3rem;
+    border: 1px solid @color-primary;
+    border-radius: 50%;
+    color: @color-primary;
+    cursor: pointer;
+      &.swiper-pic-prev {
+        left: 40%;
+      }
+      &.swiper-pic-next {
+        right: 40%;
+      }
+      &:hover {
+        background-color: hsla(@color-primary-dark-hsl, 0.2);
       }
     }
     ul {
@@ -443,7 +473,7 @@
     .product-icon-container {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
     }
     .product-cover {
         display: block;
@@ -475,12 +505,6 @@
           height: 2.4rem;
           font-size: 1.8rem;
         }
-      }
-      p {
-        max-height: 4rem;
-        margin: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
     }
   }

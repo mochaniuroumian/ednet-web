@@ -17,6 +17,7 @@
         <navbar-items
           ref="navbarItems"
           :items="items"
+          :father="father"
           :active-id="activeId"
           :pc="true"
           @changeActiveId="changeActiveId"
@@ -56,6 +57,9 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    father: {
+      type: Boolean
     }
   },
   methods: {
