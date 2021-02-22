@@ -1,7 +1,7 @@
 <template>
   <div class="body-container">
     <!-- 头部 -->
-    <header :class="currentPath.navbarType !== 5 ? 'sub' : ''" @click="closeNavbar">
+    <header :class="[currentPath.navbarType !== 5 ? 'sub' : '',headColor]" @click="closeNavbar">
       <div class="container">
         <div class="header-main">
           <a class="back-link" @click="back">
@@ -12,25 +12,11 @@
             <div class="logo">
               <img :src="companyInfo.logo" @click="go('/')" />
             </div>
-            <div class="company-name">{{ companyInfo.logoText }}</div>
+            <h3 class="company-name">{{ companyInfo.logoText }}</h3>
           </div>
+          <navbar ref="navbar" :items="navbars" :father="true"></navbar>
           <div class="header-tools">
             <ul>
-              <li>
-                <a href="javascript:void(0)">
-                  <i class="fas fa-phone-alt"></i>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" @click.stop="weixinExpand">
-                  <i class="fab fa-weixin"></i>
-                </a>
-              </li>
-              <li v-if="multiLangs">
-                <a @click="changeLanguage('zh-CN')">
-                  <i class="fas fa-language"></i>
-                </a>
-              </li>
               <li class="mobile-navbar-trigger">
                 <a href="javascript:void(0)" @click.stop="triggerNavbar">
                   <i class="fas fa-bars"></i>
@@ -39,7 +25,34 @@
             </ul>
           </div>
         </div>
-        <div v-if="wxShow" class="wexin-dropdown">
+      </div>
+    </header>
+    <section class="main">
+      <div class="main-tools">
+            <ul>
+              <li @mouseenter="telShow = true" @mouseleave="telShow = false">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-phone-alt"></i>
+                </a>
+                <div v-show="telShow" class="tel-dropdown">
+                  <div class="telNumber">
+                  <a :href="`tel: ${companyInfo.tel}`">{{ companyInfo.tel }}</a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a href="javascript:void(0)" @click.stop="weixinExpand">
+                  <i class="fab fa-weixin"></i>
+                </a>
+              </li>
+              <li v-if="multiLangs">
+                <a @click="changeLanguage('en')">
+                  <i class="fas fa-language"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div v-if="wxShow" class="wexin-dropdown">
           <div class="code">
             <img :src="companyInfo.weixinBarCode" />
             <h6>扫一扫，直接在手机上打开</h6>
@@ -49,14 +62,10 @@
             <i class="fas fa-times"></i>
           </span>
         </div>
-      </div>
-    </header>
-    <navbar ref="navbar" :items="navbars"></navbar>
-    <section class="main">
       <!-- banner -->
       <div :class="['banner', currentPath.navbarType !== 5 ? 'sub' : '']">
         <client-only>
-          <div v-swiper:bannerSwiper="swiperOption">
+          <div v-swiper:bannerSwiper="swiperOption" @ready="handleSwiperReadied">
             <div class="swiper-wrapper position-relative">
               <div v-for="(item, index) in bannerImgs" :key="index" class="swiper-slide">
                 <img :src="getImgUrl(item.imgUrl)" />
@@ -89,9 +98,12 @@
           <bread-crumb :items="breadCrumbItems"></bread-crumb>
         </div>
       </div>
-      <nuxt-child ref="main" />
+      <nuxt-child ref="main"/>
     </section>
     <footer>
+      <div class="container site-map">
+        <navbar :items="navbars" :father="false"></navbar>
+      </div>
       <div class="container icp">
         <dl>
           <dt>
@@ -133,7 +145,7 @@ export default {
   components: { Navbar, BreadCrumb },
   head() {
     return {
-      title: this.currentPath.displayName + ' - ' + this.companyInfo.appName + '-' + this.companyInfo.seoKeyWords,
+      title: [this.currentPath.displayName == '主页'? '' : this.currentPath.displayName + ' - '] + this.companyInfo.appName,
       meta: [
         { hid: 'keywords', name: 'keywords', content: this.companyInfo.seoKeyWords },
         { hid: 'description', name: 'description', content: this.companyInfo.description }
@@ -146,7 +158,9 @@ export default {
       slide: 0,
       year: new Date().getFullYear(),
       sliding: null,
+      telShow: false,
       wxShow: false,
+      headColor: '',
       swiperOption: {
         pagination: {
           el: '.swiper-pagination'
@@ -207,7 +221,7 @@ export default {
     }
   },
   async asyncData(context) {
-    let language = 'en'
+    let language = 'zh-CN'
     context.app.$cookies.set(context.store.state.app.headerName, language, {
       path: context.store.state.abp.appPath || '/',
       maxAge: 5 * 365 * 86400000,
@@ -229,8 +243,15 @@ export default {
   created() {
     this.setcurrentPath({ path: this.$route.path })
   },
-  mounted() {},
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
   methods: {
+    handleSwiperReadied(swiper) {
+    },
+    closeNavbar() {
+      this.$refs.navbar.close()
+    },
     triggerNavbar() {
       this.$refs.navbar.trigger()
     },
@@ -267,6 +288,14 @@ export default {
     weixinHide() {
       this.wxShow = false
       document.removeEventListener('click', () => (this.wxShow = false), false)
+    },
+    handleScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      if (scrollTop) {
+        this.headColor = 'headColor'
+      } else if (scrollTop === 0) {
+        this.headColor = ''
+      }
     }
   }
 }

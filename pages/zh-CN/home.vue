@@ -1,47 +1,5 @@
 <template>
   <section class="home">
-    <section class="numberRoll animation-up">
-      <section class="container">
-        <div class="roll-ul">
-          <div class="roll-li">
-            <div class="rollCont">
-              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
-              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
-                <span v-if="!isNaN(item)" class="big-number">
-                  <i ref="numberItem">0123456789</i>
-                </span>
-                <span v-else class="comma">{{ item }}</span>
-              </p>
-            </div>
-            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
-          </div>
-          <div class="roll-li">
-            <div class="rollCont">
-              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
-              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
-                <span v-if="!isNaN(item)" class="big-number">
-                  <i ref="numberItem">0123456789</i>
-                </span>
-                <span v-else class="comma">{{ item }}</span>
-              </p>
-            </div>
-            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
-          </div>
-          <div class="roll-li">
-            <div class="rollCont">
-              <p v-for="(item,index) in orderNumAll.orderNum" :key="index"
-              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
-                <span v-if="!isNaN(item)" class="big-number">
-                  <i ref="numberItem">0123456789</i>
-                </span>
-                <span v-else class="comma">{{ item }}</span>
-              </p>
-            </div>
-            <div class="roll-font">{{ orderNumAll.orderdes }}</div>
-          </div>
-        </div>
-      </section>
-    </section>
     <section class="container">
       <section v-if="group1" class="product-block">
         <h3 class="block-title">
@@ -59,7 +17,7 @@
             <div class="product-icon-container">
               <div class="product-cover">
                 <span>
-                  <img :src="item.miniCover" />
+                  <img :src="item.miniCover" :alt="item.title"/>
                 </span>
               </div>
               <div class="product-info">
@@ -85,7 +43,7 @@
                   :data-group="group2.type"
                   class="swiper-slide"
                 >
-                  <img :src="item.cover" />
+                  <img :src="item.cover" :alt="item.title"/>
                   <div class="slide-info">
                     <a>{{ item.title }}</a>
                   </div>
@@ -128,9 +86,6 @@
         </h3>
         <p>{{ ad2.text }}</p>
         </div>
-        <!-- <a :href="ad2.url ? ad2.url : 'javascript:void(0)'" class="img-url">
-          <img :src="ad2.img" />
-        </a> -->
       </section>
       <section class="container">
       <section v-if="group3" class="news-block">
@@ -163,13 +118,10 @@ export default {
       observer: null,
       isProductLoading: false,
       g3tab: 0,
+      g1items: [],
       announceSwiperOption: {
         autoplay: true,
         loop: true
-      },
-      orderNumAll: {
-        orderNum: ['0', '0', '0', '0', '0', '0', '0', '0'],
-        orderdes: '项目'
       }
     }
   },
@@ -221,8 +173,15 @@ export default {
     group1 = groups.length > 0 ? groups[0] : null
     group2 = groups.length > 1 ? groups[1] : null
     group3 = groups.length > 2 ? groups[2] : null
+    if (group1 && group1.items) {
+      let count = {}
+      group1.items = group1.items.filter(({catalogGroupId}) => {
+        count[catalogGroupId] = (count[catalogGroupId] || 0) + 1
+        return count[catalogGroupId] <= 8
+      })
+    }
     if (group2 && group2.items) group2.items = group2.items.slice(0, 6)
-    if (group3 && group3.items) group3.items = group3.items.slice(0, 30)
+    if (group3 && group3.items) group3.items = group3.items.slice(0, 16)
 
     params = {
       params: {
@@ -236,10 +195,6 @@ export default {
   created() {
   },
   mounted() {
-    setTimeout(() => {
-      this.toOrderNum('1234567+', '成立') // 这里输入数字即可调用
-    }, 500)
-    window.addEventListener('scroll', this.demoScroll)
   },
   methods: {
     target(id) {
@@ -284,36 +239,14 @@ export default {
     formatDate(val) {
       return tools.date(val)
     },
-      // 设置文字滚动
-      setNumberTransform () {
-       const numberItems = this.$refs.numberItem
-       const numberArr = this.orderNumAll.orderNum.filter(item => !isNaN(item))
-       // 结合CSS 对数字字符进行滚动,显示订单数量
-       for (let index = 0; index < numberItems.length; index++) {
-        const elem = numberItems[index]
-        elem.style.transform = `translate(-50%, -${numberArr[index] * 10}%)`
-       }
-      },
-      // 处理总订单数字
-      toOrderNum(num, des) {
-       num = num.toString()
-         if (num.length <= 8) {
-          this.orderNumAll.orderNum = num.split('')
-          this.orderNumAll.orderdes = des
-        } else if (num.length > 8) {
-          // 订单总量数字超过八位显示异常
-          this.toOrderNum('9999999+', '项目')
-        }
-        this.setNumberTransform()
-      },
-      g3tabcont(g3tab, childrenone){
-        if(g3tab===0){
-          this.g3tab = childrenone
-          return this.g3tab
-        }else{
-          return this.g3tab
-        }
+    g3tabcont(g3tab, childrenone){
+      if(g3tab===0){
+        this.g3tab = childrenone
+        return this.g3tab
+      }else{
+        return this.g3tab
       }
+    }
   }
 }
 </script>

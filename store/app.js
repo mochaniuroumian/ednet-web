@@ -148,7 +148,7 @@ const actions = {
         params: {
           CatalogGroupId: element.catalogGroupId,
           SkipCount: 0,
-          MaxResultCount: 10,
+          MaxResultCount: 200,
           Sorting: 'IsTop DESC, Number DESC'
         }
       }

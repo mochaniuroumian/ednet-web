@@ -12,7 +12,7 @@
             <div class="logo">
               <img :src="companyInfo.logo" @click="go('/')" />
             </div>
-            <div class="company-name">{{ companyInfo.logoText }}</div>
+            <h3 class="company-name">{{ companyInfo.logoText }}</h3>
           </div>
           <navbar ref="navbar" :items="navbars" :father="true"></navbar>
           <div class="header-tools">
