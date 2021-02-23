@@ -230,7 +230,6 @@ export default {
           typename = 'product'
           break
       }
-      console.log(typename)
       window.open(`/${this.culture}/` + typename + '/detail/' + String(id), '_blank')
     },
     filter(val, length) {

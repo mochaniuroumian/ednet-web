@@ -14,7 +14,10 @@
             <a href="javascript:void(0)" class="gray">
               <span>{{ item.title }}</span>
             </a>
-            <i>{{ formatDate(item.startDate) }} 一 {{ formatDate(item.endDate) }}</i>
+            <i>
+              {{ formatDate(item.startDate)}}{{ formatDate(item.startDate) != null && formatDate(item.endDate) !== null ? ' 一 ' : ''
+              }}{{ formatDate(item.endDate) }}
+            </i>
           </li>
         </ul>
       </div>
