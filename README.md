@@ -1,4 +1,4 @@
-# template-c
+# template-d
 
 ## Build Setup
 
@@ -18,3 +18,4 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+aaa啊啊啊啊不不不
