@@ -6,11 +6,11 @@
 }
 .main {
   padding-top: 6rem;
-  min-height: calc(100% - 9.2rem);
+  min-height: calc(100% - 20.8rem);
   position: relative;
   @media @desktop {
     padding-top: 0rem;
-    min-height: calc(100% - 15.1rem);
+    min-height: calc(100% - 11.1rem);
   }
   .main-tools {
     z-index: 2;
@@ -103,6 +103,7 @@
     }
     .name {
       border-bottom: 1px solid @color-primary;
+      font-size: 1.8rem;
     }
     .more {
       font-weight: normal;
@@ -116,6 +117,7 @@
       .name {
         padding-left: 2rem;
         padding-right: 2rem;
+        font-size: 2.4rem;
       }
     }
     @media (min-width: 1200px) {
@@ -131,6 +133,10 @@
     margin-top: 2rem;
     margin-bottom: 0;
     text-align: center;
+    font-size: 1.8rem;
+    @media @desktop {
+      font-size: 2.4rem;
+    }
   }
   // 详情副标题
   .page-sub-title {

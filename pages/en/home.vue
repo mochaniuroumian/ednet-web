@@ -177,11 +177,11 @@ export default {
       let count = {}
       group1.items = group1.items.filter(({catalogGroupId}) => {
         count[catalogGroupId] = (count[catalogGroupId] || 0) + 1
-        return count[catalogGroupId] <= 8
+        return count[catalogGroupId] <= 4
       })
     }
     if (group2 && group2.items) group2.items = group2.items.slice(0, 6)
-    if (group3 && group3.items) group3.items = group3.items.slice(0, 16)
+    if (group3 && group3.items) group3.items = group3.items.slice(0, 8)
 
     params = {
       params: {

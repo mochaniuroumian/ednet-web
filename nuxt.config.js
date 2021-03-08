@@ -122,5 +122,6 @@ export default {
         config.devtool = ctx.isClient ? 'source-map' : 'cheap-module-source-map'
       }
     }
-  }
+  },
+  telemetry:false
 }
