@@ -90,6 +90,7 @@ const cutString = function(str, len) {
   for (let i = 0; i < str.length; i++) {
     s = s + str.charAt(i)
     if (str.charCodeAt(i) > 128) {
+      debugger
       strlen = strlen + 2
       if (strlen >= len) {
         return s.substring(0, s.length - 1) + '..'

@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production')
     credentials: true
   }
 
-const defaultTenantId = 18
+const defaultTenantId = 31
 const defaultTheme = 'indianred'
 
 // let css = ['swiper/dist/css/swiper.css', '~/static/css/all.min.css']

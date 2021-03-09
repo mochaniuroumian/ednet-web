@@ -14,7 +14,7 @@ COPY --from=build /app /
 ENV HOST 0.0.0.0 
 ENV PORT 80 
 ENV ENV NODE_ENV=production
-ENV NUXT_ENV_THEME=red
-ENV NUXT_ENV_TENANT_ID=18
+ENV NUXT_ENV_THEME=blue
+ENV NUXT_ENV_TENANT_ID=31
 CMD ["npm","start"]
  
