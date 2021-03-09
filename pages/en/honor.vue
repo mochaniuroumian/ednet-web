@@ -18,6 +18,8 @@
               {{ formatDate(item.startDate)}}{{ formatDate(item.startDate) != null && formatDate(item.endDate) !== null ? ' 一 ' : ''
               }}{{ formatDate(item.endDate) }}
             </i>
+            <p class="cover-content-mobile" v-html="filter(item.info,185)"></p>
+            <p class="cover-content" :title="filter(item.info,185)" v-html="filter(item.info,48)"></p>
           </li>
         </ul>
       </div>
@@ -64,6 +66,9 @@ export default {
   },
   created() {},
   methods: {
+    filter(val, length) {
+      return tools.cutString(tools._filter(val), length)
+    },
     formatDate(val) {
       return tools.dateOnly(val)
     },
