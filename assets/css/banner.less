@@ -28,15 +28,15 @@
     padding-bottom: (900/1920) * 100%;
     position: relative;
     overflow: hidden;
+    background-image: url(../imgs/background.jpg);
     > img {
       position: absolute;
       top: 50%;
       left: 50%;
       max-width: (900/600) * 100%;
-      width: (900/600) * 100% !important;
-      transform: translate(-50%, -50%);
+      width: 50% !important;
+      transform: translate(0, -50%);
       @media (min-width: 768px) {
-        width: 100% !important;
         max-width: 100%;
       }
     }
@@ -175,7 +175,10 @@
   width: 70%;
   height: 100%;
   padding: 0;
-
+  @media @tablet {
+    left: 5%;
+    width: 40%;
+  }
   .banner-font {
     position: absolute;
     z-index: 11;
