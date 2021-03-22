@@ -77,13 +77,11 @@
                 </div>
               </div>
             </div>
-            <div slot="button-prev" class="swiper-banner-prev"></div>
-            <div slot="button-next" class="swiper-banner-next"></div>
             <div class="swiper-pagination"></div>
           </div>
         </client-only>
       </div>
-      <div v-if="isDevelopment" class="development">
+      <!-- <div v-if="isDevelopment" class="development">
         <ul>
           <li v-for="item in themes" :key="item.displayName">
             <a
@@ -92,7 +90,7 @@
             ></a>
           </li>
         </ul>
-      </div>
+      </div> -->
       <div v-if="!currentPath.isHome" class="breadCrumb-container">
         <div class="container">
           <bread-crumb :items="breadCrumbItems"></bread-crumb>
@@ -162,12 +160,14 @@ export default {
       wxShow: false,
       headColor: '',
       swiperOption: {
-        pagination: {
-          el: '.swiper-pagination'
+        effect : 'fade',
+        fadeEffect: {
+          crossFade: true,
         },
-        navigation: {
-          nextEl: '.swiper-banner-next',
-          prevEl: '.swiper-banner-prev'
+        // autoplay: { delay: 5000 },
+        pagination: {
+          el: '.swiper-pagination',
+          type : 'progressbar',
         },
         loop: true,
         autoHeight: true,
@@ -237,7 +237,7 @@ export default {
       userAgent: context.userAgent,
       language,
       theme: context.$config.NUXT_ENV_THEME,
-      isDevelopment: context.$config.NUXT_ENV === 'development'
+      // isDevelopment: context.$config.NUXT_ENV === 'development'
     }
   },
   created() {
@@ -275,7 +275,7 @@ export default {
       else return null
     },
     currentFontPosition(item) {
-      return `banner-font ${item.titleAlign} ${item.titleVertical}`
+      return `banner-font ${item.titleAlign}`
     },
     weixinExpand() {
       return this.wxShow ? this.weixinHide() : this.weixinShow()

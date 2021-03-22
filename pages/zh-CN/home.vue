@@ -1,5 +1,47 @@
 <template>
   <section class="home">
+    <section class="numberRoll">
+      <section class="container">
+        <div class="roll-ul">
+          <div class="roll-li">
+            <div class="rollCont">
+              <p v-for="(item,index) in orderNumAll[0].orderNum" :key="index"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem">0123456789</i>
+                </span>
+                <span v-else class="comma">{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll[0].orderdes }}</div>
+          </div>
+          <div class="roll-li">
+            <div class="rollCont">
+              <p v-for="(item,index) in orderNumAll[1].orderNum" :key="index"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem2">0123456789</i>
+                </span>
+                <span v-else class="comma">{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll[1].orderdes }}</div>
+          </div>
+          <div class="roll-li">
+            <div class="rollCont">
+              <p v-for="(item,index) in orderNumAll[2].orderNum" :key="index"
+              :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }">
+                <span v-if="!isNaN(item)" class="big-number">
+                  <i ref="numberItem3">0123456789</i>
+                </span>
+                <span v-else class="comma">{{ item }}</span>
+              </p>
+            </div>
+            <div class="roll-font">{{ orderNumAll[2].orderdes }}</div>
+          </div>
+        </div>
+      </section>
+    </section>
     <section class="container">
       <section v-if="group1" class="product-block">
         <h3 class="block-title">
@@ -119,10 +161,24 @@ export default {
       isProductLoading: false,
       g3tab: 0,
       g1items: [],
-      announceSwiperOption: {
-        autoplay: true,
-        loop: true
-      }
+      // announceSwiperOption: {
+      //   autoplay: true,
+      //   loop: true
+      // }
+      orderNumAll: [
+        {
+        orderNum: ['2', '0', '0', '4', '年'],
+        orderdes: '成立'
+        },
+        {
+        orderNum: ['1', '0', '0', '+'],
+        orderdes: '行业领域'
+        },
+        {
+        orderNum: ['2', '0', '0', '0', '+'],
+        orderdes: '客户信赖'
+        }
+      ]
     }
   },
   computed: {
@@ -195,6 +251,9 @@ export default {
   created() {
   },
   mounted() {
+    setTimeout(() => {
+      this.setNumberTransform()
+    }, 500)
   },
   methods: {
     target(id) {
@@ -245,7 +304,29 @@ export default {
       }else{
         return this.g3tab
       }
-    }
+    },
+    // 设置文字滚动
+      setNumberTransform () {
+       const numberItems = this.$refs.numberItem
+       const numberItems2 = this.$refs.numberItem2
+       const numberItems3 = this.$refs.numberItem3
+       const numberArr = this.orderNumAll[0].orderNum.filter(item => !isNaN(item))
+       const numberArr2 = this.orderNumAll[1].orderNum.filter(item => !isNaN(item))
+       const numberArr3 = this.orderNumAll[2].orderNum.filter(item => !isNaN(item))
+       // 结合CSS 对数字字符进行滚动,显示订单数量
+       for (let index = 0; index < numberItems.length; index++) {
+        const elem = numberItems[index]
+        elem.style.transform = `translate(-50%, -${numberArr[index] * 10}%)`
+       }
+       for (let index = 0; index < numberItems2.length; index++) {
+        const elem2 = numberItems2[index]
+        elem2.style.transform = `translate(-50%, -${numberArr2[index] * 10}%)`
+       }
+       for (let index = 0; index < numberItems3.length; index++) {
+        const elem3 = numberItems3[index]
+        elem3.style.transform = `translate(-50%, -${numberArr3[index] * 10}%)`
+       }
+      }
   }
 }
 </script>
