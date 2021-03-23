@@ -42,7 +42,6 @@
         </div>
       </section>
     </section>
-    <section class="container">
       <section v-if="group1" class="product-block">
         <h3 class="block-title">
           <span class="name">{{ group1.title }}</span>
@@ -50,27 +49,22 @@
             <a href="javascript:void(0)" @click="goNewsGroup(group1.catalogGroupId, group1.type)">{{ $L('More') }} ></a>
           </span>
         </h3>
-        <div class="product-type">
-          <button v-for="item in group1.children" :key="item.id" @click="g3tab=item.id" :class="[g3tab==item.id?'tabbut':'']">{{ item.displayName }}</button>
-        </div>
-        <ul>
-          <li v-for="item in group1.items" :key="item.id" @click="goNewsDetail(item.id, group1.type)" 
-          v-show="g3tabcont(g3tab,group1.children[0].id)===item.catalogGroupId">
-            <div class="product-icon-container">
-              <div class="product-cover">
-                <span>
-                  <img :src="item.miniCover" :alt="item.title"/>
-                </span>
-              </div>
-              <div class="product-info">
-                <h4>{{ item.title }}</h4>
-              </div>
+        <section class="looper">
+        <client-only>
+        <div v-swiper:group1Swipper="swiperOption">
+        <div class="swiper-wrapper position-relative">
+          <div v-for="item in group1.items" :key="item.id" class="swiper-slide" @click="goNewsDetail(item.id, group1.type)">
+            <img :src="item.miniCover" :alt="item.title"/>
+            <div class="product-info">
+              <a>{{ item.title }}</a>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
+        </div>
+        </client-only>
+        </section>
       </section>
-    </section>
-    <section v-if="group2" class="picnews-block">
+    <!-- <section v-if="group2" class="picnews-block">
         <h3 class="block-title">
           <span class="name">{{ group2.title }}</span>
         </h3>
@@ -96,7 +90,7 @@
           <div class="swiper-pic-prev picbut"><i class="fas fa-arrow-left"></i></div>
           <div class="swiper-pic-next picbut"><i class="fas fa-arrow-right"></i></div>
         </section>
-    </section>
+    </section> -->
     <section class="container">
       <section v-if="ad1" class="account">
       <section class="account-img">
@@ -182,37 +176,59 @@ export default {
     }
   },
   computed: {
+    // swiperOption() {
+    //   let that = this
+    //   let option = {
+    //     autoplay: { delay: 3000 },
+    //     loop: true,
+    //     breakpointsInverse: true,
+    //     preventClicks: false,
+    //     navigation: {
+    //       nextEl: '.swiper-pic-next',
+    //       prevEl: '.swiper-pic-prev'
+    //     },
+    //     breakpoints: {
+    //       300: {
+    //         slidesPerView: 2,
+    //         slidesPerGroup: 2
+    //       },
+    //       768: {
+    //         slidesPerView: 4,
+    //         slidesPerGroup: 1
+    //       }
+    //     },
+    //     on: {
+    //       click() {
+    //         const realIndex = this.clickedSlide.dataset.index
+    //         const group = parseInt(this.clickedSlide.dataset.group)
+    //         that.goNewsDetail(realIndex, group)
+    //       }
+    //     }
+    //   }
+    //   return option
+    // },
     swiperOption() {
-      let that = this
       let option = {
-        autoplay: { delay: 3000 },
+        effect : 'coverflow',
+        slidesPerView: 3,
+        centeredSlides: true,
+        spaceBetween: 20,
+			coverflowEffect: {
+				rotate: 0, //slide做3d旋转时Y轴的旋转角度。默认50。
+				stretch: -50, //每个slide之间的拉伸值（距离），越大slide靠得越紧。 默认0。
+				depth: 100, //slide的位置深度。值越大z轴距离越远，看起来越小。 默认100。
+				modifier: 1, //depth和rotate和stretch的倍率，相当于            depth*modifier、rotate*modifier、stretch*modifier，值越大这三个参数的效果越明显。默认1。
+				slideShadows: false //开启slide阴影。默认 true。
+			},
+        autoplay: { delay: 5000 },
         loop: true,
-        breakpointsInverse: true,
-        preventClicks: false,
-        navigation: {
-          nextEl: '.swiper-pic-next',
-          prevEl: '.swiper-pic-prev'
-        },
-        breakpoints: {
-          300: {
-            slidesPerView: 2,
-            slidesPerGroup: 2
-          },
-          768: {
-            slidesPerView: 4,
-            slidesPerGroup: 1
-          }
-        },
         on: {
-          click() {
-            const realIndex = this.clickedSlide.dataset.index
-            const group = parseInt(this.clickedSlide.dataset.group)
-            that.goNewsDetail(realIndex, group)
-          }
+          slideChange() {},
+          tap() {}
         }
       }
       return option
-    },
+      },
     ...mapState({
       currentPath: state => state.app.currentPath,
       culture: state => state.app.culture,
