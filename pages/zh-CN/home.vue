@@ -62,40 +62,29 @@
         </client-only>
         </section>
       </section>
-    <!-- <section v-if="group2" class="picnews-block">
-        <h3 class="block-title">
-          <span class="name">{{ group2.title }}</span>
-        </h3>
-        <section class="looper">
-          <client-only>
-            <div v-swiper:group2Swipper="swiperOption">
-              <div class="swiper-wrapper position-relative">
-                <div
-                  v-for="item in group2.items"
-                  :key="item.id"
-                  :data-index="item.id"
-                  :data-group="group2.type"
-                  class="swiper-slide"
-                >
-                  <img :src="item.cover" :alt="item.title"/>
-                  <div class="slide-info">
-                    <a>{{ item.title }}</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </client-only>
-          <div class="swiper-pic-prev picbut"><i class="fas fa-arrow-left"></i></div>
-          <div class="swiper-pic-next picbut"><i class="fas fa-arrow-right"></i></div>
-        </section>
-    </section> -->
+    <section v-if="group2" class="picnews-block">
+      <section class="container">
+      <div class="block-title">
+        <h1 class="name">{{ group2.title }}</h1>
+        <h5 class="more">{{ group2.catalogGroup.info }}</h5>
+      </div>
+      <div v-for="item in group2.items" :key="item.id" class="piccont" @click="goNewsDetail(item.id, group2.type)">
+        <div class="picimg">
+          <img :src="item.cover" :alt="item.title"/>
+        </div>
+        <div class="slide-info">
+          <a>{{ item.title }}</a>
+        </div>
+      </div>
+      </section>
+    </section>
     <section class="container">
       <section v-if="ad1" class="account">
       <section class="account-img">
         <section class="img-sec">
-        <div class="contentImg">
-          <img :src="ad1.img">
-        </div>
+          <div class="contentImg">
+            <img :src="ad1.img">
+          </div>
         </section>
       </section>
       <section class="ad-block">
@@ -153,10 +142,6 @@ export default {
       isProductLoading: false,
       g3tab: 0,
       g1items: [],
-      // announceSwiperOption: {
-      //   autoplay: true,
-      //   loop: true
-      // }
       orderNumAll: [
         {
         orderNum: ['2', '0', '0', '4', '年'],
@@ -174,37 +159,6 @@ export default {
     }
   },
   computed: {
-    // swiperOption() {
-    //   let that = this
-    //   let option = {
-    //     autoplay: { delay: 3000 },
-    //     loop: true,
-    //     breakpointsInverse: true,
-    //     preventClicks: false,
-    //     navigation: {
-    //       nextEl: '.swiper-pic-next',
-    //       prevEl: '.swiper-pic-prev'
-    //     },
-    //     breakpoints: {
-    //       300: {
-    //         slidesPerView: 2,
-    //         slidesPerGroup: 2
-    //       },
-    //       768: {
-    //         slidesPerView: 4,
-    //         slidesPerGroup: 1
-    //       }
-    //     },
-    //     on: {
-    //       click() {
-    //         const realIndex = this.clickedSlide.dataset.index
-    //         const group = parseInt(this.clickedSlide.dataset.group)
-    //         that.goNewsDetail(realIndex, group)
-    //       }
-    //     }
-    //   }
-    //   return option
-    // },
     swiperOption() {
       let option = {
         effect : 'coverflow',
@@ -248,15 +202,16 @@ export default {
     group1 = groups.length > 0 ? groups[0] : null
     group2 = groups.length > 1 ? groups[1] : null
     group3 = groups.length > 2 ? groups[2] : null
-    if (group1 && group1.items) {
-      let count = {}
-      group1.items = group1.items.filter(({catalogGroupId}) => {
-        count[catalogGroupId] = (count[catalogGroupId] || 0) + 1
-        return count[catalogGroupId] <= 4
-      })
-    }
-    if (group2 && group2.items) group2.items = group2.items.slice(0, 6)
+    if (group1 && group1.items) group1.items = group1.items.slice(0, 10)
+    if (group2 && group2.items) group2.items = group2.items.slice(0, 3)
     if (group3 && group3.items) group3.items = group3.items.slice(0, 8)
+    // if (group1 && group1.items) {
+    //   let count = {}
+    //   group1.items = group1.items.filter(({catalogGroupId}) => {
+    //     count[catalogGroupId] = (count[catalogGroupId] || 0) + 1
+    //     return count[catalogGroupId] <= 4
+    //   })
+    // }
 
     params = {
       params: {

@@ -211,106 +211,27 @@
     }
   }
   .picnews-block {
-    margin: 4rem 0;
+    margin: 6rem 0;
     background-color: hsla(@color-primary-dark-hsl, 0.05);
-    padding-top: 4rem;
-    padding-bottom: 12rem;
-    .block-title{
-      justify-content: center;
-    }
-    .looper {
-      width: 100%;
-      height: 0;
-      padding-bottom: 40%;
+    padding: 6rem 0rem;
+    .piccont {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
       position: relative;
-      @media @tablet {
-        padding-bottom: 20%;
-      }
-    }
-    .swiper-container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-    .swiper-slide {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      > img {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-        transition: 0.5s;
-        &:hover {
-          -webkit-transform: scale(1.2, 1.2);
-          transform: scale(1.2, 1.2);
+      .picimg {
+        width: 50%;
+        > img {
+          width: 100%;
         }
       }
       .slide-info {
-        z-index: 20;
         position: absolute;
-        bottom: 0;
         left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
+        width: 50%;
         padding: 1rem 2rem;
         font-size: 1.6rem;
         background-color: rgba(0, 0, 0, 0.5);
-        a {
-          color: @color-white;
-        }
-      }
-    }
-    .picbut {
-    height: 3rem;
-    width: 3rem;
-    bottom: -6rem;
-    position: absolute;
-    font-size: 2rem;
-    text-align: center;
-    line-height: 3rem;
-    border: 1px solid @color-primary;
-    border-radius: 50%;
-    color: @color-primary;
-    cursor: pointer;
-      &.swiper-pic-prev {
-        left: 40%;
-      }
-      &.swiper-pic-next {
-        right: 40%;
-      }
-      &:hover {
-        background-color: hsla(@color-primary-dark-hsl, 0.2);
-      }
-    }
-    ul {
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      transform: translate3d(0, 0, 0);
-      animation: moveSlideshow 10s linear infinite;
-      li {
-        flex-shrink: 0;
-        width: 20%;
-        height: 0;
-        padding-bottom: 15%;
-        overflow: hidden;
-        position: relative;
-        transform: translate3d(0, 0, 0);
-        .cover {
-          position: absolute;
-          top: 0;
-          left: 0;
-          padding: 1rem;
-          width: 100%;
-          height: 100%;
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
       }
     }
   }
