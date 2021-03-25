@@ -15,6 +15,7 @@
     .more {
       font-weight: normal;
       font-size: 1.4rem;
+      color: #868686;
     }
     @media @tablet {
       .name {
@@ -216,22 +217,52 @@
     padding: 6rem 0rem;
     .piccont {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: stretch;
       position: relative;
+      padding-top: 6rem;
       .picimg {
-        width: 50%;
+        width: 100%;
+        padding-bottom: 50%;
+        height: 0;
+        position: relative;
         > img {
           width: 100%;
+          height: 100%;
+          object-fit: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
         }
       }
       .slide-info {
-        position: absolute;
-        left: 50%;
-        width: 50%;
-        padding: 1rem 2rem;
         font-size: 1.6rem;
-        background-color: rgba(0, 0, 0, 0.5);
+        margin-right: 6rem;
+        margin-left: 6rem;
+        padding-top: 2rem;
+        width: calc(100% - 12rem);
+      }
+    }
+    @media @desktop {
+      .piccont {
+        flex-direction: row;
+        padding: 6rem 0;
+        .picimg {
+          width: 55%;
+          padding-bottom: 35%;
+        }
+        .slide-info {
+          position: absolute;
+          right: 0;
+          padding-top: 8rem;
+          width: 33%;
+          .name {
+            text-align: left;
+          }
+          .more {
+            text-align: left;
+          }
+        }
       }
     }
   }

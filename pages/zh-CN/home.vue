@@ -72,34 +72,34 @@
         <div class="picimg">
           <img :src="item.cover" :alt="item.title"/>
         </div>
-        <div class="slide-info">
-          <a>{{ item.title }}</a>
+        <div class="block-title slide-info">
+          <h1 class="name">{{ item.title }}</h1>
+          <h5 class="more">{{ item.catalogGroup.info }}</h5>
         </div>
       </div>
       </section>
     </section>
     <section class="container">
       <section v-if="ad1" class="account">
-      <section class="account-img">
-        <section class="img-sec">
-          <div class="contentImg">
-            <img :src="ad1.img">
-          </div>
-        </section>
-      </section>
-      <section class="ad-block">
-        <div class="ad-content">
-          <h3 class="title">
-            <span class="name">{{ ad1.title }}</span>
-          </h3>
-          <div class="text">{{ ad1.text }}</div>
-          <div class="links">
-            <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="button-gray more">{{ $L(`More`) }} ></a>
-          </div>
+        <div class="account-list">
+          <dl>
+            <dt class="block-title">
+              <h1 class="name">{{ group3.title }}</h1>
+              <h5 class="more">{{ group3.catalogGroup.info }}</h5>
+            </dt>
+            <dd v-for="item in group3.items" :key="item.id">
+              <div class="account-img">
+                <img :src="group3.img">
+              </div>
+              <div class="ad-block">
+                <span class="test">{{ item.title }}</span>
+                <span class="test">{{ item.title }}</span>
+              </div>
+            </dd>
+          </dl>
         </div>
       </section>
-      </section>
-      </section>
+    </section>
       <section v-if="ad2" class="ad-img-block" :style="`background-image:url('${ad2.img}')`">
         <div class="ad-img-color">
         <h3 class="title">
@@ -194,7 +194,7 @@ export default {
     })
   },
   async asyncData({ isDev, route, store, env, query, req, res, redirect, error }) {
-    let params, group1, group2, group3, ad1, ad2, announces
+    let params, group1, group2, group3, group4, ad1, ad2, announces
     const groups = store.state.app.homePage.groups.filter(x => x.catalogGroup)
     const blocks = store.state.app.homePage.blocks
     ad1 = blocks.length > 0 ? blocks[0] : null
@@ -202,9 +202,11 @@ export default {
     group1 = groups.length > 0 ? groups[0] : null
     group2 = groups.length > 1 ? groups[1] : null
     group3 = groups.length > 2 ? groups[2] : null
+    group4 = groups.length > 3 ? groups[3] : null
     if (group1 && group1.items) group1.items = group1.items.slice(0, 10)
     if (group2 && group2.items) group2.items = group2.items.slice(0, 3)
     if (group3 && group3.items) group3.items = group3.items.slice(0, 8)
+    if (group4 && group4.items) group4.items = group4.items.slice(0, 8)
     // if (group1 && group1.items) {
     //   let count = {}
     //   group1.items = group1.items.filter(({catalogGroupId}) => {
