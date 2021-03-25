@@ -28,6 +28,21 @@
   }
   .account {
     position: relative;
+    dd {
+      padding: 2rem 1rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      .account-img {
+        >img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      span {
+        float: right;
+      }
+    }
     @media @tablet {
       margin-top: 6rem;
       margin-bottom: 4rem;
@@ -35,70 +50,17 @@
       flex-direction: row;
       align-items: stretch;
       min-height: 24rem;
-    }
-  }
-  .account-img {
-    display: none;
-    @media @tablet {
-      display: block;
-      width: 50%;
-      margin-bottom: 2rem;
-    .img-sec{
-      position: relative;
-      height: 100%;
-      width: 100%;
-      padding-bottom: 0;
-      .contentImg{
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        img{
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+      dl {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
       }
-    }
-    }
-  }
-  .ad-block {
-    text-align: left;
-    width: 100%;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    color: @color-primary;
-    .ad-content {
-      padding: 2.8rem;
-      .title {
-        font-size: 1.8rem;
-      }
-      .text {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .links {
-        margin-top: 2rem;
-        .button-gray{
-          background-color: @color-white;
-          border: 0.1rem solid @color-primary;
-          border-radius: 2rem;
-          -webkit-transition: background-color 1s;
-          transition: background-color 1s;
-          &:hover{
-            background-color: hsla(@color-primary-dark-hsl, 0.2);
-          }
-        }
-      }
-    }
-    @media @tablet {
-      width: 50%;
-      background-color: @color-white;
-      padding-left: 3rem;
-      .ad-content {
-        padding: 4rem;
-        .title {
-          font-size: 2rem;
+      dd {
+        width: calc(25% - 1rem);
+        color: #868686;
+        margin: 2rem .5rem;
+        span {
+          font-size: 1.8rem;
         }
       }
     }
@@ -214,7 +176,7 @@
   .picnews-block {
     margin: 6rem 0;
     background-color: hsla(@color-primary-dark-hsl, 0.05);
-    padding: 6rem 0rem;
+    padding-top: 6rem;
     .piccont {
       display: flex;
       flex-direction: column;
@@ -310,7 +272,7 @@
     }
   }
   .numberRoll{
-    padding: 4rem 0;
+    padding: 6rem 0;
     position: relative;
     border-top: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;

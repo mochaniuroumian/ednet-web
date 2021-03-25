@@ -80,7 +80,7 @@
       </section>
     </section>
     <section class="container">
-      <section v-if="ad1" class="account">
+      <section v-if="group3" class="account">
         <div class="account-list">
           <dl>
             <dt class="block-title">
@@ -89,7 +89,7 @@
             </dt>
             <dd v-for="item in group3.items" :key="item.id">
               <div class="account-img">
-                <img :src="group3.img">
+                <img :src="item.cover">
               </div>
               <div class="ad-block">
                 <span class="test">{{ item.title }}</span>
@@ -111,17 +111,17 @@
         </div>
       </section>
       <section class="container">
-      <section v-if="group3" class="news-block">
+      <section v-if="group4" class="news-block">
         <div class="news-list">
           <dl>
             <dt class="block-title">
-              <span class="name">{{ group3.title }}</span>
+              <span class="name">{{ group4.title }}</span>
               <span class="more">
-                <a href="javascript:void(0)" @click="goNewsGroup(group3.catalogGroupId, group3.type)">{{ $L('More') }} ></a>
+                <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a>
               </span>
             </dt>
-            <dd v-for="item in group3.items" :key="item.id">
-              <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group3.type)">{{ item.title }}</a>
+            <dd v-for="item in group4.items" :key="item.id">
+              <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group4.type)">{{ item.title }}</a>
               <span>[{{ formatDate(item.creationTime) }}]</span>
             </dd>
           </dl>
@@ -222,7 +222,7 @@ export default {
       }
     }
     announces = (await store.dispatch('app/getAnounces', params)).items
-    return { ad1, ad2, announces, group1, group2, group3 }
+    return { ad1, ad2, announces, group1, group2, group3, group4 }
   },
   created() {
   },
