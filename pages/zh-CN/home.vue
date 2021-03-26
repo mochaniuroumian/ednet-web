@@ -92,8 +92,8 @@
                 <img :src="item.cover">
               </div>
               <div class="ad-block">
-                <span class="test">{{ item.title }}</span>
-                <span class="test">{{ item.title }}</span>
+                <span class="title">{{ item.title }}</span>
+                <span class="test" v-html="filter(item.content,100)"></span>
               </div>
             </dd>
           </dl>
@@ -102,23 +102,38 @@
     </section>
       <section v-if="ad2" class="ad-img-block" :style="`background-image:url('${ad2.img}')`">
         <div class="ad-img-color">
+        <p>{{ ad2.text }}</p>
         <h3 class="title">
           <a :href="ad2.url ? ad2.url : 'javascript:void(0)'" class="img-url">
           <span class="name">{{ ad2.title }}</span>
           </a>
         </h3>
-        <p>{{ ad2.text }}</p>
         </div>
       </section>
       <section class="container">
       <section v-if="group4" class="news-block">
+        <div class="block-title">
+          <h1 class="name">{{ group4.title }}</h1>
+            <h5 class="more">{{ group4.catalogGroup.info }}
+              <!-- <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a> -->
+            </h5>
+        </div>
         <div class="news-list">
           <dl>
             <dt class="block-title">
-              <span class="name">{{ group4.title }}</span>
-              <span class="more">
-                <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a>
-              </span>
+              <h5 class="more">{{ group1.children[0].displayName }}
+                <!-- <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a> -->
+              </h5>
+            </dt>
+            <dd v-for="item in group4.items" :key="item.id" v-if="item.catalogGroupId == group1.children[0].id">
+              <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group4.type)">{{ item.title }}</a>
+              <span>[{{ formatDate(item.creationTime) }}]</span>
+            </dd>
+
+            <dt class="block-title">
+              <h5 class="more">{{ group1.children[0].displayName }}
+                <!-- <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a> -->
+              </h5>
             </dt>
             <dd v-for="item in group4.items" :key="item.id">
               <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group4.type)">{{ item.title }}</a>
@@ -206,14 +221,18 @@ export default {
     if (group1 && group1.items) group1.items = group1.items.slice(0, 10)
     if (group2 && group2.items) group2.items = group2.items.slice(0, 3)
     if (group3 && group3.items) group3.items = group3.items.slice(0, 8)
-    if (group4 && group4.items) group4.items = group4.items.slice(0, 8)
-    // if (group1 && group1.items) {
-    //   let count = {}
-    //   group1.items = group1.items.filter(({catalogGroupId}) => {
-    //     count[catalogGroupId] = (count[catalogGroupId] || 0) + 1
-    //     return count[catalogGroupId] <= 4
-    //   })
-    // }
+    if (group4 && group4.items) {
+      group4.children = group4.children.slice(0, 2)
+      if (group4 && group4.items) {
+        let count = {}
+        group4.items = group4.items.filter(({catalogGroupId}) => {
+          // catalogGroupId = group4.children[0].id
+          count[catalogGroupId] = (count[catalogGroupId] || 0) + 1
+          debugger
+          return count[catalogGroupId] <= 4
+        })
+      }
+    }
 
     params = {
       params: {

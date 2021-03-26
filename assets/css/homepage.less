@@ -28,39 +28,59 @@
   }
   .account {
     position: relative;
-    dd {
-      padding: 2rem 1rem;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      .account-img {
-        >img {
+    dl {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: stretch;
+      margin-top: 6rem;
+        margin-bottom: 4rem;
+      dd {
+        padding: 0 1rem 2rem 1rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: calc(50% - 1rem);
+        color: #868686;
+        margin: 2rem .5rem;
+        .account-img {
           width: 100%;
-          height: 100%;
-          object-fit: cover;
+          height: 0;
+          padding-bottom: 60%;
+          overflow: hidden;
+          position: relative;
+          >img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+            top: 0;
+          }
         }
-      }
-      span {
-        float: right;
+        span {
+          margin-top: 2rem;
+          width: 100%;
+          float: left;
+          &.title {
+            text-align: center;
+          }
+        }
       }
     }
     @media @tablet {
-      margin-top: 6rem;
-      margin-bottom: 4rem;
-      display: flex;
-      flex-direction: row;
-      align-items: stretch;
-      min-height: 24rem;
-      dl {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+      dl{
+        dd {
+          span {
+            font-size: 1.8rem;
+          }
+        }
       }
-      dd {
-        width: calc(25% - 1rem);
-        color: #868686;
-        margin: 2rem .5rem;
-        span {
-          font-size: 1.8rem;
+    }
+    @media @desktop {
+      dl{
+        dd {
+          padding: 2rem 1rem;
+          width: calc(25% - 1rem);
         }
       }
     }
@@ -74,11 +94,10 @@
       background-attachment: fixed;
     }
     .ad-img-color{
-      padding: 7rem;
+      padding: 8rem 8rem 10rem 8rem;
       background-color: rgba(255, 255, 255, 0.7);
       p{
-        margin-top: 2rem;
-        @media @desktop{
+        @media @tablet{
           font-size: 1.8rem;
         }
       }
@@ -93,20 +112,23 @@
       &::after {
         content: '';
         position: absolute;
-        bottom: 0%;
+        top: 0;
         left: 0;
         width: 100%;
         height: 1px;
         border-bottom: 1px solid @color-primary;
       }
       .name {
-        padding: 1rem;
+        padding: 1rem 6rem;
         white-space: nowrap;
         z-index: 2;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        border: 1px @color-primary solid;
+        margin: 4rem 0;
+        border-radius: 4rem;
       }
     }
     .img-url {
@@ -117,7 +139,7 @@
   .news-block {
     background-color: none;
     margin-bottom: 4rem;
-    padding: 1rem;
+    padding: 2rem 0;
     position: relative;
     -webkit-animation-duration: 1s;
       animation-duration: 1s;
@@ -176,13 +198,13 @@
   .picnews-block {
     margin: 6rem 0;
     background-color: hsla(@color-primary-dark-hsl, 0.05);
-    padding-top: 6rem;
+    padding: 6rem 0;
     .piccont {
       display: flex;
       flex-direction: column;
       align-items: stretch;
       position: relative;
-      padding-top: 6rem;
+      padding-top: 4rem;
       .picimg {
         width: 100%;
         padding-bottom: 50%;
