@@ -114,28 +114,27 @@
       <section v-if="group4" class="news-block">
         <div class="block-title">
           <h1 class="name">{{ group4.title }}</h1>
-            <h5 class="more">{{ group4.catalogGroup.info }}
-              <!-- <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a> -->
-            </h5>
+            <h5 class="more">{{ group4.catalogGroup.info }}</h5>
         </div>
         <div class="news-list">
           <dl>
             <dt class="block-title">
-              <h5 class="more">{{ group1.children[0].displayName }}
-                <!-- <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a> -->
+              <h5 class="more">{{ group4.children[0].displayName }}
+                <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a>
               </h5>
             </dt>
-            <dd v-for="item in group4.items" :key="item.id" v-if="item.catalogGroupId == group1.children[0].id">
+            <dd v-for="item in g4item1" :key="item.id">
               <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group4.type)">{{ item.title }}</a>
               <span>[{{ formatDate(item.creationTime) }}]</span>
             </dd>
-
+          </dl>
+          <dl>
             <dt class="block-title">
-              <h5 class="more">{{ group1.children[0].displayName }}
-                <!-- <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a> -->
+              <h5 class="more">{{ group4.children[1].displayName }}
+                <a href="javascript:void(0)" @click="goNewsGroup(group4.catalogGroupId, group4.type)">{{ $L('More') }} ></a>
               </h5>
             </dt>
-            <dd v-for="item in group4.items" :key="item.id">
+            <dd v-for="item in g4item2" :key="item.id">
               <a class="gray" href="javascript:void(0)" @click="goNewsDetail(item.id, group4.type)">{{ item.title }}</a>
               <span>[{{ formatDate(item.creationTime) }}]</span>
             </dd>
@@ -156,7 +155,6 @@ export default {
       observer: null,
       isProductLoading: false,
       g3tab: 0,
-      g1items: [],
       orderNumAll: [
         {
         orderNum: ['2', '0', '0', '4', '年'],
@@ -209,7 +207,7 @@ export default {
     })
   },
   async asyncData({ isDev, route, store, env, query, req, res, redirect, error }) {
-    let params, group1, group2, group3, group4, ad1, ad2, announces
+    let params, group1, group2, group3, group4, ad1, ad2, announces,g4item1,g4item2
     const groups = store.state.app.homePage.groups.filter(x => x.catalogGroup)
     const blocks = store.state.app.homePage.blocks
     ad1 = blocks.length > 0 ? blocks[0] : null
@@ -223,17 +221,18 @@ export default {
     if (group3 && group3.items) group3.items = group3.items.slice(0, 8)
     if (group4 && group4.items) {
       group4.children = group4.children.slice(0, 2)
-      if (group4 && group4.items) {
         let count = {}
         group4.items = group4.items.filter(({catalogGroupId}) => {
-          // catalogGroupId = group4.children[0].id
           count[catalogGroupId] = (count[catalogGroupId] || 0) + 1
-          debugger
           return count[catalogGroupId] <= 4
         })
-      }
     }
-
+    g4item1 = group4.items.filter(g => {
+      return g.catalogGroupId == group4.children[0].id
+    })
+    g4item2 = group4.items.filter(g => {
+      return g.catalogGroupId == group4.children[1].id
+    })
     params = {
       params: {
         SkipCount: 0,
@@ -241,7 +240,7 @@ export default {
       }
     }
     announces = (await store.dispatch('app/getAnounces', params)).items
-    return { ad1, ad2, announces, group1, group2, group3, group4 }
+    return { ad1, ad2, announces, group1, group2, group3, group4, g4item1, g4item2 }
   },
   created() {
   },
