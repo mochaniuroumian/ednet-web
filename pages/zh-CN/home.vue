@@ -226,13 +226,14 @@ export default {
           count[catalogGroupId] = (count[catalogGroupId] || 0) + 1
           return count[catalogGroupId] <= 4
         })
-    }
+    
     g4item1 = group4.items.filter(g => {
       return g.catalogGroupId == group4.children[0].id
     })
     g4item2 = group4.items.filter(g => {
       return g.catalogGroupId == group4.children[1].id
     })
+    }
     params = {
       params: {
         SkipCount: 0,
