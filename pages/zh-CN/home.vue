@@ -74,7 +74,7 @@
         </div>
         <div class="block-title slide-info">
           <h1 class="name">{{ item.title }}</h1>
-          <h5 class="more">{{ item.catalogGroup.info }}</h5>
+          <h5 class="more" v-html="filter(item.content,250)"></h5>
         </div>
       </div>
       </section>
@@ -93,19 +93,19 @@
               </div>
               <div class="ad-block">
                 <span class="title">{{ item.title }}</span>
-                <span class="test" v-html="filter(item.content,100)"></span>
+                <span class="test" v-html="filter(item.content,150)"></span>
               </div>
             </dd>
           </dl>
         </div>
       </section>
     </section>
-      <section v-if="ad2" class="ad-img-block" :style="`background-image:url('${ad2.img}')`">
+      <section v-if="ad1" class="ad-img-block" :style="`background-image:url('${ad1.img}')`">
         <div class="ad-img-color">
-        <p>{{ ad2.text }}</p>
+        <p>{{ ad1.text }}</p>
         <h3 class="title">
-          <a :href="ad2.url ? ad2.url : 'javascript:void(0)'" class="img-url">
-          <span class="name">{{ ad2.title }}</span>
+          <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="img-url">
+          <span class="name">{{ ad1.title }}</span>
           </a>
         </h3>
         </div>
@@ -207,11 +207,10 @@ export default {
     })
   },
   async asyncData({ isDev, route, store, env, query, req, res, redirect, error }) {
-    let params, group1, group2, group3, group4, ad1, ad2, announces,g4item1,g4item2
+    let params, group1, group2, group3, group4, ad1, announces,g4item1,g4item2
     const groups = store.state.app.homePage.groups.filter(x => x.catalogGroup)
     const blocks = store.state.app.homePage.blocks
     ad1 = blocks.length > 0 ? blocks[0] : null
-    ad2 = blocks.length > 1 ? blocks[1] : null
     group1 = groups.length > 0 ? groups[0] : null
     group2 = groups.length > 1 ? groups[1] : null
     group3 = groups.length > 2 ? groups[2] : null
@@ -241,7 +240,7 @@ export default {
       }
     }
     announces = (await store.dispatch('app/getAnounces', params)).items
-    return { ad1, ad2, announces, group1, group2, group3, group4, g4item1, g4item2 }
+    return { ad1, announces, group1, group2, group3, group4, g4item1, g4item2 }
   },
   created() {
   },

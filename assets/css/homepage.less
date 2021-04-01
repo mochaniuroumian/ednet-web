@@ -34,7 +34,10 @@
       flex-wrap: wrap;
       align-items: stretch;
       margin-top: 6rem;
-        margin-bottom: 4rem;
+      margin-bottom: 4rem;
+      dt {
+        width: 100%;
+      }
       dd {
         padding: 2rem;
         text-overflow: ellipsis;
@@ -42,22 +45,16 @@
         width: calc(50% - 3rem);
         color: #868686;
         margin: 2rem 1.5rem;
-        border: 1px @color-primary solid;
         border-radius: 3rem;
         box-shadow: 0 5px 10px #cfcfcf;
+        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
         .account-img {
           width: 100%;
-          height: 0;
-          padding-bottom: 60%;
           overflow: hidden;
-          position: relative;
           >img {
+            padding: 0 3rem;
             width: 100%;
-            height: 100%;
             object-fit: cover;
-            position: absolute;
-            left: 0;
-            top: 0;
           }
         }
         span {
@@ -73,7 +70,8 @@
     @media @tablet {
       dl{
         dd {
-          span {
+          width: calc(25% - 3rem);
+          .title {
             font-size: 1.8rem;
           }
         }
@@ -83,7 +81,11 @@
       dl{
         dd {
           padding: 3rem;
-          width: calc(25% - 3rem);
+          .account-img {
+            >img {
+              padding: 0 5rem;
+            }
+          }
         }
       }
     }
@@ -93,12 +95,9 @@
     margin: 4rem 0;
     background-repeat: no-repeat;
     background-size: cover;
-    @media @desktop{
-      background-attachment: fixed;
-    }
     .ad-img-color{
       padding: 8rem 8rem 10rem 8rem;
-      background-color: rgba(255, 255, 255, 0.7);
+      background-color: rgba(255, 255, 255, 0.6);
       p{
         @media @tablet{
           font-size: 1.8rem;
@@ -129,15 +128,21 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border: 1px @color-primary solid;
         margin: 4rem 0;
         border-radius: 4rem;
         box-shadow: 0 5px 10px #cfcfcf;
+        background: rgba(255, 255, 255, 0.5);
       }
     }
     .img-url {
       display: block;
       color: #444;
+    }
+    @media @desktop{
+      background-attachment: fixed;
+      .ad-img-color {
+        padding: 8rem 16rem 10rem 16rem;
+      }
     }
   }
   .news-block {
@@ -173,7 +178,7 @@
       }
       dt {
         width: 100%;
-        border: 1px @color-primary solid;
+        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
         border-radius: 4rem;
         padding: 1rem;
       }
@@ -242,10 +247,10 @@
       }
       .slide-info {
         font-size: 1.6rem;
-        margin-right: 6rem;
-        margin-left: 6rem;
+        margin-right: 2rem;
+        margin-left: 2rem;
         padding-top: 2rem;
-        width: calc(100% - 12rem);
+        width: calc(100% - 4rem);
       }
     }
     @media @desktop {
@@ -259,7 +264,8 @@
         .slide-info {
           position: absolute;
           right: 0;
-          padding-top: 8rem;
+          margin-right: 6rem;
+          margin-left: 6rem;
           width: 33%;
           .name {
             text-align: left;
