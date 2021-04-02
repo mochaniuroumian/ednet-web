@@ -102,12 +102,14 @@
     </section>
       <section v-if="ad1" class="ad-img-block" :style="`background-image:url('${ad1.img}')`">
         <div class="ad-img-color">
-        <p>{{ ad1.text }}</p>
-        <h3 class="title">
           <a :href="ad1.url ? ad1.url : 'javascript:void(0)'" class="img-url">
-          <span class="name">{{ ad1.title }}</span>
+            <p>{{ ad1.text }}</p>
           </a>
-        </h3>
+          <h3 class="title">
+            <a :href="`tel: ${ad1.title}`" class="img-url">
+              <span class="name">{{ ad1.title }}</span>
+            </a>
+          </h3>
         </div>
       </section>
       <section class="container">
