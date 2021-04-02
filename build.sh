@@ -13,6 +13,6 @@ do
     lessc $theme static/css/${${theme%.*}##*/}.css
 done
 
-docker build -t docker.ednet.cn/template-d .
-docker push docker.ednet.cn/template-d
+docker build -t docker.ednet.cn/template-e .
+docker push docker.ednet.cn/template-e
 docker rmi $(docker images -f "dangling=true" -q)
